@@ -1,0 +1,273 @@
+%section#mpart
+  .stripbox.pr
+    .white-box
+    .light-gray-box
+  .container.clearfix
+    .dashbord-cpart.row
+      = render 'filmmakers/shared/filmmaker_left_sidebar'
+      .content-rpart
+        - if @all_projects.empty?
+          .inn-title-box.clearfix
+            .inn-title-cpart.fl
+              %h1
+                Nothing here yet!
+                %br
+              %span  
+                Project's your proposal was successfully selected will appear here. Get started with sending in some 
+                = link_to "proposals", filmmakers_dashboard_url, style: "text-decoration:underline;"
+                
+        - else
+          - @all_projects.each do |project|
+            .inn-title-box.clearfix
+              .inn-title-cpart.fl
+                %h2= project.title
+                %ul.red-status-box.clearfix
+                  - unless project.location.blank?
+                    %li
+                      = image_tag("blank-img.png", :class => "red-loc-icon")
+                      = project.location
+                  - unless project.project_full_details[0].blank?
+                    %li
+                      = image_tag("blank-img.png", :class => "sm-doc-red-icon")
+                      = project.project_full_details[0]
+                  %li
+                    = image_tag("blank-img.png", :class => "red-dollar-icon")
+                    = project.price
+                  %li
+                    = image_tag("blank-img.png", :class => "red-clock-icon")
+                    Posted
+                    = project.created_at.strftime("%b %d")
+              %button.blue-btn.mt10.fr.show-details-btn{id: "#{project.id}", type: "button"} Show Details
+            .project-mpart.clearfix{id: "proj_#{project.id}"}
+              - client = project.client
+              - proposal, milestones, is_attachment = current_filmmaker.project_milestones(project)
+              -# proposal = milestones.first.project_proposal unless milestones.first.blank?
+              
+              %ul.prj-listing
+                %li
+                  .prj-data-box.clearfix
+                    .img-box.fl
+                      = image_tag(project.client.profile_photo, :width => '75', :height => '75')
+                      .user-quick-view
+                        .user-box
+                          .user-img.fl= image_tag(project.client.profile_photo, :width => '60')
+                          .user-data
+                            .user-name.clearfix
+                              %h3.fl
+                                = client.name if client.present?
+                              %span.red-alert-box Pro
+                            %ul.white-status-box
+                              %li
+                                %span>= image_tag("blank-img.png", :class => "wh-loc-icon")
+                                = project.location if project.location.present?
+                              %li
+                                %span>= image_tag("blank-img.png", :class => "wh-user-icon")
+                                Writer
+                              %li
+                                %span>= image_tag("blank-img.png", :class => "wh-star-icon")
+                                0 stars
+                        .btn-box.clearfix
+                          //%a.white-btn1{:href => "#"} Hire
+                          .btn-box-2part
+                            %a.white-btn1.ml6{:href => "/clients/#{client.id}"} Profile
+                          .btn-box-2part
+                            %a.white-btn1.ml6{:href => "/filmmakers/messages/new?to_c=#{url_encode(client.id)}"} Message
+                    .prj-cpart
+                      .prj-heding.clearfix
+                        %h3.fl= client.name if client.present?
+                        %span.red-alert-box Pro
+                        %span.time-box.gray-text.fr
+                          - days_left = project.proposal_due_days
+                          - if (days_left < 0)
+                            Closed
+                          - else
+                            #{days_left}d Left
+                          = image_tag("blank-img.png", :class => "gray-clock-icon" )
+                      %ul.gray-status-box.clearfix
+                        %li
+                          = image_tag("blank-img.png", :class => "loc-icon")
+                          = project.location if project.location.present?
+                        %li
+                          = image_tag("blank-img.png", :class => "sm-user-icon")
+                          Writer
+                        %li
+                          = image_tag("blank-img.png", :class => "gray-star-icon")
+                          0 stars
+                        %li
+                          - if project.is_complete?
+                            = image_tag('blank-img.png', class: 'blue-ok-icon')
+                            Completed
+                          - elsif project.is_funded?
+                            = image_tag('blank-img.png', class: 'blue-ok-icon')
+                            In Progress
+
+                      .form-box
+                        %h4 Project Details
+                        %p= project.description if project.description.present?
+                        %div
+                          - details = project.project_details_list
+                          - unless details.blank?
+                            %ul.film-detail{style: "float:left;width:50%;"}
+                              %li
+                                .glyphicon.glyphicon-facetime-video
+                                %span Video Type:
+                                %span#film_type= details[0]
+                              %li
+                                .glyphicon.glyphicon-film
+                                %span Video Style:
+                                %span#film_style= details[1]
+                                - if is_attachment && proposal.present? && !proposal.proposal_resumes.blank?
+                                  - if (pr_resume = proposal.proposal_resumes.first)
+                                    %a.attch-link{:href => pr_resume.attachment.url, style: "text-decoration:none;"}
+                                      #{image_tag("blank-img.png", :class => "attch-icon")}
+                                      &nbsp;
+                                      #{pr_resume.attachment.file.filename}
+                              %li
+                                .glyphicon.glyphicon-time
+                                %span Video Length:
+                                %span#film_length= details[5]
+                              %li
+                                .glyphicon.glyphicon-file
+                                %span Script:
+                                %span#script= details[2]
+                              %li
+                                .glyphicon.glyphicon-user
+                                %span Actors:
+                                %span#actors= details[3]
+                            %ul.film-detail{style: "float:left;width:50%;"}
+                              %li
+                                .glyphicon.glyphicon-music
+                                %span Music:
+                                %span#music= details[4]
+                              %li
+                                .glyphicon.glyphicon-list
+                                %span Proposals due in:
+                                %span#proposals_due_length= details[6]
+                              %li
+                                .glyphicon.glyphicon-usd
+                                %span Total Budget:
+                                %span#film_budget
+                                  $#{project.price}
+                              %li
+                                .glyphicon.glyphicon-eye-open
+                                %span Visibility:
+                                %span#film_visibility= details[7]
+                              %li
+                                %span Skills:
+                                %ul.ran-detail.budget-box
+                                  - if project.present?
+                                    - skills = project.skills_list_pub.is_a?(String) ? project.skills_list_pub.split(",") : project.skills_list_pub
+                                    - skills.each do |skill|
+                                      %li.skill= skill
+                        
+                        .funding-form.clearfix
+                          /
+                            .fun-box1.fl
+                              %label Cover Letter
+                              =# text_area_tag "cover_letter", "#{proposal.present? ? proposal.cover_letter : ''}", readonly: true
+                              
+                          .fun-box1.fl
+                            %table
+                              %tr
+                                %td.colum1.fl
+                                  %label Proposal Milestones
+                                %td.colum2.fl
+                                  %label Delivery Date
+                                %td.colum3.fl
+                                  %label Amount
+                              - milestone_sum = milestones.collect(&:amount).reject(&:blank?).sum
+                              - milestones.each_with_index do |milestone, index|
+                                %tr
+                                  %td.colum1.fl
+                                    = text_field_tag "milestone_name#{index}", "#{milestone.name}", readonly: true, class: "int188.mt7"
+                                  %td.colum2.fl
+                                    = text_field_tag "milestone_date#{index}", "#{milestone.delivery_date}", readonly: true, class: "int96.mt7"
+                                  %td.colum3.fl
+                                    = text_field_tag "milestone_amount#{index}", "#{milestone.amount}", readonly: true, class: "int96.mt7"
+                              %tr
+                                %td.colum1.fl
+
+                                %td.colum2.fl
+                                  .total-text Total
+                                %td.colum3.fl
+                                  = text_field_tag "milestone_total_amount", "#{milestone_sum}", readonly: true, class: "int96.mt7"
+                          .fun-box1.fl{style: "margin-left:15px;"}
+                            %table
+                              %tr
+                                %td.colum2.fl{style: "margin-right:5px;"}
+                                  %label Fund Escrow
+                                %td.colum3.fl{style: "width:120px;"}
+                                  %label Release Escrow
+                              - milestones.each_with_index do |milestone, index|
+                                %tr
+                                  %td.colum2.fl{style: "margin-right:5px;"}
+                                    - if milestone.fund_escrowed
+                                      .icon-int.clearfix
+                                        %span.fundone
+                                          = image_tag('blank-img.png', class: 'blue-ok-icon')
+                                          Funded
+                                    - else
+                                      = link_to "Request Funding", "/filmmakers/messages/new?to_c=#{url_encode(client.id)}", class: 'blue-btn'
+                                  %td.colum3.fl{style: "width:120px;"}
+                                    - if milestone.payment_released
+                                      .icon-int.clearfix
+                                        %span.fundone{style:"padding: 7px 15px;width:118px;"}
+                                          = image_tag('blank-img.png', class: 'blue-ok-icon')
+                                          $#{milestone.pay_amount*0.9}
+                                    - else
+                                      = link_to "Request Release", "/filmmakers/messages/new?to_c=#{url_encode(client.id)}", class: 'blue-btn'
+                                        
+                  - if is_attachment && proposal.present? && !proposal.proposal_resumes.blank?
+                    - if (pr_resume = proposal.proposal_resumes.first)
+                      .btn-box.clearfix
+                        .fr
+                          %a.attch-link{:href => pr_resume.attachment.url, style: "text-decoration:none;"}
+                            #{image_tag("blank-img.png", :class => "attch-icon")}
+                            &nbsp;
+                            #{pr_resume.attachment.file.filename}
+
+= javascript_include_tag 'bootstrap.min'
+= javascript_include_tag 'jquery.colorbox'
+= javascript_include_tag 'jquery.uniform'
+:javascript
+  $(function(){
+    $(".ajax").colorbox();
+
+    $('.show-details-btn').click(function(){
+        var id = $(this).attr('id');
+        var $txt = $(this).text();
+        $('div#proj_'+id).toggle();
+        if($txt == 'Show Details'){
+            $(this).html('Hide Details');
+        }else{
+            $(this).html('Show Details');
+        }
+    });
+
+    $("select, :radio, :checkbox, :file").uniform();
+
+    var maxHeight = 0;
+    $("div.inn-title-box").each(function(){
+       if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+    });
+
+    $("div.white-box, div.light-gray-box").height(maxHeight);
+
+    $("div.dashbord-cpart").each(function(){
+       if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+    });
+
+    $(".nav-lpart, .content-rpart").height(maxHeight);
+  	$( "div.project-mpart" ).hide();
+
+    /*$('a.view-reel').click(function(){
+      //$('.video-box').css("display","block");
+      $(this).text("Hide Reel").removeClass('view-reel').addClass('hide-reel')
+    })*/
+
+    /*$('a.hide-reel').on('click', function(){
+      //$('.video-box').css("display","block");
+      $(this).text("View Reel").removeClass('hide-reel').addClass('view-reel')
+    })*/
+
+  })

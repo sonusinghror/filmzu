@@ -1,0 +1,73 @@
+- message = conversation
+- conversation = message.conversation
+- attached_files = message.attachment
+
+- if conversation.present? && message.present?
+  .email-add.clearfix
+    %h3.sub-line.fl= message.subject
+    - if (!attached_files.blank? && !attached_files.file.blank?)
+      %span.attach-num.fr
+        1
+        %img.attch-icon.ml6{:src => "../assets/blank-img.png", :alt => "", :title => ""}
+  .subject-box.clearfix
+    .thumb-box.fl
+      //%img{:alt => "", :src => "../assets/profile-img2.jpg", :title => ""}
+      = image_tag message.sender.profile_photo, :width => 57, :height => 57
+    .subject-cpart.fl
+      .sub-title.clearfix
+        %h4.fl= message.sender.try(:name) #conversation.originator.name
+        %span.gray-time-box.fr
+          = message.created_at.strftime("%d %b, %H:%M %p")
+          %img.gray-clock-icon{:alt => "", :src => "../assets/blank-img.png", :title => ""}
+      - if ((loc = message.sender.location) && !loc.blank?)
+        %ul.gray-status-box.clearfix
+          %li
+            %img.loc-icon{:alt => "", :src => "../assets/blank-img.png", :title => ""}
+            = loc.try(:capitalize)
+      .des-text= message.body.html_safe
+      
+  - if (!attached_files.blank? && !attached_files.file.blank?)
+    .attachments-box
+      .row1.clearfix
+        .attach-text.fl
+          %img.attch-icon{:alt => "", :src => "../assets/blank-img.png", :title => ""}
+          = attached_files.file.filename
+        .link-box.fr
+          //%a.cbox{:href => "#{attached_files.url}"} View
+          %a{:href => "#{attached_files.url}"} Download
+
+  - if ((dh_proposal = conversation.direct_hire_conversation) && !dh_proposal.is_approved)
+    .btn-box.dh-box.clearfix{id: dh_proposal.id}
+      = link_to 'Accept Proposal', "/direct_hires/accept_proposal/#{dh_proposal.id}", :class => 'red-btn accept', method: :post, :remote =>true
+      = link_to 'Decline', "/direct_hires/decline_proposal/#{dh_proposal.id}", :class => 'gray-btn ml6 decline', method: :post, :remote => true
+  - if (conversation.subject == "Your proposal has been changed")
+    - if message.sender.try(:id) != current_filmmaker.id
+      - @client = message.sender.try(:id)
+      - @clientproject = Project.where(:user_id => @client).last
+      - @myproposal = ProjectProposal.where("filmmaker_id =? AND project_id =?",current_filmmaker.id, @clientproject.id).first
+      .btn-box.dh-box.clearfix
+        = link_to 'View Proposal Details', filmmaker_proposals_path(url_encode(@myproposal.id)), :class => 'red-btn accept'
+
+  .btn-box.clearfix
+    = form_tag "/filmmakers/messages/#{conversation.id}/reply", multipart: true, remote: true, method: :post do
+      %input.reply-textbox{ id: "#{conversation.id}", type: "textarea", name: "message", placeholder: "Start typing here to reply"}
+      .btn-box.clearfix{style: "border-top:0px;padding: 25px 0 0 0;"}
+        = link_to "Attach File", "#", class: "fl gray-btn", id: "attach_file"
+        = file_field_tag "proposal_attachment", id: "message_attach_proposal_file", style: "display:none;"
+        //%span.msg-text Or type enter to send
+        //%a.blue-btn.reply-btn{href: "#"} Send Reply
+        .fr
+          = submit_tag "Send Reply", class: "blue-btn reply-btn"
+          %a.gray-btn.ml6{href: "#", id: "delete_reply"} Delete
+      %p
+        %span#message_attachment_detail{ style: 'margin: 10px 2px 2px 5px; color:red;'}
+        = link_to "Delete", "javascript:void(0)", id: 'message_delete_attachment', style: "display:none;" 
+      
+= javascript_include_tag 'projects_proposal'    
+:javascript
+  $(function() {
+    $("#delete_reply").click(function() {
+      $('.reply-textbox').val('');
+      return false;
+    });
+  });    

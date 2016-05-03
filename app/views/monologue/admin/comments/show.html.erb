@@ -1,0 +1,33 @@
+<div class="table-list-item new-blog-post">
+  <h3 class="dsq-widget-title"><%= t(".recent_comments") %></h3>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>User Name</th>
+        <th>User Email</th>
+        <th>Post</th>
+        <th>Message</th>
+        <th>Approved?</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @comments.each do |comment|%>
+        <tr>
+          <td><%= comment.user_name %></td>
+          <td><%= comment.user_email %></td>
+          <td><%= comment.post.posts_revisions.last.title %></td>
+          <td><%= comment.comment %></td>
+          <td><span class="label label-<%= comment.is_active ? 'success' : 'important' %>"><%= comment.is_active ? 'Yes' : 'Not Approved' %></span></td>
+          <td><%= link_to "#{comment.is_active ? 'Unapprove' : 'Approve'}" ,admin_monologue_comments_path(comment.id), :method=> "put" , :class => "btn btn-small btn-success btn-xs"%>
+          </td>
+          <td><%= link_to "Delete" ,admin_monologue_comments_path(comment.id), :method=> "delete", :confirm => 'Are you sure to delete this comment?', :class => "btn btn-small btn-danger btn-xs" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div id="recentcomments" class="dsq-widget">
+    <script type="text/javascript" src="http://<%= Monologue.disqus_shortname%>.disqus.com/recent_comments_widget.js?num_items=20&hide_avatars=0&avatar_size=48&excerpt_length=500"></script>
+  </div>
+</div>

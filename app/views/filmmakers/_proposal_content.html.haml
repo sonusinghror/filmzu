@@ -1,0 +1,39 @@
+.project-desc
+  %p
+    %span.flabel.pr Project:
+    %span.field= project_proposal.project.title
+  %p
+    %span.flabel Dates:
+    %span.field
+      = project_proposal.desired_start_date.strftime("%B %-d, %Y")
+      %br/
+      = project_proposal.desired_end_date.strftime("%B %-d, %Y")
+.proposal-content
+  .first-row
+    %p.first Proposed Milestone
+    %p.rest Delivery Date
+    %p.rest Amount
+  .next-row
+    - milestones = Array.new
+    - if project_proposal.is_modified && !project_proposal.proposal_revisions.blank?
+      - modified_revisions = project_proposal.proposal_revisions
+      - milestones = modified_revisions.last.updated_project_proposal_milestones
+    - else  
+      - milestones = project_proposal.project_proposal_milestones
+    - milestones.each do |milestone|
+      %div
+        %p.first= milestone.name
+        %p.rest= milestone.delivery_date
+        %p.rest= milestone.amount
+  .next-row
+    %div.last
+      %p.first
+      %p.rest.rest1
+        Total
+      %p.rest
+        = milestones.collect(&:amount).try(:sum)
+
+.proj_cover
+  %p.cover Cover Letter:
+  %p
+    = project_proposal.cover_letter

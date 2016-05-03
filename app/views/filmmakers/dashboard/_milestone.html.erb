@@ -1,0 +1,16 @@
+<li class="clearfix mstone" id="milestone_<%= id %>">
+  <div class="colum1 fl">
+	  <input type="text" name='milestones[][title]' class="txtBox-188" id="title_<%= id %>"/>
+  </div>
+  <div class="colum2 fl">
+	  <input type="text" name='milestones[][date]' class="txtBox-96 milestones_dates" readonly = 'readonly' id="milestones_date_<%= id %>" data-behaviour='datepicker'/>
+  </div>
+  <div class="colum3 fl">
+	  <input type="text" name='milestones[][amount]' class="txtBox-96 ms_amount" id="milestone_amount_<%= id %>"/>
+  </div>
+  <% if id.to_i > 1 %>
+    <div class="colum4 fl">
+	    <a href="javascript:void(0)" class="remove_milestones" id="delete_<%= id %>">Delete</a>
+    </div>
+  <% end %>  
+</li>

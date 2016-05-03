@@ -1,0 +1,40 @@
+<%= javascript_include_tag "users/users_manifest" %>
+<%= stylesheet_link_tag "users/manifest.css" %>
+
+<%- model_class = @user.class -%>
+<section class='section'>
+  <div class='container user-form'>
+    <div class="row">
+      <div class="span12 edit-user">
+        <div id="wrapper" class="row-fluid">
+
+          <div id='steps'>
+            <fieldset class="step info" id='step_1_form_container'>
+              <div class='text-center'>
+                <h3>One final step and you are in!</h3>
+              </div>
+              <%= render :partial => 'step_1_form' %>
+            </fieldset> 
+          </div>
+      </div>
+    </div>
+
+	</div>
+</section>
+
+<%= render :partial => 'application/crop_image_modal' %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  app.sub_talents = <%= raw User.sub_types.to_json() %>
+  app.super_sub_talents = <%= raw User.super_sub_types.to_json() %>
+  // super roles select change event listener and showsub roles
+  app.fn.init_super_roles_select_handler('super_role_select', app.sub_talents, 'sub_role_select', app.super_sub_talents);
+
+  // prevent forward sliding for the form.
+  app.allow_forward_sliding_till = 1
+
+  app.user_guilds = <%= raw User.guilds.keys.to_json() %>
+});
+
+</script>

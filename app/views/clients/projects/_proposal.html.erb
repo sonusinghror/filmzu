@@ -1,0 +1,249 @@
+<div class="prj-data-box clearfix">
+  <div class="img-box fl">
+    <%= image_tag(proposal[:proposal][:filmmaker_details][:profile_image], :width => '75', :height => '75') %>
+    <div class="user-quick-view">
+      <div class="user-box">
+				<div class="user-img fl">
+					<%= image_tag(proposal[:proposal][:filmmaker_details][:profile_image], :width => '60')%>
+				</div>
+				<div class="user-data">
+					<div class="user-name clearfix">
+						<h3 class="fl">
+							<%= proposal[:proposal][:filmmaker_details][:name] %>
+						</h3>
+						<% if proposal[:proposal][:filmmaker_details][:is_pro] %>
+						  <span class="red-alert-box">Pro</span>
+						<% end %>
+						<% if proposal[:proposal][:filmmaker_details][:is_filmmaker_hired] %>
+							<span class="green-alert-box">Hired</span>
+						<%end%>
+					</div>
+					<ul class="white-status-box">
+					  <% unless proposal[:proposal][:filmmaker_details][:location].blank? %>
+						  <li>
+							  <span>
+									<%= image_tag('blank-img.png', :class => 'wh-loc-icon')%>
+								</span>
+								<%= proposal[:proposal][:filmmaker_details][:location] %>
+						  </li>
+						<% end %>
+						<% unless proposal[:proposal][:filmmaker_details][:skills].blank? %>
+						  <li>
+							  <span>
+									<%= image_tag('blank-img.png', :class => 'wh-user-icon')%>
+								</span>
+								<%= proposal[:proposal][:filmmaker_details][:awarded_projects] %>
+						  </li>
+						<% end %>
+						<li>
+							<span>
+								<%= image_tag('blank-img.png', :class => 'wh-star-icon')%>
+							</span>
+							<%= proposal[:proposal][:filmmaker_details][:rating] %> stars
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="btn-box clearfix" style="text-align:center;">
+			  <% unless proposal[:proposal][:filmmaker_details][:is_filmmaker_hired] || proposal[:proposal][:filmmaker_details][:project_as_hire] %>
+					<a href="/clients/hire_filmmaker/<%= url_encode(proposal[:proposal][:proposal_id]) %>" id='hire_<%= url_encode(proposal[:proposal][:proposal_id]) %>' class="ajax white-btn1">Hire</a>
+				<% end %>
+				<a href="/filmmakers/<%= proposal[:proposal][:filmmaker_details][:id] %>" class="white-btn1 ml6">Profile</a>
+				<a href="/clients/messages/new?to_f=<%= url_encode(proposal[:proposal][:filmmaker_details][:id]) %>" class="white-btn1 ml6">Message</a>
+			</div>
+		</div>
+	</div>
+	<div class="prj-cpart">
+		<div class="prj-heding clearfix">
+			<h3 class="fl"><%= proposal[:proposal][:filmmaker_details][:name] %></h3>
+			<% if proposal[:proposal][:filmmaker_details][:is_pro] %>
+				<span class="red-alert-box">Pro</span>
+			<% end %>
+			<% if proposal[:proposal][:filmmaker_details][:is_filmmaker_hired] %>
+				<span class="green-alert-box">Hired</span>
+			<%end%>
+			<span class="time-box gray-text fr">
+				<%#= @proposals_due_by %><%= proposal_created_hours(ProjectProposal.find(proposal[:proposal][:proposal_id]).created_at) %><%= image_tag('blank-img.png', :class => 'gray-clock-icon')%>
+			</span>
+		</div>
+		<ul class="gray-status-box clearfix">
+			<li>
+				<%= image_tag('blank-img.png', :class => 'loc-icon')%><%= proposal[:proposal][:filmmaker_details][:location] %>
+			</li>
+			<li>
+				<%= image_tag('blank-img.png', :class => 'sm-user-icon')%>
+				<%= proposal[:proposal][:filmmaker_details][:awarded_projects] %><%= pluralize(filmmaker_completed_projects(proposal[:proposal][:filmmaker_details][:id]), "Completed Project") %>
+			</li>
+			<li>
+				<%= image_tag('blank-img.png', :class => 'gray-star-icon')%><%= proposal[:proposal][:filmmaker_details][:rating] %> stars
+			</li>
+		</ul>
+		<div class="form-box">
+			<div class="prp-form clearfix">
+				<div class="colum1">
+					<label>Proposal</label>
+					<textarea readonly="readonly"><%= proposal[:proposal][:milestone_details][:cover_letter] %></textarea />
+				</div>
+				<div class="colum2">
+					<label>Proposed Milestone</label>
+					<% proposal[:proposal][:milestone_details][:milestones].each do |m| %>
+						<input type="text" class="mt6" value="<%= m[:name] %>" readonly="readonly"/>
+					<% end %>
+				</div>
+				<div class="colum3">
+					<label>Delivery Date</label>
+					<% proposal[:proposal][:milestone_details][:milestones].each do |m| %>
+						<input type="text" class="mt6" value="<%= m[:delivery_date] %>" readonly="readonly"/>
+					<% end %>
+					<div class="total-text">
+						Total
+					</div>
+				</div>
+				<div class="colum4">
+					<label>Amount</label>
+					<% proposal[:proposal][:milestone_details][:milestones].each do |m| %>
+						<input type="text" class="mt6" value="<%= m[:amount] %>" readonly="readonly"/>
+					<% end %>
+					<div class="total-int">
+						<input type="text" class="mt6" value="<%= proposal[:proposal][:milestone_details][:total] %>" readonly="readonly"/>
+					</div>
+				</div>
+			</div>
+			<!--p class="msg-text">
+				You have a chance to edit these milestones after you click Hire.
+			</p-->
+		</div>
+	</div>
+</div>
+
+
+<% @proposal = ProjectProposal.find(proposal[:proposal][:proposal_id]) %>
+<% project = @proposal.project %>
+<% if @proposal.is_modified && !@proposal.proposal_revisions.blank? %>
+  <%# modified_proposals = @proposal.updated_project_proposal_milestones.group_by(&:revision_count) %>
+  <% modified_revisions = @proposal.proposal_revisions %>
+  <% last_revision = modified_revisions.last.revision_count %>
+  <% modified_revisions.each_with_index do |revised_proposal, count| %>
+     <div class="form-box" style="width:89%;float:right;margin-bottom:10px;">
+        <div class="funding-form clearfix">
+        <div><b>
+          <% user = revised_proposal.revised_user %>
+          <%= (user == current_client) ? "You" : user.name.titleize %>
+          modified proposal deails:
+        </b>
+          <% if ((last_revision == revised_proposal.revision_count) && @proposal.is_approved) %>
+          <span style="color:#1facc9;font-size:12px;margin-left:20px;">
+            <%= image_tag('blank-img.png', class: 'blue-ok-icon')%> Approved
+          </span>
+          <% end %>
+        </div><br>
+        <div class="fun-box1 fl">
+          <label>Description</label>
+          <%= text_area_tag "description", "#{revised_proposal.description.present? ? revised_proposal.description : ''}", :id => "cover_letter", :style => "resize:none;", readonly: true  %>
+        </div>
+        <div class="fun-box1 fl">
+          <table>
+            <tr>
+              <td class="colum1 fl">
+                <label>Proposal Milestone</label>
+              </td>
+              <td class="colum2 fl">
+                <label>Delivery Date</label>
+              </td>
+              <td class="colum3 fl">
+                <label>Amount</label>
+              </td>
+            </tr>
+            <% updated_milestones = revised_proposal.updated_project_proposal_milestones %>
+            <% milestone_sum = updated_milestones.collect(&:amount).reject(&:blank?).sum %>
+            <% updated_milestones.each_with_index do |milestone, index| %>
+              <tr>
+                <td class="colum1 fl">
+                  <%= text_field_tag "name#{index}", milestone.name, readonly: true, class: "int188.mt7" %>
+                </td>
+                <td class="colum2 fl">
+                  <%= text_field_tag "date#{index}", milestone.delivery_date, readonly: true, class: "int96.mt7" %>
+                </td>
+                <td class="colum3 fl">
+                  <%= text_field_tag "amount#{index}", milestone.amount, readonly: true, class: "int96.mt7" %>
+                </td>
+              </tr>
+            <% end %>
+            <tr>
+              <td class="colum1 fl"></td>
+              <td class="colum2 fl">
+                <div class="total-text">Total</div>
+              </td>
+              <td class="colum3 fl">
+                <%= text_field_tag "total_amount", milestone_sum, readonly: true, class: "int96.mt7" %>
+              </td>
+            </tr>
+          </table>
+         <%# if !@proposal.is_approved && !@proposal.is_declined && !@proposal.is_delete %>
+          <%# if count.odd? && count >= revised_counts.last.to_i %>
+           <!--div class="btn-box dh-box clearfix" id="<%= @proposal.id %>">
+            <%#= link_to 'Accept Proposal', filmmaker_accept_project_proposal_path(@proposal), :class => 'red-btn accept', method: :post %>
+            <%#= link_to 'Edit Proposal', filmmaker_edit_project_proposal_path(@proposal), :class => 'orange-btn ajax cboxElement edit' %>
+            <%#= link_to 'Decline', filmmaker_decline_project_proposal_path(@proposal), :class => 'gray-btn ml6 decline', method: :post %>
+            </div-->
+            <%# end %>
+          <%# end %>
+        </div>
+       </div>
+     </div>
+  <% end %>
+<% end %>
+
+
+
+
+<div class="btn-box clearfix">
+	<div class="flag-box fl">
+      <%#= link_to image_tag('blank-img.png', class: 'flag-icon'), '#', class: 'report-proposal-link' %>
+      <h3 class='action-div report_entity' data-toggle='modal' data-target='#report-modal' title='Report'>
+        <i class='icon-exclamation-sign'></i>
+        <%= link_to image_tag('blank-img.png', class: 'flag-icon'), '#', class: 'report-proposal-link' %>
+      </h3>
+      <% @p_proposal = ProjectProposal.find(proposal[:proposal][:proposal_id]) %>
+      <% if @p_proposal.present? %>
+        <%= render partial: 'application/report_modal', locals: {entity: @p_proposal} %>
+      <% end %>
+	</div>
+	<% unless proposal[:proposal][:filmmaker_details][:reel_url].blank? %>
+	  <a href="javascript:void(0)" class="blue-btn view-reel fl view_reel_<%= proposal[:proposal][:proposal_id] %>" id="<%= proposal[:proposal][:proposal_id] %>" >View Reel</a>
+	  <a href="javascript:void(0)" class="blue-btn hide-reel fl hide_reel_<%= proposal[:proposal][:proposal_id] %>" id="<%= proposal[:proposal][:proposal_id] %>" >Hide Reel</a>
+	<% end %>
+	<div class="fr proposal-action-buttons-<%= proposal[:proposal][:proposal_id]%>">
+	    <% if proposal[:proposal][:filmmaker_details][:resumes_present] %>
+		  	<a href="/clients/download_proposal_attachment/<%= proposal[:proposal][:proposal_id]%>" class="attch-link"><%= image_tag('blank-img.png', :class => 'attch-icon')%> Download Attachment</a>
+			<% end %>
+			<a href="/clients/messages/new?to_f=<%= url_encode(proposal[:proposal][:filmmaker_details][:id]) %>" class="blue-btn">Message</a>
+
+			<%#=link_to "Hire", hire_proposal_path(proposal[:proposal][:proposal_id]), :class=>"orange-btn"%>
+			<!-- <a href="/clients/release_payment?proposal_id=<%#= proposal[:proposal][:proposal_id]%>" id='hire_<%#= proposal[:proposal][:proposal_id]%>' class="ajax blue-btn">Hire</a> -->
+			<% unless proposal[:proposal][:filmmaker_details][:is_filmmaker_hired] || proposal[:proposal][:filmmaker_details][:project_as_hire] || @proposal.is_declined %>
+			<% if @proposal.proposal_revisions.present? && @proposal.proposal_revisions.last.revised_by == current_client.id %>
+			<br><br>	
+		  <a href="#" class="blue-btn">Revisions Sent!</a>
+			<% else %>
+			<a href="/clients/hire_filmmaker/<%= url_encode(proposal[:proposal][:proposal_id]) %>" id='hire_<%= proposal[:proposal][:proposal_id]%>' class="ajax blue-btn">Hire</a>
+			<br><br>	
+		  <%= link_to 'Edit Proposal', client_edit_project_proposal_path(proposal[:proposal][:proposal_id]), :class => 'orange-btn ajax cboxElement' %>
+			<% end %>
+        <%= link_to 'Reject Proposal', client_decline_project_proposal_path(proposal[:proposal][:proposal_id]), :class => 'orange-btn' %>
+		  	<%=link_to 'Delete', remove_proposal_path(url_encode(proposal[:proposal][:proposal_id])), :class => 'gray-btn ml6' %>
+			<% end %>
+		</div>
+</div>
+
+
+
+<div class="video-box" id="video-box-<%= proposal[:proposal][:proposal_id] %>">
+	<%= proposal[:proposal][:filmmaker_details][:reel_url].try(:html_safe) %>
+	<br/>
+	<!--% unless proposal[:proposal][:filmmaker_details][:reel_url].blank? %>
+  	<a href="<%= proposal[:proposal][:filmmaker_details][:reel_image] %>" class="ajax cboxElement">
+			<%= image_tag(proposal[:proposal][:filmmaker_details][:reel_image])%>
+		</a>
+	<% end %-->
+</div>

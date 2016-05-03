@@ -1,0 +1,75 @@
+<li>
+	
+	<% question = project.project_questions.find_by_question_text("What type of video do you want?") %>
+	<%unless question.nil? %>
+		<%= render :partial => '/clients/dashboard/project_icon', :locals => {:project_type => question.answer_text}%>
+	<% else %>
+	<div class="img-box fl">
+		<%= image_tag("thumb-img.jpg")%>
+	</div>
+	<% end %>
+	<div class="listing-cpart">
+
+		<div class="ls-hpart">
+
+			<div class="fl">
+
+				<h3><%= project.title %></h3>
+
+				<div class="cat-part clearfix">
+
+					<div class="fl">
+						by <span><%= project.client_name %> </span>
+					</div>
+
+					<div class="fl">
+						Budget <%= number_to_currency(project.price, precision: 0) %>
+					</div>
+
+				</div>
+
+			</div>
+			<% if project.proposal_new? %>
+				<span class="new-alert fr">New</span>
+			<% end %>
+		</div>
+
+		<div class="des-text">
+			<%= truncate(project.description, length: 300) %>
+		</div>
+
+		<ul class="status-box clearfix">
+
+			<li>
+              <% if project.location.present? %>
+				<%= image_tag('blank-img.png', :class => 'loc-icon' )%> <%= project.location %>
+              <% end %>
+			</li>
+
+			<li>
+				<%= image_tag("blank-img.png", :class => "sm-doc-icon" )%> <%= project.project_full_details[0] %>
+			</li>
+
+			<li>
+				<%= image_tag("blank-img.png", :class => "sm-user-icon" )%> <%= project.project_proposals.count %> Proposals
+			</li>
+
+		</ul>
+
+		<div class="btn-box tx-right">
+			<%= link_to 'View Project', view_project_url(:project_id => url_encode(project.id)), :class =>"blue-btn" %>
+			<%if project.is_complete? %>
+				<% if display_project_feedback_filmmaker(project) %>
+					<%= link_to "Leave Feedback", feedback_client_project_url(:project_id => project.id, :filmmaker_id => current_filmmaker.id), :class =>"blue-btn" %>
+				<% else %>
+					<%= link_to "Feedback Submitted", "#", :class =>"gray-btn ml6" %>
+				<% end %>
+				
+			<%else%>
+            <%= link_to "No, Thanks", filmmakers_blacklist_project_url(:project_id => project.id), :class =>"gray-btn ml6" %>			
+			<%end%>
+		</div>
+
+	</div>
+
+</li>

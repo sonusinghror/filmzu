@@ -1,0 +1,12 @@
+<div class="dialog-box fun-popup">
+  <div class="conf-hpart">
+    <h2>Hire Filmmaker</h2>
+  </div>
+  <p>Filmmaker hired successfully</p>
+	<p><%= link_to 'Fund your account and get started!', clients_accounts_path %></p>
+</div>
+
+<script type="text/javascript">
+  var proposal_id = <%= @proposal.id %>
+  $(".proposal-action-buttons-" + proposal_id).hide();
+</script>

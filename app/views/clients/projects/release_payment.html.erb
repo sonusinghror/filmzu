@@ -1,0 +1,132 @@
+<div class="dialog-box fun-popup">
+  <div class="conf-hpart">
+	  <h2>Escrow Funding and Payments</h2>
+  </div>
+  <div class="filmaker-box clearfix">
+  	<div class="film-img-box fl">
+      <%= image_tag @filmmaker.profile_photo, :width => 100, :height => 100 %>
+    </div>
+    <div class="film-cpart">
+    	<h3><%= @filmmaker.name %></h3>
+      <p>Desired Rate: <span>$<%= @filmmaker.rate%>/day</span></p>
+      <ul class="status-box clearfix">
+      	<li>
+          <%= image_tag('blank-img.png', class: 'red-loc-icon') %><%=@filmmaker.location%>
+        </li>
+        <li>
+          <%= image_tag('blank-img.png', class: 'red-star-icon') %>
+          <%= @filmmaker.filmmaker_feedbacks.any? ? @filmmaker.filmmaker_feedbacks.average(:rating).to_i : 0 %> stars
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="funding-form clearfix">
+  	<div class="fun-box1 fl">
+    	<div class="colum1 fl">
+      	<label class='ml10'>Payment Milestones
+          <a class="help-link" href="#">
+            <%= image_tag('blank-img.png', class: 'quation-icon') %>
+          </a>
+        </label>
+        <% if @updated_milestones.present? %>
+          <% @updated_milestones.each do |updated_milestone| %>
+            <input type="text" class="int188 mt7" value="<%= updated_milestone.name%>" />
+          <% end %>
+        <% else %>
+          <% @milestones.each do |milestone| %>
+  			    <input type="text" class="int188 mt7" value="<%= milestone.name%>" />
+          <% end %>
+        <% end %>
+      </div>
+      <div class="colum2 fl">
+      	<label class='ml10'>Delivery Date</label>
+        <% if @updated_milestones.present? %>
+          <% @updated_milestones.each do |updated_milestone| %>
+            <input type="text" class="int96 mt7" value="<%= updated_milestone.delivery_date %>" />
+          <% end %>
+        <% else %>
+          <% @milestones.each do |milestone| %>
+  			    <input type="text" class="int96 mt7" value="<%=milestone.delivery_date %>" />
+          <% end %>
+        <% end %>
+        <div class="total-text">Total</div>
+      </div>
+      <div class="colum3 fl">
+      	<label class='ml10'>Amount</label>
+        <% if @updated_milestones.present? %>
+          <% @updated_milestones.each do |updated_milestone| %>
+            <input type="text" class="int96 mt7" value="<%= updated_milestone.amount %>" />
+          <% end %>
+          <input type="text" class="int96 mt7" value=<%= @updated_milestones.sum(:amount) %> />
+        <% else %>
+          <% @milestones.each do |milestone| %>
+            <input type="text" class="int96 mt7" value="<%= milestone.amount %>" />
+          <% end %>
+          <input type="text" class="int96 mt7" value=<%= @milestones.sum(:amount) %> />
+        <% end %>
+      </div>
+    </div>
+    <div class="fun-box2 fl">
+    	<div class="colum1 fl">
+      	<label class='mb10'>Fund Escrow</label>
+        <% if @updated_milestones.present? %>
+          <% @updated_milestones.each do |milestone| %>
+            <% if milestone.fund_escrowed %>
+              <div class="icon-int clearfix mt5">
+                <%= image_tag('blank-img.png', class: 'blue-ok-icon') %>
+                <input type="text" value="Funded" class="int96" />
+              </div>
+            <% else %>
+              <%= link_to "Fund", client_fund_escrow_updated_milestone_path(milestone), class: 'blue-btn' %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% @milestones.each do |milestone| %>
+  			    <% if milestone.fund_escrowed %>
+  			      <div class="icon-int clearfix mt5" style="margin-bottom:6px;">
+                <%= image_tag('blank-img.png', class: 'blue-ok-icon') %>
+                <input type="text" value="Funded" class="int96" />
+              </div>
+  	        <% else %>
+  				    <%= link_to "Fund", escrow_path(milestone), class: 'blue-btn' %>
+  		      <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="colum2 fl">
+      	<label>Release Escrow</label>
+        <% if @updated_milestones.present? %>
+          <% @updated_milestones.each do |milestone| %>
+            <% if milestone.payment_released %>
+              <div class="icon-int clearfix mt5" style="width:112px;">
+                <%= image_tag('blank-img.png', class: 'blue-ok-icon') %>
+                <input type="text" value="$<%=milestone.pay_amount%>" class="int96" style="width: 66px !important;"/>
+              </div>
+            <% else %>
+              <%= link_to "Release Payment", client_release_payment_updated_milestone_path(milestone), class: 'blue-btn release-btn' %>
+            <% end %>
+          <% end %>
+        <% else %>
+  		    <% @milestones.each do |milestone| %>
+  			    <% if milestone.payment_released %>
+  			      <div class="icon-int clearfix mt5" style="width:112px;">
+                <%= image_tag('blank-img.png', class: 'blue-ok-icon') %>
+                <input type="text" value="$<%=milestone.pay_amount%>" class="int96" style="width: 66px !important;"/>
+              </div>
+  	        <% else %>
+  			      <%= link_to "Release Payment", escrow_path(milestone, action_type: 'release'), class: 'blue-btn release-btn' %>
+  		      <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$( "a.blue-btn.mt5" ).click(function() {
+  $('a.blue-btn.mt5').hide();
+});
+$( "a.blue-btn.release-btn" ).click(function() {
+  $('a.blue-btn.release-btn').hide();
+});
+</script>

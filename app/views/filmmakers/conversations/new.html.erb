@@ -1,0 +1,75 @@
+<section id="mpart">
+<%#= form_tag({controller: "filmmakers/conversations", action: "new"}, method: :post) do %>
+	<div class="stripbox pr">
+    	<div class="white-box"></div>
+        <div class="light-gray-box"></div>
+    </div>
+	<div class="container clearfix">
+        <div class="dashbord-cpart row">
+            
+            <%= render 'filmmakers/shared/filmmaker_left_sidebar' %>
+            
+            <div class="content-rpart">
+                <div class="inner-title-box clearfix">
+                    <h2 class="fl">Inbox</h2>
+                    <div class="fr">
+                    	<div class="fl wh-search-box">
+                           <%= form_tag "/filmmakers/search_messages", method: :post do %>
+                            <input type="text" name="search" placeholder="Search Messages" />
+                            <%= submit_tag "", :class => "search-btn" %>
+                           <% end %> 
+                        </div>
+                    	<div class="fl add-pro-box"><a href="#"><span class="plus-box"><img src="images/blank-img.png" class="plus-icon" alt="" title="" /></div>
+                    </div>                    
+                </div>                
+                <div class="inbox-cpart clearfix">
+                	
+                	  <div id="message" class="email-box fl">
+                      <%= render 'message_tabs' %>
+                    </div>
+                	
+                    <div class="email-detail-box fl">
+                    	<%= render 'new_conv', :receipient => @receipient %>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+    <%# end %>
+</section>
+
+
+
+<%= javascript_include_tag 'jquery.uniform' %>
+<%= javascript_include_tag 'bootstrap.min' %>
+<%= javascript_include_tag 'jquery.colorbox' %>
+<script type="text/javascript">
+$(function(){
+	
+	$("select, :radio, :checkbox, :file").uniform();
+	$(".ajax").colorbox();
+	
+	$(".email-box").tabs();
+				
+	var maxHeight = 0;
+		
+	$("div.inner-title-box").each(function(){
+	   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+	});
+
+	$("div.white-box, div.light-gray-box").height(maxHeight);	
+			
+	$("div.dashbord-cpart").each(function(){
+	   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+	});
+
+	$(".nav-lpart, .content-rpart").height(maxHeight);
+
+	$("div.inbox-cpart").each(function(){
+	   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+	});
+
+	$("div.email-box, div.email-detail-box").height(maxHeight);
+			
+})
+</script>

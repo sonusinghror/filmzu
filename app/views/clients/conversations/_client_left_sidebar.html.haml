@@ -1,0 +1,31 @@
+.nav-lpart
+  %ul
+    %li
+      = link_to clients_dashboard_url do
+        = image_tag("blank-img.png", :class => "dashbord-icon")
+        Dashboard
+    %li
+      = link_to clients_profile_url do
+        = image_tag("blank-img.png", :class => "profile-icon")
+        Profile
+    %li.active
+      = link_to clients_messages_url do
+        - client_notifications = current_client.notifications if current_client.present?
+        - if client_notifications.present? && client_notifications != 0
+          %span.alerts-box= client_notifications
+        = image_tag("blank-img.png", :class => "msg-icon")
+        Messages
+    - if false
+      %li
+        = link_to clients_projects_url do
+          = image_tag("blank-img.png", :class => "project-icon")
+          Projects
+    %li
+      = link_to clients_accounts_url do
+        = image_tag("blank-img.png", :class => "account-icon")
+        Accounts
+    - unless (current_client.uid.present? || current_client.provider.present?)
+      %li
+        = link_to clients_settings_url do
+          = image_tag("blank-img.png", :class => "setting-icon")
+          Settings

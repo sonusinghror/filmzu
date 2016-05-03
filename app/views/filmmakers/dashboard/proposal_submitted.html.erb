@@ -1,0 +1,542 @@
+<div class="dialog-box">
+	<div class="conf-hpart">
+  	<h2>Submit Proposals</h2>
+  	<p>Project: <%= @proposal_details[:name]%></p>
+    <span class="proj_cost" style="display:none;"><%= @project.price %></span>
+  </div>
+  <div class="filmaker-box clearfix">
+  	<div class="film-img-box fl">
+			<%= image_tag current_filmmaker.profile_photo, :width => 95, :height => 95 %>
+		</div>
+    <div class="film-cpart">
+    	<h3><%= @proposal_details[:filmmaker_details][:name] %></h3>
+      <% if ((rate = @proposal_details[:filmmaker_details][:desired_rate]) && !rate.blank?) %>
+        <p>Daily Rate:
+				  <span>$<%= rate %></span>
+			  </p>
+			<% end%>
+      <ul class="status-box clearfix">
+        <% unless @proposal_details[:filmmaker_details][:location].blank? %>
+          <li>
+            <img title="" alt="" class="red-loc-icon" src="../../assets/blank-img.png">
+            <%= @proposal_details[:filmmaker_details][:location] %>
+          </li>
+        <% end %>
+        <li>
+          <img title="" alt="" class="red-star-icon" src="../../assets/blank-img.png">
+          <%= @proposal_details[:filmmaker_details][:rating].to_i %> stars
+        </li>
+      </ul>
+    </div>
+  </div>
+	<%= form_tag(submit_proposal_path, :id => 'new_project_proposal', :multipart => true) do  |f|%>
+		<%= hidden_field_tag :project_id, @project.id %>
+    <ul class="proposal-form">
+    	<li class="clearfix cover-box">
+        <label>Cover Letter</label>
+        <%= text_area_tag :cover_letter, '', :class=> 'big-areaBox', :name => 'proposal[cover_letter]'%>
+	    	<span id="cover_letter_text" style="display:inline-block!importatnt;color:red;">Please enter the message.</span>
+      </li>
+    	<li>
+      	<ul class="date-box clearfix">
+        	<li>
+          	<label>Desired Start Date</label>
+						<%= text_field_tag :desired_start_date, '',:class=> 'datepicker', :name => 'proposal[desired_start_date]', :id => 'milestone_start_date', :readonly => 'readonly' %>
+						<!--img src="../../assets/blank-img.png" class="date-icon" alt="" title="" /-->
+						<span id="start_date" style="display:inline-block;color: red;">Please select start date.</span>
+          </li>
+          <li>
+          	<label>Desired End Date</label>
+						<%= text_field_tag :desired_end_date, '', :name => 'proposal[desired_end_date]', :id => 'milestone_end_date', :readonly => 'readonly' %>
+            <!--img src="../../assets/blank-img.png" class="date-icon" alt="" title="" /-->
+		    		<span id="end_date" style="display:inline-block;color: red;">Please select end date.</span>
+      		</li>
+    		</ul>
+  		</li>
+			<li>
+				<ul class="milestone-box">
+        	<li class="clearfix">
+          	<div class="colum1 fl">Proposed Milestones
+							<a href="#" class="help-link">
+								<img src="../../assets/blank-img.png" class="question-icon" alt="" title="Milestones are targets linked with payments. Please enter at least one." />
+							</a>
+						</div>
+            <div class="colum2 fl">Delivery Date</div>
+            <div class="colum3 fl">Amount</div>
+            <div class="colum4 fl">&nbsp;</div>
+          </li>
+        	<%= render 'milestone', id: 1 %>
+        	<%= render 'milestone', id: 2 %>
+          <li class="clearfix">
+            <div class="colum1 add-mls fl">
+							<a href="javascript:void(0)" id="add_milestones_link">
+								<img src="../../assets/blank-img.png" class="red-plus-icon" alt="" title="" />
+								<span id='add_ms'>Add Milestone (3 remaining)</span>
+							</a>
+						</div>
+            <div class="colum2 total-text fl">Earnings</div>
+            <div class="colum3 fl">
+							<input type="text" class="total-txtBox-96" readonly=true id='total_earnings' />
+						</div>
+            <div class="colum4 fl">
+							<a href="javascript:void(0)" class="help-link mt6">
+								<img src="../../assets/blank-img.png" class="question-icon" alt="" title="Total amount which will be charged to the client" />
+							</a>
+						</div>
+          </li>
+					<span id="milestones_details" style="display:inline-block;color: red;">Please fill the milestones details.</span>
+        	<li class="clearfix">
+          	<div class="attach-resum  fl">
+            	<div class="rs-input-box">
+            		<img src="../../assets/blank-img.png" class="attch-icon" alt="" title="" />
+
+								&nbsp; <a href="javascript:void(0)" class="pre-link txtBox-356" id='attach_resume'><b>Attach Resume</b></a>
+								<input type='file' name='proposal_attachment' id='attach_proposal_file' style='display:none'/>
+								<span id='attachment_detail' style='margin: 10px 2px 2px 5px; color: red;'></span>
+              </div>
+            </div>
+            <div class="colum4 fl">
+							<a href="javascript:void(0)" id='delete_resume'>Delete</a>
+						</div>
+          </li>
+        </ul>
+      </li>
+    	<li class="btn-box">
+      	<a href="javascript:void(0)" class="big-orange-btn" id='sbmt_link'>Submit Proposal</a>
+      	<a href="javascript:void(0)" class="pre-link proposal_open_link">Preview Proposal</a>
+      </li>
+    </ul>
+	<% end %>
+</div>
+
+
+
+<script type="text/javascript">
+$(function(){
+   $(".question-icon").tooltip();
+
+  var cost = parseInt($(".proj_cost").html());
+  var overall_cost = cost + cost/2;
+  $("#delete_resume").hide();
+
+  $('.proposal_open_link').click(function() {
+    var profile_image = "<%= current_filmmaker.header_photo %>"
+    var user_name = "<%= current_filmmaker.name %>"
+    var location = "<%= current_filmmaker.location %>"
+    var project_name = "<%= @project.title %>"
+    preview_project_proposal(profile_image,user_name,location,project_name);
+  })
+
+  $("#cover_letter_text").hide();
+  $("#start_date").hide();
+  $("#end_date").hide();
+  $("#milestones_details").hide();
+
+  $('#attach_resume').click(function() {
+	  $('#attach_proposal_file').click();
+		return false;
+  })
+
+  $('#attach_proposal_file').change(function() {
+	  var ext = $('#attach_proposal_file').val().split('.').pop().toLowerCase();
+		if ($.inArray(ext, ['doc', 'docx', 'pdf']) == -1) {
+		  $('#attach_proposal_file').val('');
+			$('#attach_proposal_file').replaceWith($('#attach_proposal_file').val('').clone(true));
+			$('#attachment_detail').html('Invalid file type');
+			return false;
+		} else {
+		  var pattern = /\\/;
+			$('#attachment_detail').html($('#attach_proposal_file').val().split(pattern).slice(-1)[0]);
+		}
+    $("#delete_resume").show();
+  })
+
+
+  $("#delete_resume").click(function(){
+	  $('#attach_proposal_file').val('');
+	  $('#attach_proposal_file').replaceWith($('#attach_proposal_file').val('').clone(true));
+	  $('#attachment_detail').html('');
+	  return false;
+  })
+
+  // validations check when clicking on submit link
+  $('#sbmt_link').click(function() {
+
+    $("#cover_letter_text").hide();
+    $("#start_date").hide();
+    $("#end_date").hide();
+    $("#milestones_details").hide();
+
+		$('#sbmt_link').attr('style', 'pointer-events:none;');
+		$('a#sbmt_link.big-orange-btn').text('Please Wait');
+		setTimeout(function () {
+	      $('#sbmt_link').attr('style', '');
+				$('a#sbmt_link.big-orange-btn').text('Submit Proposal');
+	  }, 3000)
+
+    var errors = [];
+    errors_count = 0;
+    var dates = [];
+    var cost = parseInt($(".proj_cost").html());
+    var overall_cost = cost + cost/2;
+    var proposals_cost = $('#total_earnings').val();
+
+    if($("#cover_letter").val() == ""){
+      $("#cover_letter_text").show();
+      errors_count += 1;
+      msg = "Cover letter is Required!";
+      if ($.inArray(msg, errors) == -1) { errors.push(msg); }
+    }
+
+	  if ((overall_cost != "") && (proposals_cost != "") && (parseInt(proposals_cost) > parseInt(overall_cost))) {
+      msg = "Proposals total amount is more than the total project cost.";
+      errors_count += 1;
+      if ($.inArray(msg, errors) == -1) { errors.push(msg); }
+    }
+
+    $( ".milestones_dates" ).each(function (index){
+      var id = $(this).attr('id').split('_')[2];
+      var is_error = false;
+      date = $("#milestones_date_"+id).val();
+      if (date != "") { dates.push(date); }
+      if (index == 0) {
+        arr = validates_multiple_milestones(1, errors);
+        if (arr[1] == true) { errors.concat(arr[0]); is_error = true; errors_count += 1; }
+        else {
+          next_li = $(this).parents('li').next('li.mstone');
+          if (next_li.length > 0) {
+            var _id = next_li.attr('id').split('milestone_')[1];
+            if (($("#title_"+ _id).val() == "") && ($("#milestones_date_"+ _id).val() == "") && ($("#milestone_amount_"+ _id).val() == "")) {
+              return;
+            }else {
+              arr1 = validates_multiple_milestones(_id, errors);
+              if (arr1[1] == true) { errors.concat(arr1[0]); errors_count += 1; }
+              else { return; }
+            }
+          } else { return; }
+        }
+      }
+      if (is_error && (index == 1)) {
+        next_li = $(this).parents('li').next('li.mstone');
+        if (next_li.length > 0) {
+          var _id = next_li.attr('id').split('milestone_')[1];
+          arr1 = validates_multiple_milestones(_id, errors);
+          if (arr1[1] == true) { errors.concat(arr1[0]); errors_count += 1; }
+          else { return; }
+        }
+      }
+      if ((index > 1) && (is_error == false)) {
+          arr1 = validates_multiple_milestones(id, errors);
+          if (arr1[1] == true) { errors.concat(arr1[0]); errors_count += 1; }
+          else { return; }
+      }
+    });
+
+/*    $(".ms_amount").each(function(index) {
+      var id = $(this).attr('id').split('_')[2];
+      amt = $("#milestone_amount_"+id).val();
+      if ((dates.length == 1) && (index == 0)) {
+        if (amt == "") {
+          errors_count += 1;
+          msg = "Milestone Amount shouldn't be empty!";
+          if ($.inArray(msg, errors) == -1) { errors.push(msg); }
+        }
+      }
+      if (dates.length > 1) {
+        if (amt == "") {
+          errors_count += 1;
+          msg = "Milestone Amount shouldn't be empty!";
+          if ($.inArray(msg, errors) == -1) { errors.push(msg); }
+        }
+      }
+      if (dates.length == 0) {
+        if (amt == "") {
+          errors_count += 1;
+          msg = "Milestone Amount shouldn't be empty!";
+          if ($.inArray(msg, errors) == -1) { errors.push(msg); }
+        }
+      }
+    });
+*/
+
+    if($("#milestone_start_date").val() == ""){
+      $("#start_date").show();
+      errors_count += 1;
+    }
+
+    if($("#milestone_end_date").val() == ""){
+      $("#end_date").show();
+      errors_count += 1;
+    }
+
+    if ((dates.length != 0) && (dates.length > 1)) {
+      ret_arr = validate_milestone_date();
+      errors_count += ret_arr[0];
+      if (ret_arr[1].length != 0) { errors.push(ret_arr[1]); }
+    }
+
+    if($('#attachment_detail').html() == "Invalid file type"){
+      errors_count += 1;
+      msg = "Please select proper file or delete";
+      if ($.inArray(msg, errors) == -1) { errors.push(msg); }
+    }
+
+    if ( errors_count == 0 ) {
+      $('#new_project_proposal').submit();
+
+    } else {
+      alert($.unique(errors).join("\n"));
+    }
+
+
+  });
+
+
+  $("[data-behaviour~='datepicker']").datepicker({ autoclose: true, 'startDate': new Date() });
+
+  $('#milestone_start_date').datepicker({ 'startDate': new Date(), autoclose: true }).on('changeDate', function(ev) {
+    $('#milestone_end_date').datepicker('remove');
+    $('#milestone_end_date').datepicker({'startDate': ev.date, autoclose: true });
+    //$('#milestone_start_date').datepicker('hide');
+  });
+
+  $('#milestone_end_date').datepicker({ 'startDate': new Date(), autoclose: true }).on('changeDate', function(ev) {
+    $("[data-behaviour~='datepicker']").datepicker('remove');
+    $("[data-behaviour~='datepicker']").datepicker({ autoclose: true, 'startDate': $('#milestone_start_date').val(), 'endDate': ev.date });
+  });
+
+
+
+  $("#cover_letter").blur(function() {
+    if($(this).val() != ""){
+      $("#cover_letter_text").hide();
+    }
+  });
+
+  $("#milestone_start_date").blur(function() {
+    if($(this).val() != ""){
+      $("#start_date").hide();
+    }
+  });
+
+  $("#milestone_end_date").blur(function() {
+    if($(this).val() != ""){
+      $("#end_date").hide();
+    }
+  });
+
+  $('.ms_amount').keypress(function (e) {
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+      return false;
+    }
+  });
+
+  $('.ms_amount').keyup(function (e) {
+    var sum = 0;
+
+    $('.ms_amount').each(function () {
+      var str = $(this).val();
+      if (str != '') {
+        sum = sum + parseInt(str);
+      }
+    });
+    $('#total_earnings').val(sum);
+  });
+
+
+  $('.add-mls a').click(function () {
+
+	 var add_flag = true;
+    var cost = parseInt($(".proj_cost").html());
+    var overall_cost = cost + cost/2;
+
+	 $( ".milestones_dates" ).each(function (index){
+	    if($("#title_"+$(this).attr('id').split('_')[2]).val() == "" || $("#milestones_date_"+$(this).attr('id').split('_')[2]).val() == "" || $("#milestone_amount_"+$(this).attr('id').split('_')[2]).val() == ""){
+		alert('Enter details for Empty Milestones');
+		add_flag = false;
+		return false;
+	     }
+          });
+
+        var milestones = $('.mstone').size();
+        if (milestones < 5 && add_flag == true) {
+					  var d = new Date();
+					  var uniq_mid = d.getTime();
+            $('.mstone').last().after("<li class='clearfix mstone' id=milestone_" + uniq_mid + ">" +
+                "<div class='colum1 fl'><input type='text' name='milestones[][title]' class='txtBox-188' id=title_"+ uniq_mid +"></div>" +
+                "<div class='colum2 fl'><input type='text' name='milestones[][date]' class='txtBox-96 milestones_dates' readonly='readonly' id=milestones_date_"+ uniq_mid +"  data-behaviour='datepicker'></div>" +
+                "<div class='colum3 fl'><input type='text' name='milestones[][amount]' class='txtBox-96 ms_amount' id=milestone_amount_" + uniq_mid + "></div>" +
+                "<div class='colum4 fl'><a href='javascript:void(0)' class='remove_milestones' id=delete_" + uniq_mid + ">Delete</a></div></li>");
+
+            $("[data-behaviour~='datepicker']").datepicker({ autoclose: true, 'startDate': $('#milestone_start_date').val(), 'endDate': $('#milestone_end_date').val() });
+
+            $('.ms_amount').last().keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+
+            $('.ms_amount').last().keyup(function (e) {
+                var sum = 0;
+                $('.ms_amount').each(function () {
+                    var str = $(this).val();
+                    if (str != '') {
+                        sum = sum + parseInt(str);
+                    }
+                });
+
+                $('#total_earnings').val(sum);
+            });
+
+
+            $(".remove_milestones").click(function () {
+                if (parseInt($('.mstone').size()) > 1) {
+                    $("#milestone_" + $(this).attr('id').split('_')[1].toString()).remove();
+                    $('#add_milestones_link').html("<img src='../../assets/blank-img.png' class='red-plus-icon' alt='' title=''><span id='add_ms'></span>");
+                    $('#add_ms').html("Add Milestone (" + (5 - parseInt($('.mstone').size())) + " remaining)");
+                    var sum = 0;
+                    $('.ms_amount').each(function () {
+                        var str = $(this).val();
+                        if (str != '') {
+                            sum = sum + parseInt(str);
+                        }
+                    });
+                    $('#total_earnings').val(sum);
+                }
+            });
+
+            milestones_new = $('.mstone').size();
+            if (milestones_new == 5) {
+                $('#add_ms').html(" ");
+                $('#add_milestones_link').html(" ");
+            } else {
+                $('#add_ms').html("Add Milestone (" + (5 - milestones_new) + " remaining)");
+            }
+
+        }
+    });
+
+    $(".remove_milestones").click(function () {
+        if (parseInt($('.mstone').size()) > 1) {
+            $("#milestone_" + $(this).attr('id').split('_')[1].toString()).remove();
+            $('#add_milestones_link').html("<img src='../../assets/blank-img.png' class='red-plus-icon' alt='' title=''><span id='add_ms'></span>");
+            $('#add_ms').html("Add Milestone (" + (5 - parseInt($('.mstone').size())) + " remaining)");
+            var sum = 0;
+            $('.ms_amount').each(function () {
+                var str = $(this).val();
+                if (str != '') {
+                    sum = sum + parseInt(str);
+                }
+            });
+            $('#total_earnings').val(sum);
+        }
+    });
+
+});
+
+		var date_sort_asc = function (date1, date2) {
+		  if (date1 > date2) return 1;
+		  if (date1 < date2) return -1;
+		  return 0;
+		};
+
+    function validate_milestone_date() {
+      var dates = [];
+      var sorted_dates = [];
+      var errs = [];
+      var is_error = 0;
+      var start_date  = $("#milestone_start_date").val();
+      var end_date  = $("#milestone_end_date").val();
+
+			var sd_split = start_date.split("/");
+			var sd = new Date(Number(sd_split[2]), Number(sd_split[0]) - 1, Number(sd_split[1]))
+			var ed_split = end_date.split("/");
+			var ed = new Date(Number(ed_split[2]), Number(ed_split[0]) - 1, Number(ed_split[1]));
+
+			console.log('sd: '+sd);
+			console.log('ed: '+ed);
+
+      $( ".milestones_dates" ).each(function (index){
+        var str_data_initial = $("#milestones_date_"+$(this).attr('id').split('_')[2]).val();
+				var str_data = str_data_initial.split("/");
+				data = new Date(Number(str_data[2]), Number(str_data[0]) - 1, Number(str_data[1]));
+        if (str_data_initial == "") { is_error = 1; }
+          else { dates.push(data); sorted_dates.push(data); }
+        });
+        if (is_error == 1) {
+          return [1, "Milestone date shouldn't be empty!"];
+        }
+      	sorted_dates.sort(date_sort_asc);
+      	if (dates.length > 1) {
+        	var is_same = dates.length == sorted_dates.length && dates.every(function(element, index) {
+          	return element === sorted_dates[index];
+      		});
+
+        	if (is_same) {
+          	return [0, ""];
+        	}
+        	else {
+          	return [1, "Milestone dates are wrong in order."];
+        	}
+      	} else if (dates.length == 1) {
+					if ( !((dates[0] >= sd) && (dates[0] <= ed)) ) {
+            return [1, "Milestone dates are wrong!"];
+          }
+        } else { return [1, "Milestones shouldn't be empty!"]; }
+      }
+
+    function validates_multiple_milestones(id, err_arr) {
+      var is_error = false;
+      if($("#title_"+id).val() == "" || $("#milestones_date_"+id).val() == "" || $("#milestone_amount_"+id).val() == ""){
+        msg1 = 'Enter details for Empty Milestones';
+        if ($.inArray(msg1, err_arr) == -1) { err_arr.push(msg1); is_error = true; }
+      }
+
+      if ($("#milestone_amount_"+id).val() == "") {
+          msg2 = 'Milestone amount can not be blank';
+          if ($.inArray(msg2, err_arr) == -1) { err_arr.push(msg2); is_error = true; }
+      }else {
+        if ($("#milestone_amount_"+id).val() == 0) {
+          msg2 = 'Milestone amount can not be zero';
+          if ($.inArray(msg2, err_arr) == -1) { err_arr.push(msg2); is_error = true; }
+        }
+      }
+
+     if ($("#milestones_date_"+id).val() == "") {
+        msg2 = "Milestone date shouldn't be empty!";
+        if ($.inArray(msg2, err_arr) == -1) { err_arr.push(msg2); is_error = true; }
+      }
+
+     if ($("#title_"+id).val() == "") {
+        msg2 = "Milestone title cann't be blank!";
+        if ($.inArray(msg2, err_arr) == -1) { err_arr.push(msg2); is_error = true; }
+      }
+
+      if ( ($("#milestone_start_date").val() != "") && ($("#milestone_end_date").val() != "") ) {
+        var start_date  = $("#milestone_start_date").val();
+        var end_date  = $("#milestone_end_date").val();
+        var milestone_date = $("#milestones_date_"+id).val();
+
+				var sd_split = start_date.split("/");
+				var sd = new Date(Number(sd_split[2]), Number(sd_split[0]) - 1, Number(sd_split[1]))
+				var ed_split = end_date.split("/");
+				var ed = new Date(Number(ed_split[2]), Number(ed_split[0]) - 1, Number(ed_split[1]));
+
+				var m_split = milestone_date.split("/");
+				var md = new Date(Number(m_split[2]), Number(m_split[0]) - 1, Number(m_split[1]));
+
+        if (milestone_date.length != 0) {
+          if ( !((md >= sd) && (md <= ed)) )
+          {
+            msg3 = "Milestone date is wrong.";
+            if ($.inArray(msg3, err_arr) == -1) { err_arr.push(msg3); is_error = true; }
+          }
+        }
+      } else {
+        msg = "Milestone start date/end date can't be blank!"
+        if ($.inArray(msg, err_arr) == -1) { err_arr.push(msg); is_error = true; }
+      }
+      return [err_arr, is_error];
+    }
+
+</script>

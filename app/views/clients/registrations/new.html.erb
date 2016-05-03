@@ -1,0 +1,103 @@
+<section id="mpart">
+	<div class="error">
+		<%= render 'filmmakers/shared/error_messages', resource: resource %>
+	</div>
+	<div class="full-inner-title-box">
+		<div class="container clearfix">
+    	<div class="row">
+    		<h2>Sign up</h2>
+    	</div>
+    </div>
+	</div>
+	<% lazy = params[:lazy] || params['lazy'] %>
+	<% prj = params[:prj] || params['prj'] || params[:project_id] || params['project_id'] %>
+	<% featured = params[:featured] || params['featured'] %>
+	<% session[:lazy] = lazy %>
+	<% session[:project_id] = prj %>
+	<% session[:featured] = featured %>
+	<div class="stripbox-1 pr">
+    <div class="light-gray-box"></div>
+    <div class="white-box"></div>
+  </div>
+  <div class="reg-box">
+  	<div class="container">
+  		<div class="row clearfix">
+  			<div class="reg-gray-box fl">
+  				<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+					  <% if lazy && prj%>
+					    <%= hidden_field_tag :lazy, lazy %>
+			  	    <%= hidden_field_tag :project_id, prj %>
+					    <% if featured.present? %>
+								<%= hidden_field_tag :is_featured, featured %>
+					    <% end %>
+					  <% end %>
+						<ul class="reg-form">
+            	<li>
+                <label>Name / Company</label>
+              	<%= f.text_field :name,:class => 'wh-txt-box' ,:validate => { :presence => true }, :placeholder => 'Full Name or Company' %>
+              </li>
+						  <li>
+						  	<label>Email</label>
+						  	<%= f.email_field :email,:class => 'wh-txt-box' , :validate => { :presence => true }, :placeholder => 'Email address ' %>
+						  </li>
+						  <li>
+						    <%= f.password_field :password,:class => 'wh-txt-box' , :validate => { :presence => true }, :placeholder => 'Password' %>
+						  </li>
+						  <li>
+						    <%= f.password_field :password_confirmation,:class => 'wh-txt-box' , :validate => { :presence => true }, :placeholder => 'Confirm Password' %>
+						  </li>
+						  <li class="form-actions">
+						    <span class="big-blue-btn"><%= f.button :submit, "Sign up" %></span>
+						  </li>
+            </ul>
+					  <script type="text/javascript">
+              var maxHeight = 0;
+              $("div.reg-box").each(function(){
+                if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+              });
+              $("div.white-box, div.light-gray-box").height(maxHeight);
+            </script>
+					<% end %>
+  			</div>
+  			<div class="reg-white-box fr">
+          <p>Have trouble remembering password?</p>
+					<% if false %>
+          	<a href="/users/auth/facebook" class="big-blue-btn ajax cboxElement"><%= image_tag("blank-img.png", :class => "fb-icon") %><span>Log In With Facebook</span></a>
+          	<a href="/users/auth/linkedin" class="big-blue-btn"><%= image_tag('blank-img.png', :class =>'link-icon')%><span>Log In With Linkedin</span></a>
+					<% end %>
+					<a href="<%= user_omniauth_authorize_path(:facebook, 'social_action' => 'signup', 'social_user' => 'client', 'lazy' => params[:lazy], 'project_id' => params[:prj], 'is_featured' => params[:featured] ) %>" class="big-blue-btn ajax cboxElement">
+						<%= image_tag("blank-img.png", :class => "fb-icon") %>
+						<span>Sign Up With Facebook</span>
+					</a>
+					<div style='clear: both;'></div><br />
+					<a href="<%= user_omniauth_authorize_path(:linkedin, 'social_action' => 'signup', 'social_user' => 'client', 'lazy' => params[:lazy], 'project_id' => params[:prj], 'is_featured' => params[:featured] ) %>" class="big-blue-btn ajax cboxElement">
+						<%= image_tag("blank-img.png", :class => "link-icon")%>
+						<span>Sign Up With Linkedin</span>
+					</a>
+					<div class="shared_links" style="padding-top:15px; line-height:25px;">
+						<%= render "clients/shared/links" %>
+					</div>
+				</div>
+  		</div>
+  	</div>
+  </div>
+</section>
+
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%#= f.error_notification %>
+  <div class="form-actions">
+    <%#= f.button :submit, "Sign up" %>
+  </div>
+	<% if lazy && prj%>
+		<%= hidden_field_tag :lazy, lazy %>
+		<%= hidden_field_tag :project_id, prj %>
+		<% if featured.present? %>
+			<%= hidden_field_tag :is_featured, featured %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<%
+	Rails.cache.write("oauth_user_type", 'Client')
+  Rails.cache.write("action_type", 'sign_up')
+%>

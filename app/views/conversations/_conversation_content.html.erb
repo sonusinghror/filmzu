@@ -1,0 +1,90 @@
+<div class="email-detail-box fl">
+                    	<div class="email-add clearfix">
+                        	<h3 class="sub-line fl">Direct Hire</h3>
+                            <!--span class="attach-num fr">2<img src="../assets/blank-img.png" class="attch-icon ml6" alt="" title="" /></span-->
+                        </div>
+                        <div class="subject-box clearfix"> 
+                        	<div class="thumb-box fl">
+                        	  <% if data[:filmmaker_details][:image].blank? %>
+                        	    <img src="../assets/fallback/Filmmaker_medium_default.png" alt="" title="" />
+                        	  <% else %>
+                        	    <%= image_tag(data[:filmmaker_details][:image], :width => "57px", :height => "57px") %>
+                        	  <% end %>
+                        	</div>  
+                            <div class="subject-cpart fl">
+                            	<div class="sub-title clearfix">
+                            		<h4 class="fl"><%= data[:filmmaker_details][:name]%></h4>
+                                	<span class="gray-time-box fr"><%=data[:filmmaker_details][:sent_at]%><img src="../assets/blank-img.png" class="gray-clock-icon" alt="" title="" /></span>
+                                </div>
+                                <% unless data[:filmmaker_details][:location].blank? %>
+                                  <ul class="gray-status-box clearfix"><li><img src="../assets/blank-img.png" class="loc-icon" alt="" title="" /><%= data[:filmmaker_details][:location]%></li></ul>
+                                <% end %>  
+                                <div class="des-text">
+                                <div class="project-desc">
+                                   <p>
+                                     <span class="flabel pr">Project:</span>
+                                     <span class="field">Direct Hire Request</span>
+                                   </p>
+                                   <% unless data[:proposal_details][:dates].first.blank? && data[:proposal_details][:dates].last.blank? %> 
+                                   <p>
+                                      <span class="flabel">Dates:</span>
+                                      <span class="field"><%= data[:proposal_details][:dates].first.to_datetime.strftime("%B %-d, %Y") %><br><%=data[:proposal_details][:dates].last.to_datetime.strftime("%B %-d, %Y") %></span>
+                                   </p>
+                                   <% end %>
+                                  </div>
+                                    
+                                <div class="proposal-content">
+                                  <br>
+                                  <div class="first-row">
+                                    <p class="first">Proposed Milestone</p>
+                                    <p class="rest">Delivery Date</p>
+                                    <p class="rest">Amount</p>
+                                  </div>
+                                  <div class="next-row">
+                                    <% data[:milestone_details].each do |milestone| %>
+                                      <div>
+                                        <p class="first"><%= milestone[:name] %></p>
+                                        <p class="rest"><%= milestone[:delivery_date] %></p>
+                                        <p class="rest"><%= milestone[:amount] %></p>
+                                      </div>
+                                    <% end %>
+                                  </div>                                  
+                                </div>
+                                </div>
+                                
+                                <div class="proj_cover">
+																  <p class="cover" style="width:100%;">Cover Letter:</p>
+																  <p><%= data[:proposal_details][:cover_letter] %></p>
+																</div>
+                                    
+                            	</div>
+                            </div>
+                        </div>
+                        <!--div class="attachments-box">
+                        	<div class="row1 clearfix">
+                            	<div class="attach-text fl"><img src="../assets/blank-img.png" class="attch-icon" alt="" title="" />K.Prendergast Resume</div>		<div class="link-box fr"><a href="#">View</a><a href="#">Download</a></div>
+                                
+                            </div>
+                            <div class="row1 mt10 clearfix">
+                            	<div class="attach-text fl"><img src="../assets/blank-img.png" class="attch-icon" alt="" title="" />Bio</div>                       
+                                <div class="link-box fr"><a href="#">View</a><a href="#">Download</a></div>
+                            </div>
+                        </div-->                        
+                        <div class="btn-box clearfix">                        	
+                            <div class="fr mt10">
+                                <% if !proposal.is_approved && !proposal.is_declined %>
+                                    <%= link_to 'Accept Proposal', url_for(:controller => 'direct_hires', :action => 'accept_proposal', :proposal_id => proposal.id), :class => 'orange-btn', :remote => true %>
+                                    <%#= link_to 'Decline', url_for(:controller => 'direct_hires', :action => 'prompt_decline_proposal', :proposal_id => proposal.id), :class => 'gray-btn ml6', :remote => true %>
+                                    <a href="/direct_hires/prompt_decline_proposal/<%=proposal.id%>" class="gray-btn ml6 ajax cboxElement">Decline</a>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+
+<script type='text/javascript'>
+    $(document).ready(function(){
+        
+    $(".ajax").colorbox();
+    })
+    
+</script>

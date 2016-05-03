@@ -1,0 +1,106 @@
+<section id="mpart">	
+	<div class="stripbox pr">
+    	<div class="white-box"></div>
+        <div class="light-gray-box"></div>
+    </div>
+	<div class="container clearfix">
+        <div class="row">
+            <div class="nav-lpart">
+                <ul>
+                    <li><span class="alerts-box">4</span><a href="#"><img src="images/blank-img.png" class="dashbord-icon" alt="" title="" />Dashboard</a></li>
+                    <li><a href="#"><img src="images/blank-img.png" class="profile-icon" alt="" title="" />Profile</a></li>
+                    <li><a href="#"><img src="images/blank-img.png" class="msg-icon" alt="" title="" />Messages</a></li>
+                    <li><a href="#"><img src="images/blank-img.png" class="project-icon" alt="" title="" />Projects</a></li>
+                    <li><a href="#"><img src="images/blank-img.png" class="account-icon" alt="" title="" />Accounts</a></li>
+                    <li><a href="#"><img src="images/blank-img.png" class="setting-icon" alt="" title="" />Settings</a></li>
+                </ul>                
+            </div>
+            <div class="content-rpart">
+                <div class="inner-title-box">
+                    <h2>Accounts</h2>
+                    <p>Manage the financial accounts to be used when making withdrawals and payments on Filmzu.</p>
+                </div>                
+                <div class="box-space">
+                    <div class="ac-title">
+                    	<div class="fl">
+                        	Default Backup and Payment Account<span class="gray-box"><img src="images/blank-img.png" class="qua-icon" alt="" title="" /></span>
+                        </div>
+                        <a href="#" class="blue-btn fr">Save</a>
+                    </div>
+                    <ul class="select-payment">
+                        <li>
+                            <label>Select Default Payment Account</label>
+                            <select><option>Visa #1234</option></select>
+                        </li>
+                        <li>
+                            <label>Select Backup Payment Account</label>
+                            <select><option>Select</option></select>
+                        </li>
+                    </ul>
+                    <div class="ac-title">
+                    	<div class="fl">
+                        	Active Accounts<span class="gray-box"><img src="images/blank-img.png" class="qua-icon" alt="" title="" /></span>
+                       	</div>
+                        <a href="#" class="blue-btn fr">Save</a>
+                    </div>    
+                    <table class="ac-data" width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th>Paypal Accounts</th>
+                            <th width="34%">Actions</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                No Account Available
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <a href="#" class="blue-btn">Enter Paypal Account</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="ac-data" width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th width="33%">Credit Cards</th>
+                            <th width="33%">Authentication</th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr>
+                            <td><img src="images/blank-img.png" class="card-icon" alt="" title="" /> Visa #1234</td>
+                            <td><img src="images/blank-img.png" class="ok-icon" alt="" title="" /></td>
+                            <td class="link"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                        </tr>
+                        <tr>
+                            <td><img src="images/blank-img.png" class="card-icon" alt="" title="" /> Visa #1234</td>
+                            <td><img src="images/blank-img.png" class="ok-icon" alt="" title="" /></td>
+                            <td class="link"><a href="#">Edit</a> | <a href="#">Delete</a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <a href="#" class="blue-btn">Enter New Credit Card</a>
+                            </td>
+                        </tr>
+                    </table>                
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+$(function(){
+	
+	$(".ajax").colorbox();
+	
+	$("select, :radio, :checkbox, :file").uniform();
+		
+	var maxHeight = 0;
+
+	$("div.inner-title-box").each(function(){
+	   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+	});
+
+	$("div.white-box, div.light-gray-box").height(maxHeight);
+	
+})
+</script>

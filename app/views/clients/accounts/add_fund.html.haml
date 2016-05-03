@@ -1,0 +1,24 @@
+.bank-account
+  %h3.heading7 Add Fund
+  = form_tag '/clients/accounts/client_deposit_fund', id: 'client_deposit_fund_form' do
+    %ul.bank-form
+      %li
+        %table{style: 'width: 100%;'}
+          %tr
+            %td
+              %label.lb-name
+                %b Amount:
+            %td
+              $
+              = text_field_tag :amount, '', class: 'client-deposit-amount-input'
+      %li.btn-part
+        %input#submit_btn.sm-blue-btn{type: 'submit', value: 'Add Fund'}
+:javascript
+  $(document).ready(function(){
+    $('#submit_btn').click(function(e){
+      e.preventDefault();
+      $amount = $('.client-deposit-amount-input').val();
+      if($.isNumeric($amount)){ $('#client_deposit_fund_form').submit(); }
+      else{ alert('Please enter amount'); }
+    });
+  });

@@ -1,0 +1,34 @@
+<div class="login-form-box">
+<%= post.error_messages %>
+<%= post.fields_for @revision do |revision| %>
+  <div class="form-group">
+    <%= revision.text_field :title, :class =>  "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= revision.cktext_area :content, :label =>  t(".content"), :class =>  "form-control ckeditor" %>
+  </div>
+  <div class="form-group">
+    <%= revision.text_field :url, :label =>  raw("#{t(".url.before_generated_url")} '#{DateTime.now.year}/#{t(".url.generated_title")}'#{t(".url.after_generated_url")}. #{t(".url.do_not_add_mount_point")} <i>'#{monologue.root_path}'.</i>"), :class=> "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= revision.text_field :published_at, :label =>  t(".published_at"), :data => {:datepicker => "datepicker"}, :value => revision.object.published_at.nil? ? "" : revision.object.published_at.strftime("%Y-%m-%d"), :class=>"form-control" %>(yyyy-mm-dd)
+  </div>
+<% end %>
+<div class="form-group">
+  <%= post.check_box :published, :label =>  t(".published") %>
+  </div>
+<div class="form-group">
+  <%= post.file_field :image %>
+</div>
+<div class="form-group">
+  <div class="">
+    <%= post.submit "Submit", :class =>  "btn btn-large btn-primary blog-submit-btn" %>
+  </div>
+</div>
+</div>
+
+<script>
+  if($.fn.datepicker.defaults_<%= I18n.locale %>){
+    $.fn.datepicker.defaults = $.fn.datepicker.defaults_<%= I18n.locale %>;
+  }
+</script>

@@ -1,0 +1,118 @@
+#active_admin_content.without_sidebar
+  #main_content_wrapper
+    #main_content
+      = semantic_form_for [:admin, @project], :html => {:multipart => true}, :builder => ActiveAdmin::FormBuilder do |f|
+        %fieldset.inputs
+          %legend
+            %span Project Details
+          %ol
+            %li= f.input :title
+            %li= f.input :description
+            %li= f.input :location
+            %li= f.input :compensation
+            %li= f.input :skills, input_html: {value: "#{@project.skills.present? ? @project.skills.join(',') : ''}"}
+            %li= f.input :price
+            %li= f.input :is_featured, label: 'Do you wish to feature this project?'
+            %li= f.input :featured_payment_status, label: 'Has the payment for featuring project been made?'
+            %li= f.input :user_id, label: 'Client', as: :select, collection: Client.all.map{|u| ["#{u.name}", u.id]}, :include_blank => false
+
+        %fieldset.inputs
+          %legend
+            %span Project Questions
+          - if @project.new_record? || @project.project_questions.blank?
+            %ol
+              %li
+                %label{class: 'label', for: "project[project_questions_attributes][0][answer_text]"} What type of video do you want?
+                %input{:id => "project_project_questions_attributes_0_question_text", :name => "project[project_questions_attributes][0][question_text]", :value => "What type of video do you want?", :type => 'hidden'}
+                %select{:id => "project_project_questions_attributes_0_answer_text", :name => "project[project_questions_attributes][0][answer_text]"}
+                  %option{value: 'TV Commercial'} TV Commercial
+                  %option{value: 'Crowdfunding'} Crowdfunding
+                  %option{value: 'Web Video'} Web Video
+                  %option{value: 'Explainer Video'} Explainer Video
+                  %option{value: 'Event'} Event
+                  %option{value: 'Other'} Other
+
+              %li
+                %label{class: 'label', for: "project[project_questions_attributes][1][answer_text]"} What style of video do you want?
+                %input{:id => "project_project_questions_attributes_1_question_text", :name => "project[project_questions_attributes][1][question_text]", :value => "What style of video do you want?", :type => 'hidden'}
+                %select{:id => "project_project_questions_attributes_1_answer_text", :name => "project[project_questions_attributes][1][answer_text]"}
+                  %option{value: 'Live Action'} Live Action
+                  %option{value: 'Animated'} Animated
+                  %option{value: 'Stop Motion'} Stop Motion
+                  %option{value: 'Motion Graphics'} Motion Graphics
+                  %option{value: 'Whiteboard'} Whiteboard
+
+
+              %li
+                %label{class: 'label', for: "project[project_questions_attributes][2][answer_text]"} Do you have an idea for a script?
+                %input{:id => "project_project_questions_attributes_2_question_text", :name => "project[project_questions_attributes][2][question_text]", :value => "Do you have an idea for a script?", :type => 'hidden'}
+                %select{:id => "project_project_questions_attributes_2_answer_text", :name => "project[project_questions_attributes][2][answer_text]"}
+                  %option{value: 'Yes'} Yes
+                  %option{value: 'No'} No
+                  %option{value: "I don't know"} I don't know
+
+              %li
+                %label{class: 'label', for: "project[project_questions_attributes][3][answer_text]"} Do you need any actors?
+                %input{:id => "project_project_questions_attributes_3_question_text", :name => "project[project_questions_attributes][3][question_text]", :value => "Do you need any actors?", :type => 'hidden'}
+                %select{:id => "project_project_questions_attributes_3_answer_text", :name => "project[project_questions_attributes][3][answer_text]"}
+                  %option{value: 'Yes'} Yes
+                  %option{value: 'No'} No
+                  %option{value: "I don't know"} I don't know
+
+              %li
+                %label{class: 'label', for: "project[project_questions_attributes][4][answer_text]"} Do you need music?
+                %input{:id => "project_project_questions_attributes_4_question_text", :name => "project[project_questions_attributes][4][question_text]", :value => "Do you need music?", :type => 'hidden'}
+                %select{:id => "project_project_questions_attributes_4_answer_text", :name => "project[project_questions_attributes][4][answer_text]"}
+                  %option{value: 'No'} No
+                  %option{value: "Original"} Original
+                  %option{value: "Licensed"} Licensed
+                  %option{value: "Stock"} Stock
+
+              %li
+                %label{class: 'label', for: "project[project_questions_attributes][5][answer_text]"} About how long do you want it to be?
+                %input{:id => "project_project_questions_attributes_5_question_text", :name => "project[project_questions_attributes][5][question_text]", :value => "About how long do you want it to be?", :type => 'hidden'}
+                %select{:id => "project_project_questions_attributes_5_answer_text", :name => "project[project_questions_attributes][5][answer_text]"}
+                  %option{value: '30 sec'} 30 sec
+                  %option{value: "1 min"} 1 min
+                  %option{value: "1-2 min"} 1-2 min
+                  %option{value: "2-5 min"} 2-5 min
+                  %option{value: "5+ min"} 5+ min
+
+              %li
+                %label{class: 'label', for: "project[project_questions_attributes][6][answer_text]"} Proposals due by
+                %input{:id => "project_project_questions_attributes_6_question_text", :name => "project[project_questions_attributes][6][question_text]", :value => "Proposals due by", :type => 'hidden'}
+                %select{:id => "project_project_questions_attributes_6_answer_text", :name => "project[project_questions_attributes][6][answer_text]"}
+                  %option{value: '1 day'} 1 day
+                  %option{value: "3 days"} 3 days
+                  %option{value: "5 days"} 5 days
+                  %option{value: "7 days"} 7 days
+                  %option{value: "10 days"} 10 days
+
+              %li
+                %label{class: 'label', for: "project[project_questions_attributes][7][answer_text]"} Who do you want applicants by?
+                %input{:id => "project_project_questions_attributes_7_question_text", :name => "project[project_questions_attributes][7][question_text]", :value => "Who do you want applicants by?", :type => 'hidden'}
+                %select{:id => "project_project_questions_attributes_7_answer_text", :name => "project[project_questions_attributes][7][answer_text]"}
+                  %option{value: 'Everyone'} Everyone
+                  %option{value: "Filmzu Pro Only"} Filmzu Pro Only
+          - else
+            %ol
+              - i = 0
+              = f.semantic_fields_for :project_questions do |pq|
+                %li= pq.input :question_text, label: 'Question', :input_html => { :disabled => true }
+                %li= pq.input :answer_text, label: 'Answer', as: :select, collection: ProjectQuestion.select_options_list(i), :include_blank => false
+                - i = i + 1
+
+        %fieldset.inputs
+          %legend
+            %span Project Attachments
+          %ol
+            - 2.times { @project.project_attachments.build } if @project.new_record? || @project.project_attachments.blank?
+            = f.semantic_fields_for :project_attachments do |pa|
+              %li= pa.input :attachment, as: :file
+
+        %fieldset.actions
+          %ol
+            =f.actions do
+              = f.action :submit
+              %li.cancel
+                = link_to I18n.t('active_admin.cancel'), {:action => "index"}

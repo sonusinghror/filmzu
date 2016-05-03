@@ -1,0 +1,2 @@
+$('.email-detail-box').html('<%= escape_javascript(render :partial => "detail_box", :conversation => conversation ) %>');
+$('#message_<%= conversation.id %>').html('<%= escape_javascript(render :partial => "conversation", :locals => { :conversation => conversation } ) %>');

@@ -1,0 +1,12 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  hello: "Hello world"
+
+  mailboxer:
+    message_mailer:
+      subject_new: "Filmzu new message: %{subject}"
+      subject_reply: "Filmzu new reply: %{subject}"
+    notification_mailer:
+      subject: "Filmzu new notification: %{subject}"

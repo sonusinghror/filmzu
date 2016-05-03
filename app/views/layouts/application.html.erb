@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html><head>
+
+<title><%= @page_title? @page_title: "Filmzu | Tell your brands story with video" %></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="Filmzu is an ad tech platform which pairs the top 10% of digital content producers with premium brands and businesses">
+<meta name="keywords" content="Filmzu, Video, Platform, Marketplace, Advertising, Technology, Filmmakers, Explainer, Event, Commericials, TV, Web, Youtube">
+<meta name="apple-mobile-web-app-capable" content="YES">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<%= csrf_meta_tag %>
+
+<!--[if lte IE 8]><%= javascript_include_tag 'html5shiv' %><![endif]-->
+<!--[if lte IE 8]><%= javascript_include_tag 'respond.min' %><![endif]-->
+
+<%= javascript_include_tag "app" %>
+
+<script>
+	//$.widget.bridge('uitooltip', $.ui.tooltip);
+</script>
+
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+
+<%= stylesheet_link_tag("style") %>
+<%= stylesheet_link_tag("uniform.default") %>
+<%= stylesheet_link_tag("step-slider") %>
+<%= stylesheet_link_tag("colorbox") %>
+<%= stylesheet_link_tag("bootstrap.min") %>
+<%= stylesheet_link_tag("jquery.fancybox") %>
+<%= stylesheet_link_tag("animate") %>
+<%= stylesheet_link_tag("jquery-ui") %>
+<%= stylesheet_link_tag("jquery_ui_slide_pips") %>
+<%= stylesheet_link_tag("jslider") %>
+<%= stylesheet_link_tag("project") %>
+<%= stylesheet_link_tag("bootstrap-tagsinput") %>
+<%= stylesheet_link_tag("social-likes_flat") %>
+
+
+<style>
+			#wraper{
+				position:relative;
+			}
+			#slider{
+				opacity:0;
+				height:0;
+				width:0;
+			}
+			#sliderElements{
+				position: relative;
+			}
+			#slideImgs{
+				position:absolute;
+				width: 73.2%;
+				top: 16%;
+				z-index: 2;
+				left: 13.3%;
+			}
+			.posSbs{
+				position:absolute;
+				left:0;
+			}
+			.frameWindow{
+				position: relative;
+				z-index: 3;
+			}
+		</style>
+<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+
+</head>
+<body>
+
+<div id="wraper">
+	<%= render 'header' %>
+	<% flash.each do |key, value| %>
+        <div class="<%= flash_class(key) %>" role="alert">
+				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <%= value %>
+        </div>
+  <% end %>
+	<div id="emberapp"></div>
+	<%= yield %>
+	<%= render 'footer' %>
+</div>
+
+</body>
+<%= google_analytics_js 'UA-38653918-1' %>
+</html>

@@ -1,0 +1,117 @@
+<div class="out" style="position:relative; z-index:-1;" >
+<iframe width="100%" height="400px" frameborder="0" scrolling="yes" marginheight="0" marginwidth="0" style="position:relative; " src="https://maps.google.co.uk/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=+&amp;q=225+Bush+Street,+San+Francisco,+CA+94104+&amp;ie=UTF8&amp;hq=&amp;hnear=225+Bush+Street,+San+Francisco,+California+94104,+United+States&amp;t=m&amp;z=14&amp;ll=37.79086,-122.40147&amp;output=embed"></iframe></div>
+
+<%= stylesheet_link_tag 'static_pages/static_pages' %>
+<%= javascript_include_tag "static_pages/parallax" %>
+
+<div class="hgh">&nbsp;</div>
+			 	<%= form_for @contact, :url => contacts_path, :html => {:class => 'form-horizontal' ,:id => 'form-horizontal'} do |f| %>
+				  <% if ContactUs.require_name %>
+	<div class="bl_outer">		 
+			 
+			 <div class="au_con">
+				 <div class="oppo_con">
+					<div class="con_tx">Contact Us
+					We can't read minds yet so tell us what you are thinking!</div>
+					<div class="contact_con">
+					
+						<div class="contact_lft">
+						<form action="" method="get">
+							<div class="contact_lft_con">
+								<div class="name_con">Name*</div>
+								<%= f.text_field :name, :class =>'fld' %> 
+							</div>	
+							
+							<div class="contact_lft_con">
+								<div class="name_con">Email*</div>
+								<%= f.text_field :email, :class => 'fld' %>
+							</div>
+							
+							<div class="contact_lft_con">
+								<div class="name_con">Subject*</div>
+								<%= f.text_field :subject, :class => 'fld' %>
+							</div>
+							
+							<div class="contact_lft_con">
+								<div class="name_con">Message*</div>
+								<%= f.text_area :message, :rows => 15, :cols => 80, :class => 'fld' %>
+							</div>
+							<% if f.object.errors[:message].present? %>
+					      <p class='inline-error'><%= f.object.errors[:message].join(' and ') %></p>
+					    <% end %>
+							
+							<div class="contact_lft_con">
+								<div class="name_con">Recaptcha*</div>
+								<div class="col-md-4"><%= recaptcha_tags :ajax => true %></div>
+							</div>
+							
+							<div class="contact_lft_con">
+								<div class="name_con">&nbsp;</div>
+								<%= f.submit :submit, :alt => t('.submit'), :class => 'submit_btn', :label => t('.submit'), :title => t('.submit'), :value => "Send Message", data: { disable_with: 'Sending...' } %>
+								
+							</div>
+							
+						</form>	
+							<% end %><% end %>
+						</div>
+						
+						
+						<div class="contact_rgh">
+							<div class="contact_rgh_in">
+								<h6>Physical Address </h6>
+								<p><%= image_tag("static_pages/home.png", :class =>'hom') %> San Francisco, CA </p>
+							</div>
+							
+						  <div class="contact_rgh_in">
+								<h6>Connect with Us </h6>
+							    <p>
+									<a href="http://www.pinterest.com/filmzu/"><%= image_tag("static_pages/sm_1.png") %></a> 
+									<a href="http://www.facebook.com/filmzu"><%= image_tag("static_pages/sm_2.png") %></a> 
+									<a href="http://www.twitter.com/filmzu"><%= image_tag("static_pages/sm_3.png") %></a> 
+									<a href="http://www.google.com/+Filmzu"><%= image_tag("static_pages/sm_4.png") %></a> 
+									<a href="http://www.linkedin.com/company/filmzu"><%= image_tag("static_pages/sm_5.png") %></a> 	
+									</p>
+							</div>
+							
+							<div class="contact_rgh_in">
+								<h6>Opportunities </h6>
+							Please see our current <%= link_to('opportunities', "opportunities") %>.							
+							</div>
+							
+							
+							<div class="contact_rgh_in">
+								<h6>Speaker </h6>
+								Please fill out the form on the left if you would like a Filmzu representative to speak at your film school or event.
+							</div>
+							
+						</div>
+					
+					 </div>
+				</div>
+			 </div>
+			<%= render "static_pages/cta" %>
+			</div> 
+			 
+<!-- #content -->
+<script type="text/javascript">
+	$(function() {
+	
+	    var menu_ul = $('.hide_part'),
+	           menu_a  = $('.open');
+	    
+	    menu_ul.hide();
+	
+	    menu_a.click(function(e) {
+	        e.preventDefault();
+	        if(!$(this).hasClass('active')) {
+	            menu_a.removeClass('active');
+	            menu_ul.filter(':visible').slideUp('normal');
+	            $(this).addClass('active').next().stop(true,true).slideDown('normal');
+	        } else {
+	            $(this).removeClass('active');
+	            $(this).next().stop(true,true).slideUp('normal');
+	        }
+	    });
+	
+	});
+</script>

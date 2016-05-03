@@ -1,0 +1,86 @@
+<section id="mpart">
+  <%= form_tag({controller: "clients/conversations", action: "create"}, method: :post) do %>
+    <div class="stripbox pr">
+    	<div class="white-box"></div>
+      <div class="light-gray-box"></div>
+    </div>
+	  <div class="container clearfix">
+      <div class="dashbord-cpart row">
+        <%= render 'client_left_sidebar' %>
+        <div class="content-rpart">
+          <div class="inner-title-box clearfix">
+            <h2 class="fl">Inbox</h2>
+            <div class="fr">
+            	<div class="fl wh-search-box">
+              	<%= form_tag "/clients/search_messages", method: :post do %>
+                  <input type="text" name="search" placeholder="Search Messages" value="" />
+                  <%= submit_tag "", :class => "search-btn" %>
+                <% end %> 
+              </div>
+            	<!--div class="fl add-pro-box"><a href="#"><span class="plus-box"><img src="images/blank-img.png" class="plus-icon" alt="" title="" /></div-->
+            </div>
+          </div>
+          <div class="inbox-cpart clearfix">
+        	  <div id="message" class="email-box fl">
+              <%= render 'message_tabs' %>
+            </div>
+            <div class="email-detail-box fl">
+            	<div class="email-add">
+              	<span class="to-text"></span>
+              </div>
+              <div class="email-rece">
+                <%= text_field_tag :recipients,  :input_html => { :value => @recipient } %>
+              </div>
+              <div class="email-subj"><%= text_field_tag :subject %></div>
+              <div class="email-desc"><%= text_area_tag :body %></div>
+              <div class="btn-box clearfix">
+              	<a href="#" class="fl gray-btn">Attach File</a>
+                <div class="fr">
+                	<a href="#" class="blue-btn"><%= submit_tag 'Send' %></a>
+                  <a href="#" class="gray-btn ml6">Cancel</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</section>
+
+<script type="text/javascript" src="js/jquery.uniform.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.colorbox.js"></script>
+<script type="text/javascript">
+$(function(){
+
+	$("select, :radio, :checkbox, :file").uniform();
+	$(".ajax").colorbox();
+
+	$("#message").tabs();
+
+	var maxHeight = 0;
+
+	$("div.inner-title-box").each(function(){
+	   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+	});
+
+	$("div.white-box, div.light-gray-box").height(maxHeight);
+
+	$("div.dashbord-cpart").each(function(){
+	   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+	});
+
+	$(".nav-lpart, .content-rpart").height(maxHeight);
+
+})
+$(function(){
+	var maxHeight = 0;
+
+	$("div.inbox-cpart").each(function(){
+	   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+	});
+
+	$("div.email-box, div.email-detail-box").height(maxHeight);
+})
+</script>

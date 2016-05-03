@@ -1,0 +1,134 @@
+<!-- Footer -->
+<footer id="fpart">
+	<div class="container clearfix">
+    	<div class="row fpart-row1 clearfix">
+        	<div class="col-md-4 logo-box"><%= link_to root_url do %><%= image_tag("footer-logo.png") %><% end %></div>
+          
+					<div class="col-md-8">
+          	<div class="col-md-2 fpart-linkbox">
+                <h3>Social</h3>               	
+                <ul>
+                    <li><a href="https://angel.co/filmzu">AngelList</a></li>
+										<li><a href="http://facebook.com/Filmzu">Facebook</a></li>
+                    <li><a href="http://twitter.com/Filmzu">Twitter</a></li>
+                    <li><a href="http://www.linkedin.com/company/filmzu">Linkedin</a></li>
+                    <li><a href="http://www.pinterest.com/filmzu/">Pinterest</a></li>                       
+                </ul>                
+            </div>
+						<div class="col-md-3 fpart-linkbox">
+                  <h3>Learn</h3>               	
+                  <ul>
+                      <li><%= link_to "About Filmzu", about_url %></li>
+                      <li><%= link_to "Our Team", team_url %></li>
+                      <li><%= link_to "Our Mission", mission_url %></li>
+                      <li><%= link_to "Opportunities", opportunities_url %></li>
+                      <% if false %>
+											<li><a href="#">Labs</a></li>
+                      <li><a href="#">Glossary</a></li>
+                       <% end %>
+                  </ul>                
+              </div>
+              <div class="col-md-4 fpart-linkbox">
+                  <h3>Security</h3>               	
+                  <ul>
+                      <li><%= link_to "Filmmaker Protection", filmmaker_protection_url %></li>
+	                    <li><%= link_to "Client Protection", client_protection_url %></li>
+	                    <li><%= link_to "Privacy", privacy_url %></li>
+	                    <li><%= link_to "Terms", terms_url %></li>
+	
+	                    <% if false %>
+                      <li><a href="#">Our Story</a></li>                        
+											<% end %>
+                  </ul>                
+              </div>
+              <div class="col-md-3 fpart-linkbox">
+                  <h3>Community</h3>               	
+                  <ul>
+                      <li><a href="/blog">Blog</a></li>
+                      <li><%= link_to "FAQ", faq_url %></li>
+                      <li><%= link_to "Contact Us", contact_url %></li>
+                      <% if false %>
+                      <li><a href="#">Partners</a></li>
+                      <li><a href="#">Funding</a></li>
+                      <li><a href="#">Distribution</a></li> 
+                       <% end %>
+                  </ul>                
+              </div>
+              
+          </div>        
+          <% if false %>
+							<div class="col-md-4 fpart-linkbox">
+								<h3>Navigation</h3>               	
+                <ul class="col-md-6">
+                    <li><%= link_to "Home", home_index_url %></li>
+										<li><%= link_to "Contact", contact_url %></li>
+                    <li><%= link_to "Filmmaker Protection", filmmaker_protection_url %></li>
+                    <li><%= link_to "Client Protection", client_protection_url %></li>  
+										<li><%= link_to "Opportunities", opportunities_url %></li>
+						        <li><%= link_to "Terms", terms_url %></li> 
+						        <li><%= link_to "FAQ", faq_url %></li>                      
+						                     
+                </ul>
+                <ul class="col-md-6">
+         
+                </ul>
+            </div>
+						<% end %>
+        </div>
+    	<div class="row">
+        	<div class="col-md-12 fpart-row2">&copy; Copyright 2014 Filmzu. All Rights Reserved.</div>
+        </div>
+    </div>
+</footer>
+
+<!--========= footer ends======------>
+<!-- BEGIN JIVOSITE CODE {literal} -->
+<script type='text/javascript'>
+(function(){ var widget_id = 'MF274DKESv';
+var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);})();</script>
+<!-- {/literal} END JIVOSITE CODE -->
+<script>]
+
+
+// Include the UserVoice JavaScript SDK (only needed once on a page)
+UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/PyZkYNfJogWYOMztu61nQ.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
+
+//
+// UserVoice Javascript SDK developer documentation:
+// https://www.uservoice.com/o/javascript-sdk
+//
+
+// Set colors
+UserVoice.push(['set', {
+  accent_color: '#448dd6',
+  trigger_color: 'white',
+  trigger_background_color: 'rgba(46, 49, 51, 0.6)'
+}]);
+
+// Identify the user and pass traits
+// To enable, replace sample data with actual user traits and uncomment the line
+UserVoice.push(['identify', {
+  //email:      'john.doe@example.com', // User’s email address
+  //name:       'John Doe', // User’s real name
+  //created_at: 1364406966, // Unix timestamp for the date the user signed up
+  //id:         123, // Optional: Unique id of the user (if set, this should not change)
+  //type:       'Owner', // Optional: segment your users by type
+  //account: {
+  //  id:           123, // Optional: associate multiple users with a single account
+  //  name:         'Acme, Co.', // Account name
+  //  created_at:   1364406966, // Unix timestamp for the date the account was created
+  //  monthly_rate: 9.99, // Decimal; monthly rate of the account
+  //  ltv:          1495.00, // Decimal; lifetime value of the account
+  //  plan:         'Enhanced' // Plan name for the account
+  //}
+}]);
+
+// Add default trigger to the bottom-right corner of the window:
+UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
+
+// Or, use your own custom trigger:
+//UserVoice.push(['addTrigger', '#id', { mode: 'contact' }]);
+
+// Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
+UserVoice.push(['autoprompt', {}]);
+</script>

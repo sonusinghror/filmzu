@@ -1,0 +1,20 @@
+<li>
+                                <div class="img-box fl"><%= image_tag("thumb-img-1.jpg")%></div>
+                                <div class="listing-cpart">
+                                    <div class="ls-hpart">
+                                        <div class="fl">
+                                            <h3><%= review[:client_details][:name]%></h3>
+                                            <div class="cat-part clearfix">
+                                                <div class="fl"><%= image_tag("blank-img.png", :class => "loc-icon")%><%= review[:client_details][:location]%></div>                                     	
+                                            </div>
+                                            <div class="star-box"><%= image_tag("big-blue-star-#{review[:client_details][:rating].to_s}.png")%><a href="#"><%= review[:client_details][:rating]%></a></div>
+                                        </div>
+                                        <!--span class="time-box gray-text fr">5d left <%#= image_tag("blank-img.png" ,:class => "gray-clock-icon")%></span-->
+                                    </div>
+                                    <div class="des-text"><%= review[:client_comment]%></div>
+                                    <ul class="status-box clearfix">                                        
+                                        <li><%= image_tag("blank-img.png", :class => "sm-doc-icon")%><%=review[:project_details][:project_type]%></li>
+                                        <li><%= image_tag("blank-img.png", :class => "sm-user-icon")%><%=review[:project_details][:client_type]%></li>
+                                    </ul>                                                            	
+                                </div>
+                            </li>

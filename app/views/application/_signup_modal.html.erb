@@ -1,0 +1,32 @@
+<!-- Sign Up Modal -->
+<div id="signup-modal" class="modal fade left-aligned" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;">
+  <div class="report-box">
+    <div class="dialog-box" style="background-color:white;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3><span>Sign Up: Select your account type</span></h3>
+      </div>
+      <div class="modal-body">
+				<a href='../../clients/sign_up' class='btn btn-primary initialmod'>I am a Client / Business</a>
+				<br>
+				<h4>I am a Filmmaker</h4>
+				<p>Filmzu is currently invite-only to maintain the quality of talented filmmakers. If you believe you are in the top 10% then please contact us at creatives@filmzu.com</p>
+				<% if false %>
+        <a href='../../#/filmmakers/sign_up' class='btn btn-primary initialmod'>I am a Filmmaker</a>
+				<% end %>
+				<br/>
+      </div>
+      <div class='modal-footer'>
+        <button class='btn report_cancel_btn' data-dismiss="modal">Cancel</button>
+      </div>
+    </div>  
+  </div>  
+</div>
+<!-- Sign Up Modal -->
+<script type="text/javascript">
+	$(function() {
+		$('.btn.btn-primary.initialmod').click(function() {
+		    $('#signup-modal').modal('hide');
+		});
+	})
+</script>

@@ -1,0 +1,38 @@
+#message.email-box.fl
+  %ul
+    %li
+      %a.gray-btn.ml6{:href => "#inbox"} Inbox
+    %li
+      %a.gray-btn.ml6{:href => "#sent"} Sent
+    %li
+      %a.gray-btn.ml6{:href => "#trash"} Trash
+
+  #inbox.clearfix
+    %ul.unstyled.email-listing.clearfix
+      - if @inbox_messages.empty?
+        %li Inbox empty
+      - else
+        - @inbox_messages.each do |message|
+          = render 'conversation', :conversation => message
+        = render "pagination", :messages => @inbox_messages
+  #sent.clearfix
+    %ul.unstyled.email-listing.clearfix
+      - if @sent_messages.empty?
+        %li Sent items empty
+      - else
+        - @sent_messages.each do |message|
+          = render 'conversation', :conversation => message
+        = render "pagination", :messages => @sent_messages
+  #trash.clearfix
+    %ul.unstyled.email-listing.clearfix
+      - if @trashed_messages.empty?
+        %li Trash empty
+      - else
+        - @trashed_messages.each do |message|
+          = render 'conversation', :conversation => message
+        = render "pagination", :messages => @trashed_messages
+
+:javascript
+  $(function(){
+    $(".email-box").tabs();
+  });    

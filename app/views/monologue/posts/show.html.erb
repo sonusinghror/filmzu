@@ -1,0 +1,118 @@
+<div class="outer-fix">
+  <div class="row">
+    <p class="pull-right"><a href="/blog" class=" btn btn-danger back-to-blog" ><span class="glyphicon glyphicon-arrow-left"></span>Back to Blog</a></p>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+      <div class="blog-left-new">
+        <div class="well">
+          <div class="media">
+            <div class="row">
+              <div class="col-md-12 col-xs-12 ">
+                <div class="blog-title">
+                  <h4>
+                    <a href="javascript:void(0)"><%= @revision.title %></a>
+                  </h4>
+                </div>
+                <% if @revision.post.image.present? %>
+                  <%= image_tag(@revision.post.image, :class=>"media-object img-responsive") %>
+                <% end  %>
+              </div>
+            </div>
+            <div class="media-body">
+              <p>
+                <%= raw @revision.content %>
+              </p>
+              <hr>
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                  <span>
+                    <i class="glyphicon glyphicon-calendar"></i> <%= @revision.published_at.to_date.to_formatted_s(:long_ordinal) %>
+                  </span>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                  <div class="socail-blog">
+                    <%= social_share_button_tag(@revision.title, :popup => "true") %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="comment-xob-blog">
+          <p>
+            <div class="">
+              <section class="comment-list">
+                <% if @revision.post.active_comments.present? %>
+                  <% @revision.post.active_comments.each do | comment|%>
+                    <article class="row">
+                      <div class="col-md-2 col-sm-2 hidden-xs">
+                        <figure class="thumbnail">
+                          <img src="/assets/actor.png" class="img-responsive">
+                          <figcaption class="text-center"></figcaption>
+                        </figure>
+                      </div>
+                      <div class="col-md-10 col-sm-10">
+                        <div class="panel panel-default arrow left">
+                          <div class="panel-body">
+                            <header class="text-left">
+                              <div class="comment-user"><i class="fa fa-user"></i> 
+                                <%= comment.user_name %></div>
+                              <time datetime="16-12-2015 01:05" class="comment-date"><i class="fa fa-clock-o"></i> <%= comment.created_at.strftime("%b %d, %Y") %></time>
+                            </header>
+                            <div class="comment-post">
+                              <p>
+                                <%= comment.comment %>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  <% end %>
+                <% else %>
+                  <article class="row">
+                    <div class="col-md-12 col-sm-12">
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                          There is comment for this post.
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                <% end %>
+              </section>
+            </div>
+          </p>
+          <p class="border-top-comment"></p>
+          <%= form_for @revision.post.blogcomments.new, url: @revision.full_url, method: :put do |f| %>
+            <span class="color-red-validate">* Mandatory Fields.</span>
+            <div class="form-group">
+              <span>Your Name <span class="color-red-validate">*</span></span>
+              <%= f.text_field :user_name, :class=>"form-control" %>
+              <span>Your Email <span class="color-red-validate">*</span></span>
+              <%= f.text_field :user_email, :class=>"form-control" %>
+              <span>Leave a Comment <span class="color-red-validate">*</span></span>
+              <%= f.text_area :comment, :rows=>"5", :class=>"form-control" %>
+              <span class="color-red-validate error-msg" style="display:none;">Please fill out mandatory fields.</span>
+            </div>
+            <div class="form-group">
+              <%= f.submit "Submit", :class=>"btn btn-info", :id=>"submit-comment" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $("#submit-comment").click(function(e){
+      if ($('#blogcomment_user_name').val().length <= 0 || $('#blogcomment_user_email').val().length <= 0 || $('#blogcomment_comment').val().length <= 0){
+        $(".error-msg").show();
+        e.preventDefault()
+      }else{
+        $("#new_blogcomment").submit();    
+      }
+    });
+  });
+</script>

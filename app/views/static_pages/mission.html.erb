@@ -1,0 +1,75 @@
+<%= stylesheet_link_tag "static_pages/static_pages" %>
+<%= javascript_include_tag "static_pages/parallax" %>
+<!--<div class="op_con">&nbsp;</div> Deprecated Old Parallax -->
+<section id="mission_parallax" data-speed="5" data-type="background">
+  <article class="mission_con"></article>
+</section>
+<div class="bl_outer">
+		<div class="oppo_con">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-7">
+					<ul class="team">
+						<li><%= link_to('about', :id => 'bread') do %>About Filmzu<% end %></li> | 
+						<li><%= link_to('team', :id => 'bread') do %>Our Team<% end %></li> | 
+						<li>Our Mission</li>
+					</ul>
+				</div>
+			  <div class="col-md-10 col-md-offset-1">
+					<h5>Filmzu is the ad tech platform which pairs the top 10% of digital content producers with premium brands and businesses</h5>
+				</div>
+			</div>
+			<div class="row opp_text">
+			  <div class="col-sm-5 col-sm-offset-1">We have worked with brands such as T-Mobile, Universal, Johnson & Johnson allowing them to deliver their messages to the widest possible audience. Technology has made it so your video can literally reach every corner of the globe within moments, and that’s one of the really powerful tools Filmzu is already taking advantage of.
+				<br><br>
+					A great video has the ability to put your company on the map. Watching a video is like the modern day equivalent of sitting around the campfire while someone tells an interesting life story.
+				<br><br>
+				At Filmzu, we know that working with a filmmaker is a very creative, and personal experience. In order to ensure you have the most seamless experience, we have handpicked all of the creatives on the site. We have thoroughly vetted them, and made sure they have not only the skill sets, but a personality that is conducive to collaboration and creating something original. 
+				</div>
+			  <div class="col-sm-5 col-sm-offset-1">
+					<%= image_tag("static_pages/mission.jpg")%>
+					<p class="photo_text">Filmzu gives brands access to the top 10% of filmmakers worldwide so they can share their stories</p>
+				</div>
+
+			  <div class="col-md-10 col-md-offset-1">
+				<h6 class="mission_quote">
+				"We really are in an amazing time as the cost to produce a very high quality video has decreased dramatically.  The creatives on Filmzu are truly unique in their ability to produce great content with budgets considerably under what you may have thought possible." 
+				</h6>
+				<p class="mission_quoted">Nick Ghirardelli</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
+				<h3 class="heading4">Build your audience with any type of video</h3>
+        <ul class="video-type-box clearfix" style="margin-top:20px">
+           <li>
+              <div class="step-cpart"><p>Commercials</p><%= image_tag("video_icons/tv-icon-lg.png", :width=>"100", :data => {:toggle => "tooltip", :placement => "bottom"}, :title => "Commercial")%></div>
+           </li>
+           <li>
+              <div class="step-cpart"><p>Crowdfunding</p><%= image_tag("video_icons/crowd-funding-lg.png", :width=>"100", :data => {:toggle => "tooltip", :placement => "bottom"}, :title => "Crowdfunding")%></div>
+           </li>
+           <li>
+              <div class="step-cpart"><p>Web Videos</p><%= image_tag("video_icons/web-video-icon-lg.png", :width=>"100", :data => {:toggle => "tooltip", :placement => "bottom"}, :title => "Web Video")%></div>
+           </li>
+				</ul>
+				<ul class="video-type-box clearfix">
+           <li>
+              <div class="step-cpart"><p>Events</p><%= image_tag("video_icons/event-icon-lg.png", :height=>"100", :data => {:toggle => "tooltip", :placement => "bottom"}, :title => "Event")%></div>
+           </li>
+           <li>
+              <div class="step-cpart"><p>Explainer Videos</p><%= image_tag("video_icons/exp-video-icon-lg.png", :width=>"100", :data => {:toggle => "tooltip", :placement => "bottom"}, :title => "Explainer Video")%></div>
+           </li>
+           <li>
+              <div class="step-cpart"><p>Direct Hire</p><%= image_tag("video_icons/direct-hire-lg.png", :height=>"100", :data => {:toggle => "tooltip", :placement => "bottom"}, :title => "Event")%></div>
+           </li>
+        </ul>
+				<div class="opp_text">
+				We want to educate businesses and brands that an amazing video is not out of reach for you.
+				So what are you waiting for? That idea you’ve had for a video is only a few clicks away.
+				</div>
+			</div>
+		</div>
+	</div>
+	<%= render "static_pages/cta" %>
+
+</div>

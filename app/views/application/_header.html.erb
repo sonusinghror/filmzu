@@ -1,0 +1,146 @@
+<!-- Header -->
+<header id="hpart">
+	<div class="container clearfix">
+  	<div class="row">
+      <div class="navbar-header">
+        <% if current_filmmaker %>
+					<%= link_to filmmakers_dashboard_url, {:class => "logo fl"} do %><%= image_tag("logo.png") %><% end %>
+					<% elsif current_client %>
+					<%= link_to clients_dashboard_url, {:class => "logo fl"} do %><%= image_tag("logo.png") %><% end %>
+					<% else %>
+					<%= link_to root_url, {:class => "logo fl"} do %><%= image_tag("logo.png") %><% end %>
+				<% end %>
+        <div class="space-box fl"></div>
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="navnbar fl">
+					<% if current_filmmaker || current_client %>
+					<li style="width:133px;height:22px"></li>
+					<% else %>
+					<li>
+					  <%= link_to "../../#/clients/create-project" do %><%= image_tag("blank-img.png", :class => 'header-plus-icon') %>Create<% end %>
+					</li>
+					<% end %>
+					<li>
+						<%= link_to projects_url do %><%= image_tag("blank-img.png", :class => 'project-icon') %>Projects<% end %>
+					</li>
+			  	<li>
+					  <%= link_to filmmakers_url do %><%= image_tag("blank-img.png", :class => 'people-icon') %>Filmmakers<% end %>
+					</li>
+
+
+        </ul>
+				<% if current_client.present? %>
+          <div class="notify-box fr">
+          	<div class="alert-box fl">
+          		<% client_notifications = current_client.notifications if current_client.present? %>
+							<% if client_notifications.present? && client_notifications != 0 %>
+								<span class="alerts-box"><%= client_notifications %></span>
+								<%= link_to clients_messages_url, :class => 'client-notifications-link' do %><%= image_tag("blank-img.png", :class => 'alert-icon') %><% end %>
+							<% else %>
+								<%= link_to clients_messages_url, :class => 'client-notifications-link' do %><%= image_tag("blank-img.png", :class => 'alert-icon') %><% end %>
+							<% end %>
+        		</div>
+            <div class="profile-box fl">
+							<% if false %>
+	            	<% if client_notifications.present? && client_notifications != 0 %>
+									<span class="alerts-box"><%= client_notifications %></span>
+								<% end %>
+							<% end %>
+            	<a href="#"><%= image_tag current_client.header_photo, :width => 22, :height => 22 %></a>
+              <ul class="profile-nav">
+                <li class="active"><%= link_to clients_dashboard_url do %><%= image_tag("blank-img.png", :class => "dashbord-icon")%>Dashboard<% end %></li>
+                <li>
+									<%= link_to clients_profile_url do %><%= image_tag("blank-img.png", :class => "profile-icon")%>Profile<% end %>
+								</li>
+								<li>
+									<%= link_to clients_messages_url do %>
+										<% if client_notifications.present? && client_notifications != 0 %>
+											<span class="alerts-box"><%= client_notifications %></span>
+										<% end %>
+										<%= image_tag("blank-img.png", :class => "msg-icon")%>Messages
+									<% end %>
+								</li>
+								<li>
+									<%= link_to clients_accounts_url do %><%= image_tag("blank-img.png", :class => "account-icon")%>Accounts<% end %>
+								</li>
+								<% unless (current_client.uid.present? || current_client.provider.present?) %>
+									<li>
+										<%= link_to clients_settings_url do %><%= image_tag("blank-img.png", :class => "setting-icon")%>Settings<% end %>
+									</li>
+								<% end %>
+								<li><%= link_to client_signout_url do %><%= image_tag("blank-img.png", :class => 'logout-icon') %>Sign out<% end %></li>
+              </ul>
+            </div>
+    			</div>
+				<% elsif current_filmmaker.present? %>
+					<div class="notify-box fr">
+          	<div class="alert-box fl">
+							<% filmmaker_notifications = current_filmmaker.receipts.is_unread %>
+							<% if filmmaker_notifications.present? && filmmaker_notifications.count != 0 %>
+          			<span class="alerts-box"><%= filmmaker_notifications.count %></span>
+            		<a href="#" class='filmmaker-notifications-link'><%= image_tag("blank-img.png", :class => 'alert-icon') %></a>
+							<% else %>
+								<a href="#"><%= image_tag("blank-img.png", :class => 'alert-icon') %></a>
+							<% end %>
+        		</div>
+            <div class="profile-box fl">
+							<% if filmmaker_notifications.present? && filmmaker_notifications.count != 0 %>
+            		<span class="alerts-box"><%= filmmaker_notifications.count %></span>
+							<% end %>
+            	<a href="#"><%= image_tag current_filmmaker.header_photo, :width => 22, :height => 22 %></a>
+              <ul class="profile-nav">
+                <li><%= link_to filmmakers_dashboard_url do %><%= image_tag("blank-img.png", :class => "dashbord-icon")%>Dashboard<% end %></li>
+                <li>
+									<%= link_to filmmakers_profile_url do %><%= image_tag("blank-img.png", :class => "profile-icon")%>Profile<% end %>
+								</li>
+								<li>
+									<%= link_to filmmakers_messages_url do %>
+										<% if filmmaker_notifications.present? && filmmaker_notifications.count != 0 %>
+											<span class="alerts-box"><%= filmmaker_notifications.count %></span>
+										<% end %>
+										<%= image_tag("blank-img.png", :class => "msg-icon")%>Messages
+									<% end %>
+								</li>
+								<li>
+									<%= link_to filmmakers_projects_url do %><%= image_tag("blank-img.png", :class => "project-icon")%>My Projects<% end %>
+								</li>
+								<li>
+									<%= link_to filmmakers_accounts_url do %><%= image_tag("blank-img.png", :class => "account-icon")%>Accounts<% end %>
+								</li>
+								<% unless (current_filmmaker.uid.present? || current_filmmaker.provider.present?) %>
+									<li>
+										<%= link_to filmmakers_settings_url do %><%= image_tag("blank-img.png", :class => "setting-icon")%>Settings<% end %>
+									</li>
+								<% end %>
+								<li class="active"><%= link_to filmmaker_signout_url do %><%= image_tag("blank-img.png", :class => 'logout-icon') %>Sign out<% end %></li>
+              </ul>
+            </div>
+    			</div>
+				<% else %>
+					<%= render :partial => 'application/signin_modal' %>
+					<%= render :partial => 'application/signup_modal' %>
+					<div class="action-div fr" data-toggle='modal' data-target='#signup-modal' title='Sign Up'><button type="button" class="btn orange-btn h-orange-btn">Sign Up</button></div>
+					<div class="action-div fr" data-toggle='modal' data-target='#signin-modal' title='Sign In'  style="margin-right:5px;"><button type="button" class="btn orange-btn h-orange-btn">Sign In</button></div>
+
+				<% end %>
+      </div>
+  	</div>
+  </div>
+</header>
+<script>
+	$(document).ready(function(){
+		$('.client-notifications-link').on('click', function(){
+			window.location.href = "<%= clients_messages_url %>";
+		});
+		$('.filmmaker-notifications-link').on('click', function(){
+			window.location.href = "<%= filmmakers_messages_url %>";
+		});
+	});
+</script>

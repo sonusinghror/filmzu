@@ -1,0 +1,72 @@
+<div class="bank-account">
+	<h3 class="heading7">Add Credit Card</h3>
+	<%= form_tag '/filmmakers/create_credit_card' do %>
+    <ul class="bank-form">
+      <li>
+          <label class="lb-name">Card holder's name</label>
+          <input type="text" id='cc_holder_name' name='credit_card[name]' class="int-box" />
+      </li>
+      <li>
+          <label class="lb-name">Card Number</label>
+          <input type="text" id='cc_number' name='credit_card[number]' class="int-box" />
+      </li>
+      <li>
+          <label class="lb-name">Card Security Number</label>
+          <input type="text" id='cc_security' name='credit_card[cvv]' class="int-box"  style="width: 60px;" />
+      </li>
+      <li>
+        <label class="lb-name">Expiration Month</label>
+        <select  name='credit_card[expiration_month]' id='cc_mon' style="width: 60px;">
+					<% (1..12).each do |num| %>
+						<option><%= num %></option>
+					<% end %>
+        </select>
+      </li>
+      <li>
+        <label class="lb-name">Expiration Year</label>
+        <input  placeholder='year' id='cc_year' type="text" name='credit_card[expiration_year]' class="int-box"  style="width: 60px;" />
+      </li>
+      <li class="btn-part">
+        <input type="button" value="Cancel" id='cancel_cc' class="light-gray-btn" /><input type="submit" onclick='return validate_credit_card();' value="Add" class="sm-blue-btn ml10" />
+      </li>
+    </ul>
+	<% end %>
+</div>
+
+<script type='text/javascript'>
+	$(document).ready(function(){
+		$('#cancel_cc').click(function(){ update_featured_project(); })
+	})
+
+	function update_featured_project(){ window.location = '/filmmakers/dashboard'; }
+
+	function validate_credit_card(){
+		var h_name = $("#cc_holder_name").val()
+		var cc_num = $('#cc_number').val();
+		var cc_sec = $("#cc_security").val();
+		var cc_year = $("#cc_year").val();
+		var cc_mon = $("#cc_mon").val();
+
+		if (h_name != "" && cc_num != "" && cc_sec != "" && cc_year != "") {
+			cc_obj = {'cvv': cc_sec,
+				'expiration_month': cc_mon,
+				'expiration_year': cc_year,
+				'number': cc_num};
+			validate_messages = balanced.card.validate(cc_obj);
+			if (validate_messages.length > 0) {
+				alert(validate_messages[0].description);
+				return false;
+			}
+			else{
+				console.log('submitting now..')
+				$('input.sm-blue-btn.ml10').hide();
+				$('input.light-gray-btn').hide();
+				return true;
+			}
+		}
+		else{
+			alert("Please fill all credit card details");
+			return false;
+		}
+	}
+</script>

@@ -1,0 +1,54 @@
+<section id="mpart">
+
+<div class="full-inner-title-box">
+	<div class="container clearfix">
+      	<div class="row">        	
+      		<h2>Forgot your password?</h2>
+      		<p>Enter the email you registered with below and we will send you a link to create a new password.</p>
+  		</div>
+      </div>
+  </div>	
+  
+<div class="stripbox-1 pr">    	
+      <div class="light-gray-box"></div>
+      <div class="white-box"></div>
+  </div>
+  
+  <div class="reg-box">    
+	<div class="container">
+      	<div class="row clearfix">
+          	<div class="reg-gray-box fl">
+							<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+							  <%= f.error_notification %>
+                 <ul class="reg-form">
+                      <li>
+                          <%= f.input :email, :label => "Email Address", :required => false, :autofocus => true, input_html: { class: 'wh-txt-box' } %> 
+                      </li>
+                                           
+                      <li>
+                          <%= f.button :submit, "Send me reset password instructions", :class => 'big-blue-btn' %> 
+                      </li>                   
+                  </ul>
+              </div>
+							<% end %>
+              <div class="reg-white-box fl">
+                  <p>Or did you login via Facebook or Linkedin?</p>
+                  <a href="#" class="big-blue-btn"><%= image_tag('blank-img.png', :class =>'fb-icon')%><span>Log In With Facebook</span></a>        
+                 	<a href="#" class="big-blue-btn"><%= image_tag('blank-img.png', :class =>'link-icon')%><span>Log In With Linkedin</span></a> 
+                     
+              </div>
+          </div>
+     	</div>          	
+  </div>
+
+</section>
+
+<script>
+  var maxHeight = 0;
+
+  $("div.reg-box").each(function(){
+      if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+   });
+
+  $("div.white-box, div.light-gray-box").height(maxHeight);
+</script>

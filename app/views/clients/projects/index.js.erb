@@ -1,0 +1,3 @@
+$("#search_proposal_form").val("");
+$(".proposal-count").html("<%= @proposals.size %>")
+$('.prj-listing').html("<%= escape_javascript(render :partial => 'proposals_listing', :locals => {:proposals => @proposals})%>");

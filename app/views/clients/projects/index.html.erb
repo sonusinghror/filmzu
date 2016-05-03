@@ -1,0 +1,114 @@
+<section id="mpart">
+	<div class="stripbox-3 pr">
+    	<div class="white-box"></div>
+      <% if @project.present? %>
+        <div class="light-gray-box"></div>
+      <% end %>
+    </div>
+	<div class="container clearfix">
+        <div class="dashbord-cpart row">
+            <%= render 'clients/shared/left_sidebar'%>
+            <div class="content-rpart">
+              <% unless @project.blank? %>
+                <div class="inn-title-box clearfix">
+                    <div class="inn-title-cpart fl">
+                        <h2><%= @project.title %></h2>
+                        <ul class="red-status-box clearfix">
+                            <% unless @project.location.blank? %>
+                              <li><%= image_tag("blank-img.png", :class => "red-loc-icon")%><%= @project.location %></li>
+                            <% end %>
+                            <li><%= image_tag("blank-img.png", :class => "sm-doc-red-icon")%><%= @project.project_full_details[0] %></li>
+                            <li>
+                              <%= image_tag("blank-img.png", :class => "red-profile-icon")%>
+                              <span class="proposal-count"><%= @proposals.size %></span> Proposals
+                            </li>
+                            <li><%= image_tag("blank-img.png", :class => "red-clock-icon")%>Posted <%=@project.created_at.strftime("%b %d, %Y")%></li>
+                        </ul>
+                    </div>
+                    <%# if @proposals.size > 0 %>
+                      <!--a href="/clients/projects/<%= url_encode(@project.id) %>/message_participants" class="blue-btn mt10 fr ajax cboxElement">Message Participants</a-->
+                    <%# end %>
+                </div>
+                <div class="project-mpart clearfix">
+                	<div class="prj-row1 clearfix">
+                    	<h3 class="fl">Proposals <span class="proposal-count"><%= @proposals.size %></span></h3>
+                        <div class="fr">
+                        	<!--div class="gray-search-box fl">
+                            <%= form_tag({:action => 'index'}, {:remote => true}) do %>
+                              <input type="text" value="Search Proposals" name="proposals_search" id="search_proposal_form" />
+                              <input type="submit" value="" class="search-btn" />
+                            <% end %>
+                          </div-->
+                          <!--div class="gray-sm-select fl ml15"><select><option>Filter Results</option></select></div-->
+                        </div>
+                    </div>
+                    <ul class="prj-listing">
+			                <%= render :partial => 'proposals_listing', :locals => {:proposals => @proposals} %>
+                    </ul>
+                </div>
+              <% else %>
+                <p class="proposals_blank">No Records Found</p>
+              <% end %>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<%= javascript_include_tag 'bootstrap.min' %>
+<%= javascript_include_tag 'jquery.colorbox' %>
+<%= javascript_include_tag 'jquery.uniform' %>
+<script type="text/javascript">
+$(function(){
+	$(".ajax").colorbox();
+
+	$("select, :radio, :checkbox, :file").uniform();
+
+	var maxHeight = 0;
+
+	$("div.inn-title-box").each(function(){
+	   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+	});
+
+	$("div.white-box, div.light-gray-box").height(maxHeight);
+
+	// $("div.dashbord-cpart").each(function(){
+	//    if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+	// });
+
+	// $(".nav-lpart, .content-rpart").height(maxHeight);
+
+	$('a.hide-reel').hide();
+	$('a.view-reel').click(function(){
+    var id = $(this).attr('id');
+		$('#video-box-' + id).show();
+		$(this).hide();
+		$('a.hide_reel_' + id).show();
+
+		// $("div.dashbord-cpart").each(function(){
+	 //   		if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+		// });
+		// $(".nav-lpart, .content-rpart").height(maxHeight);
+	})
+
+	$('a.hide-reel').click(function(){
+    var id = $(this).attr('id');
+		$('#video-box-' + id).hide();
+		$(this).hide();
+		$('a.view_reel_' + id).show();
+	})
+
+  $("#search_proposal_form").click(function() {
+    if ($(this).val() == "Search Proposals") {
+      $(this).val("");
+    }
+  });
+
+  $("#search_proposal_form").on('change keyup mouseleave', function() {
+    if ($(this).val() == "") {
+      $(this).val("Search Proposals");
+    }
+  });
+
+})
+</script>

@@ -1,0 +1,119 @@
+<html>
+   <head>
+      <meta charset="utf-8"/>
+      <title>Dispute Details</title>
+      <%= stylesheet_link_tag("uniform.default") %>
+   </head>
+   <body>
+   	  <%=form_for Dispute.new, :html => {:id => "dispute_form", :multipart => true} do |d|%>
+      <div class="dis-box">
+         <h2>Dispute Details</h2>
+         <ul class="dispute-detail">
+            <li>
+               <div class="msg-text">Please tell us exactly about your problem. Lorem ipsum dolor sit adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</div>
+               <%=d.text_area :dispute_description, :placeholder=>"Dispute Description Message"%>
+               <span style="display: inline; color: red;" id="dispute_reason">*&nbsp;Please describe the dispute reason</span>
+               <br/><br/>
+               <div class="attach-resum clearfix">
+                  <div class="colum1 fl">
+                     <img src="../../assets/blank-img.png" class="attch-icon" alt="" title="" />
+				&nbsp; <a href="javascript:void(0)" class="pre-link txtBox-356" id='attach_resume'><b>Attach Resume</b></a>
+				<input type='file' name='proposal_attachment' id='attach_proposal_file' style='display:none'/>
+				<span id='attachment_detail' style='margin: 10px 2px 2px 5px; color: red;'></span>
+                  </div>
+                  <div class="colum2 fl">
+                    <a href="javascript:void(0)" id='delete_resume'>Delete</a>
+                  </div>
+               </div>
+               <!--div class="add-mls">
+                  <a href="#">
+                  <%= image_tag("blank-img.png", :class => "red-plus-icon") %>
+                  Add Attachment
+                  </a>
+               </div-->
+            </li>
+            <li>
+               <div class="msg-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            </li>
+            <li class="clearfix">
+               <div class="fl">
+                  <input type="checkbox" id="agree_dispute"/>
+               </div>
+               <div class="agree-txt">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            </li>
+            <li>
+               <%=d.hidden_field :proposal_id, :value => params[:proposal_id]%>
+               <%=d.hidden_field :status, :value => "Pending" %>
+               <a class="big-orange-btn" href="#" onclick="validate_dispute();">Submit Dispute</a>
+            </li>
+            
+         </ul>
+      </div>
+      <%end%>
+      <%= javascript_include_tag 'jquery.uniform' %>
+<script>
+	$("#dispute_reason").hide();
+	
+	$('#attach_resume').click(function() {
+			$('#attach_proposal_file').click();
+			return false;
+	})
+	
+	$('#attach_proposal_file').change(function() {
+			var ext = $('#attach_proposal_file').val().split('.').pop().toLowerCase();
+			if ($.inArray(ext, ['doc', 'docx', 'pdf']) == -1) {
+				$('#attach_proposal_file').val('');
+				$('#attach_proposal_file').replaceWith($('#attach_proposal_file').val('').clone(true));
+				$('#attachment_detail').html('Invalid file type');
+				return false;
+			} else {
+				var pattern = /\\/;
+				$('#attachment_detail').html($('#attach_proposal_file').val().split(pattern).slice(-1)[0]);
+			}
+})
+
+
+$("#delete_resume").click(function(){
+	
+	$('#attach_proposal_file').val('');
+	$('#attach_proposal_file').replaceWith($('#attach_proposal_file').val('').clone(true));
+	$('#attachment_detail').html('');
+	return false;
+	
+})
+	
+	
+	
+	$(function() {
+		$("select, :radio, :checkbox, :file").uniform();
+	});
+
+	$("dispute_dispute_description").focusin(function() {
+		$("#dispute_reason").hide();
+	});
+
+	function validate_dispute() {
+		dispute_reason = $("#dispute_dispute_description").val();
+		agree_dispute = $("#agree_dispute").is(":checked");
+		if (agree_dispute == false) {
+			$("#agree_dispute").focus();
+			return false;
+		}
+		if (agree_dispute == true && dispute_reason == "") {
+			$("#dispute_reason").show();
+			return false;
+		}
+		
+		
+		if ($('#attachment_detail').html() == "Invalid file type") {
+		  alert("Please select proper file or delete");
+		  return false;
+		}
+		
+		if (agree_dispute == true && dispute_reason != "") {
+			$('#dispute_form').submit();
+		}
+	}
+		</script>
+</body>
+</html>

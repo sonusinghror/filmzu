@@ -1,0 +1,61 @@
+<li>
+  <% question = project.project_questions.find_by_question_text("What type of video do you want?") %>
+  <% unless question.blank? %>
+    <%= render :partial => 'clients/dashboard/project_icon', :locals => {:project_type => question.answer_text} %>
+  <% else %>
+    <div class="img-box fl">
+      <%= image_tag("video_icons/direct-hire.png", :data => {:toggle => "tooltip", :placement => "left"}, :title => project.title) %>
+    </div>  
+  <% end %>
+	<div class="listing-cpart">
+		<div class="ls-hpart">
+			<div class="fl">
+				<h3><%= link_to project.title, view_project_url(url_encode(project.id)) %></h3>
+				<div class="cat-part clearfix">
+					<div class="fl">
+					    <% client_details = project.client_details %>
+						by <span><%= link_to client_details[:name], "/clients/#{client_details[:id]}" %></span>
+					</div>
+				</div>
+			</div>
+
+			<span class="time-box gray-text fr">
+			  <% days_left = project.proposal_due_days %>
+		    <% if (days_left < 0) %>
+		      Closed
+			  <% else %>
+			   <%=  days_left %>d Left
+			  <% end %>
+			  <%= image_tag("blank-img.png", :class => "gray-clock-icon")%>
+			</span>
+			<% if false %>
+			 <span class="time-box gray-text fr"><%= project.project_status %> <%= image_tag("blank-img.png", :class => "gray-clock-icon")%></span>
+		  <% end %>
+		</div>
+
+		<div class="des-text">
+			<%= project.description %>
+		</div>
+
+		<ul class="status-box clearfix">
+		    <li>
+			  <span>Total Budget:</span> <%= number_to_currency(project.price.to_i, precision: 0) %>
+			</li>
+			<li>
+				<%= image_tag("blank-img.png", :class => "sm-user-icon")%><%= project.project_proposals.count%> Proposals
+			</li>
+			<li class="blue-text">
+        <% if project.is_complete? %>
+          <%= image_tag('blank-img.png', class: 'blue-ok-icon')%> Completed
+        <% elsif project.is_funded? %>
+		      <%= image_tag('blank-img.png', class: 'blue-ok-icon')%> In Progress
+        <% end %>
+			</li>
+		</ul>
+		<% if project.is_complete? && display_project_feedback_client(project) %>
+		  <div class="btn-box tx-right">
+	      <%= link_to "Leave Feedback", feedback_filmmaker_project_url(:project_id => project.id), :class =>"blue-btn" %>
+		  </div>
+		<% end %>
+	</div>
+</li>

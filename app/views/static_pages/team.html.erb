@@ -1,0 +1,76 @@
+<%= stylesheet_link_tag "static_pages/static_pages" %>
+<%= javascript_include_tag "static_pages/parallax" %>
+
+<section id="team_parallax_sm" class="visible-lg visible-md visible-sm" data-speed="5" data-type="background">
+  <article class="op_con_sm"></article>
+</section>
+<section id="oppo_parallax_xs" class="visible-xs" data-speed="5" data-type="background">
+  <article class="op_con_xs"></article>
+</section>
+<div class="bl_outer">
+		<div class="oppo_con">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-7">
+					<ul class="team">
+						<li><%= link_to('about', :id => 'bread') do %>About Filmzu<% end %></li> | 
+						<li>Our Team</li> | 
+						<li><%= link_to('mission', :id => 'bread') do %>Our Mission<% end %></li>
+					</ul>
+				</div>
+			  <div class="col-md-6 col-md-offset-3"><h5>The Founders</h5></div>
+			</div>
+			<div class="row opp_text">
+			  <div class="col-sm-5 col-sm-offset-1">
+				<h2>Nick Ghirardelli (left)</h2><br>
+				 Nick is a UI/UX designer, front-end developer and adventure enthusiast. Born and raised in San Francisco, Nick co-developed the largest distressed asset company in Southern California  as his first venture, and has been working on tech startups since he was 19.<br><br>
+
+				<h2>Rupert Ralston (right)</h2><br>
+				Rupert is an entrepreneur, software engineer, investor and athlete who has been developing online applications for the last 15 years. His business acumen in the sector was fine tuned by starting and directing companies in Europe, Australasia and the United States. Rupert was born and raised in New Zealand.
+				<br><br>
+				<b>Together, </b> Rupert and Nick were part of the founding team of Filmmo, a social network for the film community to find and work with each other on movies, TV shows and short films. Filmmo was acquired in August 2014 to Mainly Interactive, a USA based conglomerate of digital properties. 
+				<br><br>
+				</div>
+			  <div class="col-sm-5 col-sm-offset-1"><%= image_tag("static_pages/founders.jpg", :alt=>"Nick Ghirardelli, Rupert Ralston having an impromptu meeting on design")%>
+				<p class="photo_text">Filmzu Founders Nick Ghirardelli & Rupert Ralston enjoy a coffee while having an early morning wrap meeting on market strategy.</p>
+				</div>
+			</div>
+			
+			
+			<div class="row">
+			  <div class="col-md-6 col-md-offset-3"><h5>The Team</h5></div>
+			</div>	
+			
+			<div class="row opp_text">
+				<div class="col-sm-10 col-sm-offset-1">
+				<ul class="video-type-box clearfix" style="margin-top:20px">
+           <li>
+              <%= image_tag("static_pages/team1.jpg", :alt=>"")%>
+           </li>
+           <li>
+              <%= image_tag("static_pages/team2.jpg", :alt=>"")%>
+           </li>
+           <li>
+              <%= image_tag("static_pages/team3.jpg", :alt=>"")%>
+           </li>
+				</ul>
+				<ul class="video-type-box clearfix">
+           <li>
+              <%= image_tag("static_pages/team4.jpg", :alt=>"")%>
+           </li>
+           <li>
+              <%= image_tag("static_pages/team5.jpg", :alt=>"")%>
+           </li>
+           <li>
+              
+           </li>
+        </ul>
+			</div>
+		</div>
+				
+			<div class="row opp_text">
+			  <div class="col-sm-10 col-sm-offset-1" style="margin-top:35px">
+				Filmzu have recruited the top all star team to work at Filmzu. Our team of developers are (Left to Right) <b>Sanjay Vedula</b>, <b>Venkata Kishore</b> & <b>Sakilam Sandeep</b> are in the top 5% of their respected skill sets and we're happy we've got such a great team on board of Filmzu. Our intern <b>Alex Kierlanczyk</b> has put an incredible amount of energy and effort into Filmzu and when he is not at the office he is a part time research assistant at UCLA. <b>Katie Johnson</b> is our Members Concierge who helps with the Filmmakers and Clients on boarding process to ensure they have a seamless experience on the site. Interested in joining our team? Check out the <%= link_to "opportunities", opportunities_url %> available. 
+				<br><br>
+		</div>
+</div>
+<%= render "static_pages/cta" %>

@@ -1,0 +1,32 @@
+.bank-account
+  %h3.heading7 Withdraw Fund
+  = form_tag '/filmmakers/accounts/withdraw_fund', id: 'filmmaker_withdraw_fund_form' do
+    %ul.bank-form
+      %li
+        %label.lb-name Your current balance is:
+        = "$ #{current_filmmaker.balance}"
+      %li
+        %label.lb-name Amount
+        $
+        = text_field_tag :amount, '', class: 'withdraw-amount'
+      %li
+        .error-message-withdraw{style: "font-size: 10px; color: red; line-height: 15px; min-height: 25px;"}
+      %li.btn-part
+        %input#submit_btn.blue-btn{type: 'submit', value: 'Withdraw Fund'}
+
+:javascript
+  $(document).ready(function(){
+    $('#submit_btn').click(function(e){
+      e.preventDefault();
+      var $amount = $('.withdraw-amount').val();
+      if($amount != ''){
+        if(parseFloat($amount) === 0.0){
+          $('.error-message-withdraw').html("Please enter a valid amount");
+        }else{
+          $('#filmmaker_withdraw_fund_form').submit();
+        }
+      }else{
+        $('.error-message-withdraw').html("Please enter amount");
+      }
+    });
+  });

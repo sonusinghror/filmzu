@@ -1,0 +1,83 @@
+<script type ='text/x-handlebars'>
+  {{ outlet }}
+</script>
+
+<section id="mpart">
+	<div class="stripbox pr">
+  	<div class="white-box"></div>
+    <div class="light-gray-box"></div>
+  </div>
+
+  <div class="container clearfix">
+    <div class="dashbord-cpart row">
+      <%= render 'client_left_sidebar' %>
+      <div class="row-fluid content-rpart">
+        <div class="inner-title-box clearfix">
+          <h2 class="fl">Inbox</h2>
+          <div class="fr">
+            <div class="fl wh-search-box">
+              <%= form_tag "/clients/search_messages", method: :post do %>
+                <input type="text" name="search" placeholder="Search Messages" value="" />
+                <%= submit_tag "", :class => "search-btn" %>
+              <% end %>
+            </div>
+            <!--div class="fl add-pro-box">
+              <a href="/clients/messages/new" data-remote="true">
+                <span class="plus-box">
+                  <img src="/assets/blank-img.png" class="plus-icon" alt="" title="" />
+                </span>New Message
+              </a>
+            </div-->
+          </div>
+        </div>
+        <div class="inbox-cpart clearfix">
+          <div class="message-listing-container" id="message-tabs">
+            <%= render 'message_tabs' %>
+          </div>
+          <br />
+          <!-- <%= link_to 'Start New Conversation', :new_conversation, {:class => 'btn'} %> -->
+          <div class="email-detail-box fl">
+            <% unless @conversation.blank? %>
+              <%= render 'detail_box', :conversation => @conversation %>
+            <% end %>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= javascript_include_tag 'jquery.uniform' %>
+<%= javascript_include_tag 'bootstrap.min' %>
+<%= javascript_include_tag 'jquery.colorbox' %>
+<script type="text/javascript">
+$(function(){
+
+    $("select, :radio, :checkbox, :file").uniform();
+    $(".ajax").colorbox();
+    $( "#message" ).tabs();
+
+    var maxHeight = 0;
+
+    $("div.inner-title-box").each(function(){
+       if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+    });
+
+    $("div.white-box, div.light-gray-box").height(maxHeight);
+
+/*    $("div.dashbord-cpart").each(function(){
+       if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+    });
+
+    $(".nav-lpart, .content-rpart").height(maxHeight);
+
+    $("div.inbox-cpart").each(function(){
+       if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+    });
+
+    $("div.email-box, div.email-detail-box").height(maxHeight);
+*/
+
+})
+
+</script>

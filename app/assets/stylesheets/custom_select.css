@@ -1,0 +1,19 @@
+div.selector {
+  line-height: 10px;
+  width: 120px!important;
+  height: 30px;
+  padding: 0 0 15 15px;
+}
+div.selector select {
+  height: 43px!important;
+}  
+div.selector span {
+  background-position: right 12px;
+  height: 40px;
+  line-height: 30px;
+  padding-right: 25px;
+  width: 110px!important;
+}
+div.selector.hover span, div.selector.focus span {
+  background-position: right 12px;
+}

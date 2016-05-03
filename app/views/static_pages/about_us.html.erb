@@ -1,0 +1,281 @@
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>    
+<%= stylesheet_link_tag("static_pages/static_pages.css") %>
+<%= stylesheet_link_tag("bootstrap.min") %>
+<%= stylesheet_link_tag("uniform.default") %>
+<%= stylesheet_link_tag("social-likes_flat.css") %>
+<%= stylesheet_link_tag("animate") %>
+
+<!--[if lte IE 8]><%= javascript_include_tag "html5shiv" %><![endif]-->
+<!--[if lte IE 8]><%= javascript_include_tag "respond.min" %><![endif]-->
+<%= javascript_include_tag "jquery-1.9.0" %>
+<%= javascript_include_tag "jquery-migrate-1.2.1" %>
+<%= javascript_include_tag 'bootstrap.min' %>
+<%= javascript_include_tag 'waypoints.min' %>
+<%= javascript_include_tag 'social-likes.min' %>
+
+<style type="text/css">
+.line, .line1, .line2, .line3, .line4, .line5 { position:relative; min-height:282px; }
+.line img, .line1 img, .line2 img, .line3 img, .line4 img, .line5 img { position:absolute; top:-282px; opacity:0; margin-left:-29px; }
+</style>
+</head>
+
+<body>
+
+
+<!--Banner code-->
+
+<section id="about-banner">
+    <div class="container">
+        <div class="row">
+            <h1 class="heading5">Let's Clarify what video can do for you.</h1>
+            <div class="ab-arw">
+                <a href="#ab-slide1"><%= image_tag("static_pages/arrow.png")%></a><br>Just do this
+            </div>            
+        </div>
+    </div>
+</section>
+
+<!--Banner code-->
+<div class="col-sm-4 col-sm-offset-7">
+	<ul class="team" style="margin-top:10px">
+		<li>About Filmzu</li> | 
+		<li><%= link_to('team', :id => 'bread') do %>Our Team<% end %></li> | 
+		<li><%= link_to('mission', :id => 'bread') do %>Our Mission<% end %></li>
+	</ul>
+</div>
+<br><br>
+<section id="ab-slide1">
+    <div class="container">
+        <div class="row ab-box1">
+            <div class="red-vline text-center">
+                <div class="line-img"><%= image_tag("static_pages/red-vline.jpg")%></div>
+                <p>Why does video even matter?</p>
+            </div>
+            <div class="ab-arw text-center"><a href="#ab-slide2"><%= image_tag("static_pages/red-arrow.png" )%></a></div>
+            <div class="text-center mt6 line"><%= image_tag("static_pages/line-1.png" )%></div>
+            <h2 class="heading6">Why does video even matter?</h2>
+            <div class="matter-box clearfix">
+                <div class="col-md-4">
+                    <div><%= image_tag("static_pages/ab-icon1.jpg" )%></div>
+                    <div class="matter-textbx">Consumer confidence doubles with a video</div>
+                </div>
+                <div class="col-md-4">
+                    <div><%= image_tag("static_pages/ab-icon2.jpg")%></div>
+                    <div class="matter-textbx">Marketers value video over fb. twitter and blogs</div>
+                </div>
+                <div class="col-md-4">
+                    <div><%= image_tag("static_pages/ab-icon3.jpg")%></div>
+                    <div class="matter-textbx">90% of Shoppers used video to make a buying decision</div>
+                </div>
+            </div>
+        </div>
+    </div>        
+</section>
+
+<section id="ab-slide2">
+    <div class="container">
+        <div class="row ab-box2">
+            <div class="red-vline text-center">
+                <div class="line-img"><%= image_tag("static_pages/red-vline.jpg" )%></div>
+                <p>Why is it important now? <span>( we promise it is ! )</span></p>
+            </div>
+            <div class="ab-arw text-center"><a href="#ab-slide3"><%= image_tag("static_pages/red-arrow.png")%></a></div>
+            <div class="text-center mt6 line1"><%= image_tag("static_pages/line-2.png" )%></div>
+            <div class="billion-box clearfix">
+                <div class="soc-img fl"><%= image_tag("static_pages/socail-img.jpg" )%></div>
+                <div class="watch-vid-text fl">
+                    <h2>1.2 Billion</h2>
+                    <p>Videos Are watched in the USA alone, every day.</p>
+                </div>
+            </div>
+            <div class="sm-red-text text-center">That Number will double by 2016. wow.</div>
+        </div>
+    </div>        
+</section>
+
+<section id="ab-slide3">
+    <div class="container">
+        <div class="row ab-box3">
+            <div class="red-vline text-center">
+                <div class="line-img"><%= image_tag("static_pages/red-vline.jpg")%></div>
+                <p>That's crazy. so what's up with you guys?</p>
+            </div>
+            <div class="ab-arw text-center"><a href="#ab-slide4"><%= image_tag("static_pages/red-arrow.png"  )%></a></div>
+            <div class="text-center mt6 line2"><%= image_tag("static_pages/line-3.png" )%></div>
+            <h2 class="heading6">We wanted to share our stories.</h2>
+            <div class="col-md-6 our-stories"><a href="#"><%= image_tag("static_pages/about_img_1.jpg" )%></a></div>
+            <div class="col-md-6 our-stories"><a href="#"><%= image_tag("static_pages/about_img_2.jpg" )%></a></div>
+            <div class="col-md-6 our-stories"><a href="#"><%= image_tag("static_pages/about_img_3.jpg" )%></a></div>
+            <div class="col-md-6 our-stories"><a href="#"><%= image_tag("static_pages/about_img_4.jpg" )%></a></div>
+            <div class="col-md-12 storie-text"><p>A lot of founders have stories about how they met in their dorm room, but yeah that’s not us. They have these stories about they came up with their idea one day because they wanted to meet girls; yeah uh.... that’s not us either. We came up with Filmzu because we both had started companies at a very early age and struggled with reaching our audiences. We realised video truly was the best way to tell your story to a lot of people, but there was nothing good that made it easy and secure to get a video made. That’s why we made Filmzu. We did meet a lot of interesting characters on Craigslist through our searches. 
+					</p>
+                <p>So we immersed ourselves in a world we knew nothing about, literally eating own dog food...or not. We produced everything from commercials to a bona fide TV show. Last year you could have asked us what a jib, grip, or a gaffer were, and you would have got some blank stares. This year, we’re on point. We know all those crazy film terms you see at the end of a movie, DP? That’s the guy who films it. Got any more brain busters?</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="ab-slide4">
+    <div class="container">
+        <div class="row ab-box4">
+            <h2 class="heading6">What do experts have to say about this whole video thing?</h2>
+            <div class="ab-arw text-center"><a href="#ab-slide5"><%= image_tag("static_pages/red-arrow.png"  )%></a></div>
+            <div class="text-center mt6 line3"><%= image_tag("static_pages/line-4.png" )%></div>
+            <div class="sm-gray-text text-center">this guy is like the Mohammed Ali of video marketing</div>
+            <div class="testimonial-box clearfix">
+                <div class="semi-colon1 fl"><%= image_tag("static_pages/semi-colon1.jpg")%></div>
+                <div class="test-text">
+                    <p><%= image_tag("static_pages/t_img.gif", :class => "fl" )%>The sheer cost of video production has come down to a point where there are no barriers to entry. Buyers have devices that can play videos with them at all times...[and] are engaging in 100% more information year over year before they make a buying decision.</p>
+                    <div class="user-name">Joe Pulizzi. Why Content Marketing needs More Video</div>
+                </div>
+                <div class="semi-colon2 fr"><%= image_tag("static_pages/semi-colon2.jpg" )%></div>
+            </div>
+        </div>
+    </div>
+</section>    
+
+<section id="ab-slide5">
+    <div class="container">
+        <div class="row ab-box5">
+            <div class="line-img text-center"><%= image_tag("static_pages/red-vline.jpg")%></div>
+            <div class="ab-arw text-center"><a href="#ab-slide6"><%= image_tag("static_pages/red-arrow.png" )%></a></div> 
+            <div class="text-center mt6 line4"><%= image_tag("static_pages/line-5.png" )%></div>
+            <h2 class="heading6">We Like Other People to do the talking.</h2> 
+            <div class="like-box-main">
+                <div class="col-md-4 like-box1">
+                    <div class="like-img"><%= image_tag("static_pages/like-img1.jpg"  )%></div>
+                    <div class="like-txt">
+                        <h4>Christen C, Founder, <b><a href="http://gadgetreview.com/" target="_blank">Gadgetreview.com</a></b></h4>
+                        <p><b>Video</b> is a huge part of our blog, we keep going back to Filmzus talent.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 like-box2">
+                    <div class="like-img"><%= image_tag("static_pages/like-img3.jpg" )%></div>
+                    <div class="like-txt">
+                        <h4>Shana S, Founder, <b><a href="http://myezbz.com/" target="_blank">myEZBZ.com</a></b></h4>
+                        <p>Our SEO and sales skyrocketed when we started incorporating Filmzus creatives.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 like-box1">
+                    <div class="like-img"><%= image_tag("static_pages/like-img2.jpg")%></div>
+                    <div class="like-txt">
+                        <h4>Josh B, <b><a href="http://sanfrancisco.giants.mlb.com/" target="_blank">SF Giants</a></b></h4>
+                        <p><b>Filming events</b> are a huge part of our brand, and good talent before Filmzu was hard to find.</p>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+</section>
+
+<section id="ab-slide6" class="mt30">
+    <div class="container">
+        <div class="row ab-box6">
+            <div class="ab-arw text-center"><a href="#ab-slide7"><%= image_tag("static_pages/red-arrow.png")%></a></div> 
+            <div class="text-center mt6 line5"><%= image_tag("static_pages/line-6.png" )%></div>
+            <h2 class="heading6">Creating a great product is a our goal. Building a great community is our mission.</h2>
+        </div>
+    </div>     
+</section>
+
+<section id="ab-slide7">
+    <div class="container">
+        <div class="row ab-box7">
+            <div class="ab-arw text-center"><a href="#ab-slide8"><%= image_tag("static_pages/red-arrow.png" )%></a></div> 
+            <div class="text-center mt30">FILMZU TOOK THE 1-1-1 MODEL PLEDGE TO CONTRIBUTE 1% OF OUR COMPANY’S TIME, EQUITY, AND PRODUCT TO HELPING BUILD A BETTER PLANET.</div>
+            <div class="bld-pro-box">
+                <div class="per-box1 fl">
+                    <span>1%</span>of our profits 
+                </div>
+                <div class="bld-pro-cpart fl">
+                    <div class="per-box2">
+                        <span>1%</span>of our product
+                    </div>
+                    <div class="per-box3">We give back</div>
+                </div>
+                <div class="per-box1 fl">
+                    <span>1%</span>of our time 
+                </div>
+            </div>
+        </div>
+    </div>     
+</section>
+
+<section id="ab-slide8" class="clearfix">
+    <div class="container">
+        <div class="row ab-box8">
+            <h2 class="heading5">We Hope you see things a little clearer</h2>
+        </div>
+    </div>
+    <div class="twitter-box">
+        <div class="twitte-content">
+           <%= image_tag("static_pages/sm_img4.png")%>
+            <div class="twiter_con">
+                <%= image_tag("static_pages/brdr_img.gif")%><br>
+                Connect with us on twitter<br><span>@Filmzu</span><br>
+                <%= image_tag("static_pages/brdr_img.gif")%>
+            </div>
+            <div class="social-likes" data-url="www.filmzu.com" data-title="Filmzu | Video Production Marketplace">
+    <div class="facebook" title="Share link on Facebook">Facebook</div>
+    <div class="twitter" data-via="filmzu" data-related="Filmzu is the marketplace for video creation. Now, anyone can easily shop for talented people to create a video for them. Your vision, your video." title="Share link on Twitter">Twitter</div>
+    <div class="plusone" title="Share link on Google+">Google+</div>
+</div>
+        </div>
+    </div>
+</section>
+         
+<!-- Footer -->
+
+<script type="text/javascript">
+$(function(){
+    $('.ab-arw a[href*=#]:not([href=#])').click(function() {
+        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+          if (target.length) {
+            $('html,body').animate({
+              scrollTop: target.offset().top
+            }, 1000);
+            return false;
+          }
+        }
+    });
+    
+    /*$('#about-banner .row .ab-arw a').click(function(){
+        $('.line img').({top:"0",  opacity:"1"},1000)
+    })*/
+    
+    $('#about-banner').waypoint(function() {
+        //$('#ab-slide1 .animated').addClass('fadeInDownBig');
+        $('.line img').animate({top:"0",  opacity:"1"},2000)
+    })
+    
+    $('#ab-slide1 .ab-box1 .matter-box').waypoint(function() {
+        //$('#ab-slide2 .animated').addClass('fadeInDownBig');
+        $('.line1 img').animate({top:"0",  opacity:"1"},2000)
+    })
+    
+    $('#ab-slide2 .ab-box2 .sm-red-text').waypoint(function() {
+        //$('#ab-slide3 .animated').addClass('fadeInDownBig');
+        $('.line2 img').animate({top:"0",  opacity:"1"},2000)
+    })
+    
+    $('#ab-slide3 .ab-box3 .storie-text').waypoint(function() {
+        //$('#ab-slide4 .animated').addClass('fadeInDownBig');
+        $('.line3 img').animate({top:"0",  opacity:"1"},2000)
+    })
+    
+    $('#ab-slide4 .ab-box4 .testimonial-box').after().waypoint(function() {
+        //$('#ab-slide5 .animated').addClass('fadeInDownBig');
+        $('.line4 img').animate({top:"0",  opacity:"1"},2000)
+    })
+    
+    $('#ab-slide5 .ab-box5 .like-box-main').after().waypoint(function() {
+        //$('#ab-slide6 .animated').addClass('fadeInDownBig');
+        $('.line5 img').animate({top:"0",  opacity:"1"},2000)
+    })
+})
+</script>
+</body>
+</html>

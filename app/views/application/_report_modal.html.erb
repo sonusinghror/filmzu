@@ -1,0 +1,46 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.reason-error').html('');
+    $('.reason-error').hide();
+  });
+  var user = <%= current_filmmaker.blank? ? current_client.blank? ? false : true : true %>
+  $('body').on('click', '.report-btn',  function(event){
+    var $reason = $('#report_entity_reason').val();
+    if($reason != ''){
+      $('.reason-error').hide();
+      submit_report_details(user, event);
+    }else{
+      $('.reason-error').html('Please provide details why you have reported.');
+      $('.reason-error').show();
+    }
+  });
+</script>
+
+<!-- Report Modal -->
+<% report_label = (entity.class.name.camelize == 'ProjectProposal') ? 'Proposal' : entity.class.name.camelize %>
+<div id="report-modal" class="modal fade left-aligned" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;">
+  <div class="report-box">
+    <div class="dialog-box" style="background-color:white;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3><span>Report <%= report_label %></span></h3>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to report this <%= report_label.downcase %>?
+        <br/>
+        <br/>
+        Please provide details why you have reported this <%= report_label.downcase %>.
+        <br/>
+        <textarea id='report_entity_reason' style='width: 350px;'></textarea>
+        <br/ >
+        <span style="font-size: 10px; color: red;" class='reason-error'></span>
+        <input type="hidden" name="authenticity_token" class="form_authenticity_token" value="<%= form_authenticity_token %>" >
+      </div>
+      <div class='modal-footer'>
+        <button class='btn report_cancel_btn' data-dismiss="modal">Cancel</button>
+        <a class='btn btn-primary report-btn' data-id='<%= entity.id %>' data-entity='<%= entity.class.name.camelize %>'> Report</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Report Modal -->

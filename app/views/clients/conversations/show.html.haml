@@ -1,0 +1,32 @@
+.row-fluid
+  .span9.offset1
+    .well
+      = link_to "Go back", { :controller => "clients/conversations", :action => "index" }
+      %h1= conversation.subject
+      %p= "#{conversation.receipts_for(current_filmmaker).count} Total Messages"
+      = content_tag_for(:p, conversation.receipts_for(current_client).limit(1)) do |receipt|
+        - message = receipt.message
+        About
+        = link_to Filmmaker.find(message.sender_id).name, user_path(Filmmaker.find(message.sender_id))
+        - if Filmmaker.find(message.sender_id).photos.first.present?
+          = image_tag(Filmmaker.find(message.sender_id).photos.first.image.url(:medium), {:class => "img-circle"})
+        /Version 2.0 Favourite Messages
+        /%a.btn.btn-large{href: '#'}
+        /i.icon-star Star
+        /Version 2.0 Favourite Messages End
+        /Message Chain is below this line
+        .well
+          %ul.unstyled
+            = content_tag_for(:li, conversation.receipts_for(current_user)) do |receipt|
+              - message = receipt.message
+              - if message.sender_id == current_client.id
+                .well
+                  %p.lead.text-info= message.subject
+                  = message.body
+              - else
+                .well
+                  %p.lead= message.subject
+                  %p= message.body
+                  %i From:
+                  = link_to Filmmaker.find(message.sender_id).name, user_path(Filmmaker.find(message.sender_id))
+        = render 'messages/form', conversation: conversation

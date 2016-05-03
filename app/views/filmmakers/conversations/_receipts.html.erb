@@ -1,0 +1,19 @@
+ <%= content_tag_for(:li, conversation.receipts_for(current_filmmaker)) do |receipt| %>
+			
+				<% message = receipt.message %>
+				
+				<% if message.sender_id == current_filmmaker.id %>
+				<div class="well">
+						<p class="lead text-info"><%= message.subject %></p>
+						<%= message.body %>
+					</div>
+				<% else %>
+				
+					<div class="well">
+						<p class="lead"><%= message.subject %></p>
+						<p><%= message.body %></p>
+						<i>From: <%= link_to Client.find(message.sender_id).name, user_path(Client.find(message.sender_id)) %></i>
+                 </div>
+				
+				<% end %>	
+				<% end %>		

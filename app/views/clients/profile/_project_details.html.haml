@@ -1,0 +1,69 @@
+- project = feedback.project
+- @client_rec = current_client.blank? ? @client : current_client
+%li
+  - question = project.project_questions.find_by_question_text("What type of video do you want?")
+  - if question.blank?
+    .img-box.fl
+      = image_tag("video_icons/direct-hire-lg.png", :height=>"100", :data => {:toggle => "tooltip", :placement => "left"}, :title => "#{project.title}")
+  - else      
+    = render :partial => 'clients/dashboard/project_icon', :locals => {:project_type => question.answer_text}
+  .listing-cpart
+    .ls-hpart
+      .fl
+        %h3= project.title
+        .cat-part.clearfix
+          .fl
+            by
+            %span= link_to @client_rec.name, "/clients/#{@client_rec.id}"
+      %span.time-box.gray-text.fr
+        = chronic_date(feedback.created_at)
+        #{image_tag("blank-img.png", :class => "gray-clock-icon" )}
+    .des-text
+      = project.description
+    %ul.status-box.clearfix
+      %li
+        %span
+          Total Budget:
+        = number_to_currency(project.price.to_i, precision: 0)
+      - unless project.location.blank?
+        %li
+          = image_tag("blank-img.png", :class => "loc-icon")
+          = project.location
+      %li
+        = image_tag("blank-img.png", :class => "sm-doc-icon" )
+        = question.answer_text
+      - unless @client_rec.role.blank?
+        %li
+          = image_tag("blank-img.png", :class => "sm-user-icon")
+          = @client_rec.role
+    .job-rating
+      .job-title
+        #{link_to feedback.filmmaker.name, "/filmmakers/#{feedback.filmmaker.id}"} Rating for this Job
+      .star-box
+        .wh-row
+          = image_tag("star-#{feedback.average_rating}.png")
+          %a{:href => "#"}= "#{feedback.average_rating} stars"
+        .gray-star-box.clearfix
+          .fl
+            .star-row
+              = image_tag("gray-star-#{feedback.cost}.png")
+              %a{:href => "#"} Cost
+            .star-row
+              = image_tag("gray-star-#{feedback.response}.png")
+              %a{:href => "#"} Response
+            .star-row
+              = image_tag("gray-star-#{feedback.expertise}.png")
+              %a{:href => "#"} Expertise  
+          .fr
+            .star-row
+              = image_tag("gray-star-#{feedback.schedule}.png")
+              %a{:href => "#"} Schedule
+            .star-row
+              = image_tag("gray-star-#{feedback.professional}.png")
+              %a{:href => "#"} Professional
+      - unless feedback.comment.blank?
+        .job-title
+          Comment
+        .star-box
+          .wh-row
+            = feedback.comment       

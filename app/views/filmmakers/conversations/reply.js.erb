@@ -1,0 +1,4 @@
+$('.email-detail-box').html('<%= escape_javascript(render :partial => "detail_box", :conversation => @conversation ) %>');
+
+$('#message-tabs').html('<%= escape_javascript(render :partial => "message_tabs") %>');
+$(".email-box").tabs();

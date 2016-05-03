@@ -1,0 +1,123 @@
+<script type='text/x-handlebars' data-template-name='createproject'>
+<div id="step1" class="create-prj">
+
+    <ul class="step-nav">
+        <li class="active"><a href="#"><span class="icon-box"><%= image_tag("blank-img.png", :class => "sign-icon")%>
+        </span><strong>Lorem Ipsum</strong></a><%= image_tag("blue-tab-arrow.png", :class => "tab-arrow")%></li>
+        <li><a href="#"><span class="icon-box"><%= image_tag("blank-img.png", :class => "plus-icon")%></span><strong>Lorem Ipsum</strong></a><%= image_tag("gray-tab-arrow.png", :class => "tab-arrow" )%></li>
+        <li><a href="#"><span class="icon-box"><%= image_tag("blank-img.png", :class => "plus-icon" )%></span><strong>Lorem Ipsum</strong></a></li>
+    </ul>
+    <div class="create-hpart">
+        <h2>Create Project</h2>
+        <p>List your project, and get the video you want made!</p>
+    </div>	
+    <ul class="fields-box">
+        <li>
+            <label>Title of your project</label>
+            <input value="Awesome Video" type="text" class="text-intbox" />
+        </li>
+        <li>
+            <label>What type of video do you want?</label>
+            <span class="gray-btn">TV Commercial</span><span class="gray-btn active ml10">Crowdfunding</span><span class="gray-btn ml10">Web Video</span><br>
+            <span class="gray-btn mt10">Explainer Video</span><span class="gray-btn mt10 ml10">Event</span><span class="gray-btn ml10 mt10">Other</span>
+        </li>
+        <li>
+            <label>What style of video do you want?</label>
+            <span class="gray-btn active">Live Action</span><span class="gray-btn ml10">Animated</span><span class="gray-btn ml10">Stop Motion</span><span class="gray-btn ml10">Motion Graphics</span><span class="gray-btn ml10 mt10">Whiteboard</span>
+        </li>
+        <li>
+            <label>Do you have an idea for a script?</label>
+            <span class="gray-btn">Yes</span><span class="gray-btn ml10">No</span><span class="gray-btn ml10">I don’t know</span>
+        </li>
+        <li>
+            <label>Do you need any actors?</label>
+            <span class="gray-btn">Yes</span><span class="gray-btn ml10">No</span><span class="gray-btn ml10">I don’t know</span>
+        </li>
+        <li>
+            <label>Do you need music?</label>
+            <span class="gray-btn">No</span><span class="gray-btn ml10">Original</span><span class="gray-btn ml10">Licensed</span><span class="gray-btn ml10">Stock</span>
+        </li>
+        <li>
+            <label>About how long do you want it to be?</label>
+            <span class="gray-btn">30 sec</span><span class="gray-btn ml10">1 min</span><span class="gray-btn ml10">1-2 min</span><span class="gray-btn ml10">2-5 min</span><span class="gray-btn ml10">5+ min</span>
+        </li>
+        <li>
+            <label>Proposals due by:</label>
+            <span class="gray-btn">1 day</span><span class="gray-btn ml10">3 days</span><span class="gray-btn ml10">5 days</span><span class="gray-btn ml10">7 days</span><span class="gray-btn ml10">10 days</span>
+        </li>
+        <li style="min-height:105px;">
+            <label>What’s your approx budget?</label>
+            <input id="Slider1" style="display:none;" />
+            <div class="layout-slider">
+              <input id="SliderSingle" type="slider" name="price" value="20" />
+            </div>
+        </li>
+        <li>
+            <label>Who do you want applicants by?</label>
+            <span class="gray-btn">Everyone</span><span class="gray-btn ml10">Filmzu Pro Only</span>
+        </li>
+        <li>
+            <label>Tell us in your own words what you want</label>
+           <textarea>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</textarea>
+        </li>
+        <li>
+            <label>Location</label>
+           <input type="text" value="Los Angeles" class="text-intbox" />
+        </li>
+        <li>
+            <label>Title of your project</label>
+            <div class="clearfix">
+                <div class="wrt-select fl"><select><option>Writing</option></select></div>
+                <ul class="skills-box fr">
+                    <li><a href="#"><%= image_tag("blank-img.png", :class => "red-minus-icon")%>Editing</a></li>
+                    <li><a href="#"><%= image_tag("blank-img.png", :class => "red-minus-icon")%>Wedding</a></li>
+                    <li><a href="#"><%= image_tag("blank-img.png", :class => "red-minus-icon")%>Writing</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <div class="btn-box step-btn clearfix">
+        <a href="#" class="gray-btn fl">Attach File</a>
+        <div class="fr">
+            <a href="javascript:void(0)" class="orange-btn" id="next-btn1">Next</a>
+            <a href="#" class="gray-btn ml10">Cancel</a>
+        </div>
+    </div>
+</div>
+        
+
+ 
+<%= javascript_include_tag 'jquery-ui' %>
+<%= javascript_include_tag 'jshashtable-2.1_src' %>
+<%= javascript_include_tag 'jquery.numberformatter-1.2.3' %>
+<%= javascript_include_tag 'tmpl' %>
+<%= javascript_include_tag 'jquery.dependClass-0.1' %>
+<%= javascript_include_tag 'draggable-0.1' %>
+<%= javascript_include_tag 'jquery.slider' %>
+<%= javascript_include_tag 'jquery.uniform' %>
+
+<script>
+$(function(){
+	$("select, :radio, :checkbox, :file").uniform();
+	
+	jQuery("#SliderSingle").slider({ from: 100, to: 5000, step: 2.5, round: 1, format: { locale: 'de' }, dimension: '&nbsp;$', skin: "round" });	
+	
+	$('.create-prj').hide() 
+	$('#step1').show()
+	$("#next-btn1").click(function() {
+		$('#step1').toggle('slide', { direction: 'left' }, 500);
+		$('#step2').delay( 500 ).fadeIn()        
+	});
+	
+	$("#next-btn2").click(function() {
+		$('#step2').toggle('slide', { direction: 'left' }, 500)
+		$('#step3').delay( 500 ).fadeIn()
+	});
+	
+	$("#next-btn3").click(function() {
+		$('#step3').toggle('slide', { direction: 'left' }, 500);
+		$('#step4').delay( 500 ).fadeIn()
+	});
+
+})
+</script>

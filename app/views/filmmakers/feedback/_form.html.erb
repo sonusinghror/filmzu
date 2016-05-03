@@ -1,0 +1,168 @@
+<section id="mpart">
+	<div class="full-inner-title-box clearfix">
+		<div class="container">
+			<div class="row">
+				<div class="inn-title-cpart fl">
+					<h2><%= project.title %></h2>
+					<ul class="red-status-box clearfix">
+					  <% unless project.location %>
+						  <li>
+							  <%= image_tag("blank-img.png", :class => "red-loc-icon")%>
+							  <%= project.location %>
+						  </li>
+						<% end %>
+						<% unless questions.blank? %>  
+						  <li>
+							  <%= image_tag("blank-img.png", :class => "sm-doc-red-icon")%>
+							  <%= questions[0].answer_text %>
+						  </li>
+						<% end %>  
+						<li>
+							<%= image_tag("blank-img.png", :class => "red-profile-icon")%>
+							<%= project.client.projects.count %>
+							Jobs
+						</li>
+						<li>
+							<%= image_tag("blank-img.png", :class => "red-clock-icon")%>Posted 
+							<%= project.created_at.strftime("%B %d") %>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container clearfix">
+		<div class="row summary-box">
+			<div class="feedback-box">
+				<div class="summ-box">
+					<div class="summ-hpart">
+						<h3>Leave Feedback</h3>
+					</div>
+					<div class="summ-des">
+						<span>Description:</span> <%= project.description %>
+					</div>
+					<ul class="summ-film-detail">
+					  <% unless questions.blank? %>
+						  <li>
+							  <span>Film Length:</span> <%= questions[1].answer_text %>
+						  </li>
+						  <li>
+							  <span>Proposals due in:</span> <%= questions[2].answer_text %>
+						  </li>
+						<% end %>  
+						<li>
+							<span>Total Budget:</span> <%= number_to_currency(project.price) %>
+						</li>
+						<% unless questions.blank? %>
+						  <li>
+							  <span>Visibility:</span> <%= questions[3].answer_text %>
+						  </li>
+						<% end %>  
+						<% unless project.skills.blank? %>
+						  <li>
+							  <span>Skills:</span> <%= project.skills.join(", ") %>
+						  </li>
+						<% end %>  
+					</ul>
+					<p>Below you can share your description on how successful this project went. These reviews are public and will appear on the filmmakers profile. The Filmmaker will also have an opportunity to review you as a client.</p>
+				</div>
+
+		<%if current_filmmaker%>
+				<%= form_tag(submit_feedback_path, :id => 'new_feedback') do |f| %>
+				<ul class="review-form">
+					<% feedback_attributes.each do |attribute| %>
+					<li>
+						<input type="hidden" name="feedback[<%= attribute.downcase.gsub(' ', '_')%>]" id='<%= attribute.downcase.gsub(' ', '_')%>' value = 3 >
+						<label><%= attribute%><span class="fr">Move slider to select level of satisfaction</span></label>
+						<div>
+							<span class="label-left">Not Good</span>
+							<div class="slider6 <%= attribute.downcase.gsub(' ', '_') %>"></div>
+							<span class="label-right">Incredible</span>
+						</div>
+					</li>
+					<% end %>
+					<li>
+						<label>Comments</label>
+						<div class="comment-box">
+							<%= text_area_tag "feedback[comment]", "" %>
+							<span class="lmt-text">100 characters limit</span>
+						</div>
+					</li>
+						
+					<li class="btn-box text-right clearfix">                    	
+                        <span class="comment-text">These comments are final, please review carefully.</span>
+                        <a href="#" class="orange-btn" onclick="$('#new_feedback').submit();">Leave Feedback</a>
+                        <a href="<%=request.referer%>" class="gray-btn ml6">Cancel</a>
+                    </li>
+						
+					
+				</ul>
+				<%= hidden_field_tag "feedback[filmmaker_id]", current_filmmaker.id %>
+				<%= hidden_field_tag "feedback[project_id]", project.id %>
+				<% end %>
+			<%else%>
+				<%= form_tag(submit_feedback_path, :id => 'new_feedback') do |f| %>
+				<ul class="review-form">
+					<% feedback_attributes.each do |attribute| %>
+					<li>
+						<input type="hidden" name="feedback[<%= attribute.downcase.gsub(' ', '_')%>]" id='<%= attribute.downcase.gsub(' ', '_')%>' value = 3 >
+						<label><%= attribute%><span class="fr">Move slider to select level of satisfaction</span></label>
+						<div>
+							<span class="label-left">Not Good</span>
+							<div class="slider6 <%= attribute.downcase.gsub(' ', '_') %>"></div>
+							<span class="label-right">Incredible</span>
+						</div>
+					</li>
+					<% end %>
+					<li>
+						<label>Comments</label>
+						<div class="comment-box">
+							<%= text_area_tag :comment, '', :id => "feedback_comment" %>
+							<span class="lmt-text">250 characters limit</span>
+						</div>
+					</li>
+					
+					<li class="btn-box text-right clearfix">                    	
+                        <span class="comment-text">These comments are final, please review carefully.</span>
+                        <a href="#" class="orange-btn" onclick="$('#new_feedback').submit();">Leave Feedback</a>
+                        <a href="<%=request.referer%>" class="gray-btn ml6">Cancel</a>
+                    </li>
+				</ul>
+				<%= hidden_field_tag :client_id, current_client.id %>
+				<%= hidden_field_tag :project_id, project.id %>
+				<%= hidden_field_tag :filmmaker_id, @filmmaker.id %>
+				<% end %>
+			  <%end%> 
+			</div>
+		</div>
+	</div>
+</section>
+
+<%= javascript_include_tag 'bootstrap.min' %>
+<%= javascript_include_tag 'jquery-ui' %>
+<%= javascript_include_tag 'jquery-ui-slider-pips' %>
+<script type="text/javascript">
+	$(function() {
+		$(".slider6").slider({
+			max : 5, value: 5
+		});
+		$(".slider6").slider("pips", {
+			rest : "label"
+		});
+		$(".slider6").on('slidechange', function(e, ui) {
+			var class_name = $(this).attr('class').split(' ')[1];
+			$('#' + class_name).val(parseInt(ui.value));
+		});
+		$('#feedback_comment').bind("change keyup input",function() {
+      var limitNum = 250;
+      var left_char = limitNum - $(this).val().length;
+      if ( left_char < 0 ) {
+        left_char = 0
+      }
+      if ($(this).val().length > limitNum) {
+        $(this).val($(this).val().substring(0, limitNum));
+      }
+      $(".lmt-text").html(left_char + " characters left.");
+    });
+	})
+</script>

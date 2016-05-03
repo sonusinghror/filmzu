@@ -1,0 +1,59 @@
+%section#mpart
+  .stripbox.pr
+    .white-box
+    .light-gray-box
+  .container.clearfix
+    .dashbord-cpart.row
+      = render 'filmmakers/shared/filmmaker_left_sidebar'
+      .row-fluid.content-rpart
+        .inner-title-box.clearfix
+          %h2.fl Inbox
+          .fr
+            .fl.wh-search-box
+              %input{:type => "text", :value => "Search Messages"}/
+              %input.search-btn{:type => "button"}/
+            .fl.add-pro-box
+              %a{:href => "/filmmakers/messages/new"}
+                %span.plus-box>
+                  %img.plus-icon{:alt => "", :src => "/assets/blank-img.png", :title => ""}/
+                New Message
+        .inbox-cpart.clearfix
+          #message.email-box.fl
+            = render 'message_tabs'
+          / <haml_loud> link_to 'Start New Conversation', :new_conversation, {:class => 'btn'} </haml_loud>
+          .email-detail-box.fl
+            = render 'detail_box', :conversation => conversation
+            
+= javascript_include_tag 'jquery.uniform'
+= javascript_include_tag 'bootstrap.min'
+= javascript_include_tag 'jquery.colorbox'
+:javascript
+  $(function(){
+  	
+  	$("select, :radio, :checkbox, :file").uniform();
+  	$(".ajax").colorbox();
+      
+    $(".email-box").tabs();
+  
+  	var maxHeight = 0;
+  
+  	$("div.inner-title-box").each(function(){
+  	   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+  	});
+  
+  	$("div.white-box, div.light-gray-box").height(maxHeight);	
+  			
+  	$("div.dashbord-cpart").each(function(){
+  	   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+  	});
+  
+  	$(".nav-lpart, .content-rpart").height(maxHeight);
+      
+      $("div.inbox-cpart").each(function(){
+         if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+      });
+  
+      $("div.email-box, div.email-detail-box").height(maxHeight);
+  
+  			
+  })

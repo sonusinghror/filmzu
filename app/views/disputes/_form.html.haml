@@ -1,0 +1,19 @@
+= form_for @dispute do |f|
+  - if @dispute.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@dispute.errors.count, "error")} prohibited this dispute from being saved:"
+      %ul
+        - @dispute.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :dispute_id
+    = f.number_field :dispute_id
+  .field
+    = f.label :dispute_description
+    = f.text_field :dispute_description
+  .field
+    = f.label :dispute_date
+    = f.date_select :dispute_date
+  .actions
+    = f.submit 'Save'

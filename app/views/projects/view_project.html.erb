@@ -1,0 +1,196 @@
+<section id="mpart">
+	<div class="full-inner-title-box clearfix">
+		<div class="container">
+  	  <div class="row">
+        <div class="inn-title-cpart fl">
+          <h2><%= @project.title %></h2>
+          <ul class="red-status-box clearfix">
+            <% if @project.location.present? %>
+              <li>
+								<%= image_tag('blank-img.png', class: 'red-loc-icon') %>
+                <%= @project.location %>
+              </li>
+            <% end %>
+            <li>
+              <img src="../../assets/blank-img.png" class="sm-doc-red-icon" alt="" title="" />
+              <%= @project_details[0]%>
+            </li>
+            <li>
+              <img src="../../assets/blank-img.png" class="red-profile-icon" alt="" title="" />
+              <%= @project.project_proposals.count %> Proposals
+            </li>
+            <li>
+              <img src="../../assets/blank-img.png" class="red-clock-icon" alt="" title="" />
+              Posted <%= @project.created_at.strftime('%b %d')%>
+            </li>
+          </ul>
+        </div>
+				<% if current_filmmaker.present? %>
+          <% button_display_status, text = display_proposal_button(@project) %>
+          <% if button_display_status %>
+            <a href="/projects/proposal-submitted?project_id=<%=url_encode(@project.id)%>&filmmaker_id=<%=url_encode(current_filmmaker.id) %>" class="orange-btn mt10 fr ajax cboxElement">Submit Proposal Now</a>
+          <% else %>
+            <% if text %>
+							<%= link_to "Proposal Submitted", filmmaker_proposals_path(url_encode(@myproposal.id)), :class => "orange-btn mt10 fr" %>
+            <% end %>
+          <% end %>
+				<% elsif current_client.present? && current_client.id == @project.user_id %>
+		  		<a href="/view_proposals/<%= url_encode(@project.id) %>" class="orange-btn mt10 fr"><%= pluralize(@project.project_proposals.count, 'Proposal') %></a>
+				<% else %>
+          <a href="#" data-toggle="modal" data-target="#signup-modal" class="orange-btn mt10 fr">Submit Proposal</a>
+				<% end %>
+      </div>
+    </div>
+  </div>
+	<div class="container clearfix">
+    <div class="row summary-box">
+      <div class="summary-lpart fl">
+      	<div class="summ-box">
+        	<div class="summ-hpart">
+          	<h3>Summary</h3>
+            <p><%= @project_details[1]%> video</p>
+         	</div>
+		      <div class="summ-des"><%= @project.description%></div>
+						<br>
+						<div class="film-detail col-md-12">
+							<table class="table table-hover">
+							      <thead>
+							        <tr>
+							          <th></th>
+							          <th>Options</th>
+							          <th>Selection</th>
+							        </tr>
+							      </thead>
+										<tbody>
+							        <tr>
+							          <td><div class='glyphicon glyphicon-facetime-video'></div></td>
+							          <td>Video Type</td>
+							          <td><%= @project_details[0]%></td>
+							        </tr>
+							        <tr>
+							          <td><div class='glyphicon glyphicon-film'></div></td>
+							          <td>Video Style</td>
+							          <td><%= @project_details[1]%></td>
+							        </tr>
+							        <tr>
+							          <td><div class='glyphicon glyphicon-time'></div></td>
+							          <td>Video Length</td>
+							          <td><%= @project_details[5]%></td>
+							        </tr>
+							        <tr>
+							          <td><div class='glyphicon glyphicon-file'></div></td>
+							          <td>Script</td>
+							          <td><%= @project_details[2]%></td>
+							        </tr>
+							        <tr>
+							          <td><div class='glyphicon glyphicon-user'></div></td>
+							          <td>Actors</td>
+							          <td><%= @project_details[3]%></td>
+							        </tr>
+							        <tr>
+							          <td><div class='glyphicon glyphicon-music'></div></td>
+							          <td>Music</td>
+							          <td><%= @project_details[4]%></td>
+							        </tr>
+							        <tr>
+							          <td><div class='glyphicon glyphicon-list'></div></td>
+							          <td>Proposals due in</td>
+							          <td><%= @project_details[6] %></td>
+							        </tr>
+							        <tr>
+							          <td><div class='glyphicon glyphicon-usd'></div></td>
+							          <td>Total Budget</td>
+							          <td><%= @client_details[:budget] %></td>
+							        </tr>
+										</tbody>
+							</table>
+						</div>
+						
+						<% if @project.present? %>
+						<ul class="summ-film-detail">
+							<li>
+								<span>Tagged:</span>
+								<ul class='ran-detail budget-box'>
+										<% @project.skills_list_pub.each do |skill| %>
+											<li class='skill'><%= link_to skill, project_search_url(:skills => "#{skill}") %></li>
+										<% end %>
+								</ul>
+							</li>
+						</ul>
+						<% end %>
+						
+        </div>
+      </div>
+      <div class="about-details fr">
+      	<div class="prv-details">
+      		<h3 class="heading3">Details</h3>
+          <div class="user-detail clearfix">
+          <div class="user-img fl"><%= image_tag(@project.client.profile_photo, :width => "59px", :height => "59px") %></div>
+          <div class="user-des fl">
+				    <h3><%= link_to @client_details[:name], client_path(@client_details[:id])%></h3>
+            <% unless @project.location.blank? %>
+  			      <p><img class="loc-icon" src="../../assets/blank-img.png" alt="" title="" /><%=@project.location%></p>
+            <% end %>              
+          </div>
+        </div>
+        <ul class="budget-box">
+          <li><span class="red-text"><%= @client_details[:proposal_due_in] %></span> Left to Apply</li>
+          <li><span><%= @client_details[:budget] %></span> Budget</li>
+          <li><span><%= @project.project_proposals.count %></span> Proposals</li>
+          <li><span><!--%= @project_details[6]%-->Everyone</span> Applicants</li>
+        	<!--ul class="mt30"><%# skills_list.each do |skill| %>
+          <li class="skill">
+					<%#= skill %>
+					</li>
+					<%# end %></ul-->
+					<li>
+						<ul class='ran-detail'>
+							<% if @project.present? %>
+								<% @project.skills_list_pub.each do |skill| %>
+									<li class='skill'><%= link_to skill, project_search_url(:skills => "#{skill}") %></li>
+								<% end %>
+							<% end %>
+						</ul>
+					</li>
+					<li style="padding:0px"><span></span> Skills</li>
+      	  <!--li>
+          	<ul class="ran-detail">
+            <li>• Loop through Skills Tag Cloud from Project Create Form</li>
+                  <li>• Random details, requirements</li>
+                  <li>• Awesome Camera Skills</li>
+                  <li>• Fun Cool Person</li>
+              </ul>
+          </li-->
+        </ul>
+    	</div>
+      <div class="flag-btn-box">
+        <% unless @project.project_attachments.blank? %>
+          <%= link_to "Attached Docs", additional_docs_download_path(@project), :class => "ab-gray-btn mt6" %>
+        <% end %>
+        <div class='action-div report_entity' data-toggle='modal' data-target='#report-modal' title='Report Project'>
+          <%= link_to "#" do %><img src="../../assets/blank-img.png" class="flag-icon mt25" alt="" title="" /><% end %>
+				</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="light" class="white_content"></div>
+<div id="fade" class="black_overlay"></div>
+
+<a style='opacity: 0' href="#" id='congrates_proposal' class="ajax cboxElement">proposal message</a>
+
+<%= render :partial => 'application/report_modal', :locals => { :entity => @project } %>
+<script type='text/javascript'>
+$(function(){
+	$(".ajax").colorbox({ speed:"350", onOpen:function() {
+   $('#ui-datepicker-div').remove();
+  } });
+
+<% if params[:n].present? && params[:n].to_i == 1%>
+  $("#congrates_proposal").attr('href',"/projects/proposal-submitted1?proposal_id=<%= params[:pid] %>")
+  $("#congrates_proposal").trigger('click');
+<% end %>
+
+})
+</script>

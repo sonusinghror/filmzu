@@ -1,0 +1,408 @@
+<script>
+	var availableTags = ["Equipment", "Style", "Personality"];
+
+	$(document).ready(function() {
+		
+		$("#locations").geocomplete();
+
+		$("#skills").autocomplete({
+			source : availableTags,
+			select : function(event, ui) {
+
+			}
+		});
+
+		$("#reset").click(function() {
+	    $(this).closest('form').find("input[type=text], textarea").val("");
+		  $("li .checker .checked").removeClass("checked");
+		});
+
+		$(".projects-search-btn").click(function(e) {
+      var min_budget = parseInt($(".minimun_budget_search").val()) || "";
+      var max_budget = parseInt($(".maximum_budget_search").val()) || "";
+      var location = $("#locations").val();
+      var skills = $("#skills").val();
+      var client_name = $("#client_name").val();
+      var description = $("#description").val();
+      var errors = ""
+      var checked_count = 0
+      $('input[type=checkbox]').each(function() {
+        if ($(this).prop('checked')==true) {
+          checked_count += 1;  
+        }
+      });
+      if (min_budget == "" && max_budget == "" && location == "" && skills == "" && checked_count == 0 && client_name == "" && description == "") {
+        errors += "Please enter atleast one search value.\n";
+      } 
+      if ( !(min_budget == "") && !(max_budget == "") ) {
+        if (max_budget < min_budget){
+          errors += "Max project budget value cannot be less than Min project budget value.\n"      
+        }
+        if (min_rate > max_rate){
+          errors += "Min project budget value cannot be greater than Max project budget value."
+        }
+      }  
+      if (errors != "") {
+        alert(errors);
+        e.preventDefault();
+      }
+    });
+
+	}); 
+</script>
+
+<section id="mpart">
+	<div class="stripbox pr">
+		<div class="white-box"></div>
+		<div class="light-gray-box"></div>
+	</div>
+	<div class="container clearfix">
+		<div class="dashbord-cpart row">
+			<% if current_filmmaker || current_client %>
+			<!--Searching the project criteria form start here-->
+			<%=form_for :project, :url => project_search_path do |s1|%>
+			<div class="prj-lpart fl">
+				<ul class="inn-prj-lpart">
+					<li class="type-box">
+          <h3>Filter:</h3>
+          </li>
+				  <li class="client-box">
+				    <h4>Client Name</h4>
+				    <input class="int120" name="client_name" id="client_name" type="text" value="<%=params[:client_name]%>"/>  
+				  </li>
+					<% if false %>
+          <li class="description-box">
+				    <h4>Project Description</h4>
+				    <input class="int120" name="description" id="description" type="text" value="<%=params[:description]%>"/>  
+				  </li>
+				  <li class="proposal-due-box">
+				    <h4>Proposal Due</h4>
+				    <ul class="ch-type">
+				      <% [1,3,5,7,10].each do |i| %>
+						    <li>
+								  <% if params[pluralize(i, 'day').gsub(" ","_")] == pluralize(i, 'day') %>
+								    <input type="checkbox" name="<%= pluralize(i, 'day').gsub(" ","_") %>" value="<%= pluralize(i, 'day') %>" checked="true" class="days_check_box" />
+								  <%else%>
+								    <input type="checkbox" name="<%= pluralize(i, 'day').gsub(" ","_") %>" value="<%= pluralize(i, 'day') %>" class="days_check_box" />
+								  <%end%>
+								  <%= pluralize(i, 'Day')  %>
+							  </li>
+							<% end %>  
+						</ul>	
+				  </li>
+				  <li class="film-length-box">
+				    <h4>Film Length</h4>
+				    <ul class="ch-type">
+						  <li>
+								<% if params["30_sec"] == "30 sec"  %>
+								<input type="checkbox" name="30_sec" value="30 sec" checked="true"/>
+								<%else%>
+								<input type="checkbox" name="30_sec" value="30 sec" />
+								<%end%>
+								30 sec
+							</li>
+							<li>
+								<% if params["1_min"] == "1 min"  %>
+								<input type="checkbox" name="1_min" value="1 min" checked="true"/>
+								<%else%>
+								<input type="checkbox" name="1_min" value="1 min" />
+								<%end%>
+								1 min
+							</li>
+							<li>
+								<% if params["1_2_min"] == "1-2 min"  %>
+								<input type="checkbox" name="1_2_min" value="1-2 min" checked="true"/>
+								<%else%>
+								<input type="checkbox" name="1_2_min" value="1-2 min" />
+								<%end%>
+								1-2 min
+							</li>
+							<li>
+								<% if params["2_5_min"] == "2-5 min"  %>
+								<input type="checkbox" name="2_5_min" value="2-5 min" checked="true"/>
+								<%else%>
+								<input type="checkbox" name="2_5_min" value="2-5 min" />
+								<%end%>
+								2-5 min
+							</li>
+							<li>
+								<% if params["5_min"] == "5+ min"  %>
+								<input type="checkbox" name="5_min" value="5+ min" checked="true"/>
+								<%else%>
+								<input type="checkbox" name="5_min" value="5+ min" />
+								<%end%>
+								5+ min
+							</li>
+						</ul>	
+				  </li>
+					<% end %>
+					<li class="type-box">
+						<h4>Type</h4>
+						<ul class="ch-type">
+						  <li>
+								<% if params.has_key?(:commercial)%>
+								<input type="checkbox" name="commercial" value="TV Commercial" checked="true"/>
+								<%else%>
+								<input type="checkbox" name="commercial" value="TV Commercial" />
+								<%end%>
+								TV Commercial
+							</li>
+							<li>
+								<% if params.has_key?(:crowdfunding)%>
+								<input type="checkbox" name="crowdfunding" value="Crowdfunding" checked="true"/>
+								<%else%>
+								<input type="checkbox" name="crowdfunding" value="Crowdfunding" />
+								<%end%>
+								Crowdfunding
+							</li>
+							<li>
+								<% if params.has_key?(:web)%>
+								<input type="checkbox" name="web" value="Web Video" checked="true"/>
+								<%else%>
+								<input type="checkbox" name="web" value="Web Video" />
+								<%end%>
+								Web Video
+							</li>
+							<li>
+								<% if params.has_key?(:music)%>
+								<input type="checkbox" name="music" value="Explainer Video" checked="true"/>
+								<%else%>
+								<input type="checkbox" name="music" value="Explainer Video" />
+								<%end%>
+								Explainer Video
+							</li>
+							<li>
+								<% if params.has_key?(:event)%>
+								<input type="checkbox" name="event" value="Event" checked="true"/>
+								<%else%>
+								<input type="checkbox" name="event" value="Event" />
+								<%end%>
+								Event
+							</li>
+							<li>
+								<% if params.has_key?(:other)%>
+								<input type="checkbox" name="other" value="Other" checked="true"/>
+								<%else%>
+								<input type="checkbox" name="other" value="Other" />
+								<%end%>
+								Other
+							</li>
+							<!-- <li>
+								<%# if params.has_key?(:tv_show)%>
+								<input type="checkbox" name="tv_show" value="TV Show" checked="true"/>
+								<%#else%>
+								<input type="checkbox" name="tv_show" value="TV Show" />
+								<%#end%>
+								TV Show
+							</li>
+							<li>
+								<%# if params.has_key?(:short_film)%>
+								<input type="checkbox" name="short_film" value="Short Film" checked="true"/>
+								<%#else%>
+								<input type="checkbox" name="short_film" value="Short Film" />
+								<%#end%>
+								Short Film
+							</li>
+							<li>
+								<%# if params.has_key?(:movie)%>
+								<input type="checkbox" name="movie" value="Movie" checked="true"/>
+								<%#else%>
+								<input type="checkbox" name="movie" value="Movie" />
+								<%#end%>
+								Movie
+							</li> -->
+						</ul>
+					</li>
+					<li class="pro-budget">
+						<h4>Budget</h4>
+						<input type="text" class="span2" value="[<%= @minimum_budget %>,<%= @maximum_budget %>]" data-slider-min="500" data-slider-max="15000" data-slider-step="100" data-slider-value=<% if @minimum_budget %>"[<%= @minimum_budget %>,<%= @maximum_budget %>]"<% else %>"[500,15000]"<% end %> id="sl2" >
+						<div class="range-int clearfix">
+							<div class="fl">
+								<input class="int58 minimun_budget_search" name="minimum" type="text" onkeypress="return isNumberKey(event);" value="<%= @minimum_budget %>"/>
+								<span>min</span>
+							</div>
+							<div class="fr">
+								<input class="int58 maximum_budget_search" name="maximum" type="text" onkeypress="return isNumberKey(event);" value="<%= @maximum_budget %>"/>
+								<span>max</span>
+							</div>
+						</div>
+					</li>
+					<li class="pro-location">
+						<h4>Location</h4>
+						<input class="int120" name="location" id="locations" type="text" value="<%=params[:location]%>"/>
+					</li>
+					<li class="pro-miles">
+                      <h4>Location Radius</h4>
+                      <select name="miles" id="miles">
+                        <option value="5" <%= params[:miles] == "5" ? selected="selected" : "" %> >5 miles</option>
+                        <option value="10" <%= params[:miles] == "10" ? selected="selected" : "" %> >10 miles</option>
+                        <option value="15" <%= params[:miles] == "15" ? selected="selected" : "" %> >15 miles</option>
+                        <option value="25" <%= ( params[:miles].blank? || params[:miles] == "25" ) ? selected="selected" : "" %> >25 miles</option>
+                        <option value="50" <%= params[:miles] == "50" ? selected="selected" : "" %> >50 miles</option>
+                        <option value="100" <%= params[:miles] == "100" ? selected="selected" : "" %> >100 miles</option>
+                      </select>
+                    </li>    
+ 					<% if false %>
+					<li class="pro-skills">
+						<h4>Skills</h4>
+						<input class="int120" name="skills" id="skills" type="text" value="<%=params[:skills]%>"/>
+					</li>
+					<li class="pro-show">
+						<h4>Only Show</h4>
+						<ul class="ch-type">
+							<li>
+								<% if params.has_key?(:film_pro)%>
+								<input type="checkbox" name="film_pro" value="Filmzu Pro Only" checked="false"/>
+								<%else%>
+								<input type="checkbox" name="film_pro" value="Filmzu Pro Only" />
+								<%end%>
+								Filmzu Pro
+							</li>
+						</ul>
+					</li>
+					<% end %>
+					<li class="btn-box">
+						<input type="hidden" name="filter" value="true"/>
+						<%= s1.submit "Search", :class=>"blue-btn projects-search-btn"%>
+						<br />
+						<a href="javascript:void(0)" class="clear-link" id="reset">Clear</a>
+					</li>
+				</ul>
+			</div>
+			<%end%>
+			<!--Searching the project criteria form start here-->
+			<div class="content-rpart">
+		      <div class="inner-title-box clearfix">
+			    <div class="pro-index-title fl">
+				    <h2>Projects (<%= @projects.total_count %>)</h2>
+				  </div>
+				  <div class="clearfix fr" style="width:77%;">
+				    <div class="fr mt7 wh-search-box">
+				      <%=form_for :project, :url => project_search_path do |s2|%>
+				        <input type="text" name="search_name" <% if @request %>value="<%=@request%>"<%else%> placeholder="Search Projects"<%end%>/>
+					    <%= s2.submit "", :class=>"search-btn"%>
+				      <%end%>
+				    </div>
+				    <div class="project-select fr">
+            	<div class="sorter">
+						    <span style="width:143px; -webkit-user-select:none;">
+						     <%= sortable "price", "Sort by Budget" %>
+						    </span>
+						  </div>
+				    </div>
+				    <div class="project-select fr" style="margin:6px 5px!important;">
+				      <div class="sorter">
+						      <span style="width:143px; -webkit-user-select:none;">
+						      <%= sortable "time_left", "Sort by Time left" %></span>
+						  </div>
+					  </div>	    
+				    
+				   </div> 
+		      </div>
+		      <% if @request || @filter %>
+		        <div class="pview-hpart clearfix" style="margin-left:25px;">
+		          <div class="view-hedtext fl">
+			        <% if @request %>
+				      <span><%= @projects.count %> Results for <%= @request %></span>
+				    <% elsif @filter %> 
+				      <%= pluralize(@projects.count,"project") %> found 
+				      <% if @search_text.compact.blank? %>
+				        <%= @loc_text.join(" ") %>
+				      <% else %>
+				        <%= @loc_text.join(" ") %> with <%= @search_text.join(" ") %>
+				      <% end %>
+				    <% end %>   
+			      </div>
+                </div>
+              <% end %>  
+				<div class="pro-mpart">
+					<ul class="pro-ind-listing clearfix">
+						
+						<%@projects.each do |project|%>
+							<% project_detail = project.project_details%>
+								<%= render :partial => "/projects/project_details", :locals => {:project => project, :project_detail => project_detail}%>							
+						<%end%>
+	
+					</ul>
+					<div class="pagination1 clearfix">
+						<%= paginate @projects %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% else %>
+		<div class="prj-lpart fl"></div>
+		<div class="content-rpart">
+	      <div class="inner-title-box clearfix">
+		    	<div class="pro-index-title fl">
+			    	<h2>Please Sign Up or Sign In to View Projects</h2>
+						<p style="margin-top:20px">To keep our projects limited to the top 10% of Filmmakers all projects which are submitted to Filmzu are kept private from the public. This means that only verified members of Filmzu will see your project and be able submit a proposal.</p>
+						<br><br>
+						<a href='../../#/clients/sign_in' class='btn btn-primary initialmod'>I am a Client / Business</a>
+						<br>
+						<a href='../../#/filmmakers/sign_in' class='btn btn-primary initialmod'>I am a Filmmaker</a>
+						<p style="margin-top:40px">Not yet a member? Filmzu is currently invite-only to maintain the quality of talented filmmakers. If you believe you are in the top 10% then please contact us at creatives@filmzu.com</p>
+			  	</div>
+				  <div class="pview-hpart clearfix" style="margin-top:250px;"></div>
+				</div>
+		</div>
+		<% end %>
+</section>
+
+<%= javascript_include_tag 'bootstrap.min' %>
+<%= javascript_include_tag 'jquery.colorbox' %>
+<%= javascript_include_tag 'jquery.uniform' %>
+<%= javascript_include_tag 'bootstrap-slider' %>
+<%= stylesheet_link_tag 'custom_select' %>
+
+<script type="text/javascript">
+	$(function() {
+
+		$('img').tooltip();
+		$("select, :radio, :checkbox, :file").uniform();
+		$(".ajax").colorbox();
+		$('#sl2').slider().on('slide', function(ev){ 
+			var min = $('#sl2').data('slider').getValue()[0];
+			var max = $('#sl2').data('slider').getValue()[1];
+			$('input.int58:first').val(min);
+			$('input.int58').eq(1).val(max);
+			});
+			$("input.int58:first").bind("change paste keyup", function() {
+			   var min1 = $(this).val();
+				 var max1 = $('input.int58').eq(1).val();
+				$('#sl2').data('slider').setValue([min1,max1]); 
+			});
+			$("input.int58").eq(1).bind("change paste keyup", function() {
+			   var min2 = $('input.int58:first').val();
+				 var max2 = $(this).val();
+				$('#sl2').data('slider').setValue([min2,max2]); 
+			});
+			
+		var maxHeight = 0;
+
+		$("div.inner-title-box").each(function() {
+			if ($(this).height() > maxHeight) {
+				maxHeight = $(this).height();
+			}
+		});
+
+		$("div.white-box, div.light-gray-box").height(maxHeight);
+
+		$("div.dashbord-cpart").each(function() {
+			if ($(this).height() > maxHeight) {
+				maxHeight = $(this).height();
+			}
+		});
+
+		$(".prj-lpart, .content-rpart").height(maxHeight);
+
+	});
+
+	function isNumberKey(evt) {
+		var charCode = (evt.which) ? evt.which : event.keyCode
+		if (charCode > 31 && (charCode < 48 || charCode > 57))
+			return false;
+		return true;
+	}
+
+</script>

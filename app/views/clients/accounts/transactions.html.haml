@@ -1,0 +1,39 @@
+%section#mpart
+  .stripbox.pr
+    .white-box
+    .light-gray-box
+  .container.clearfix
+    .row
+      = render 'clients/shared/left_sidebar'
+      .content-rpart
+        .inner-title-box
+          %h2 Transaction History
+          %p Below is a list of all transactions
+        .box-space
+          .ac-title
+            .fl Payments
+            = link_to 'Back to Accounts', clients_accounts_url, class: 'blue-btn fr'
+          %table{class: 'ac-data', width: '100%', cellpadding: '0', cellspacing: '0'}
+            %tr
+              %th Transaction number
+              %th Amount
+              %th Status
+              %th Failure reason
+              %th Date & Time
+            - if @deposits.present?
+              - @deposits.each do |deposit|
+                %tr
+                  %td= deposit.transaction_number
+                  %td= "$ #{deposit.amount / 100 rescue nil}"
+                  %td= deposit.status
+                  %td= deposit.failure_reason
+                  %td= deposit.created_at.strftime('%b %d, %Y %H:%M:%S %Z')
+
+            = paginate @deposits
+
+  :javascript
+    var maxHeight = 0;
+    $("div.inner-title-box").each(function(){
+      if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+    });
+    $("div.white-box, div.light-gray-box").height(maxHeight);

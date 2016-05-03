@@ -1,0 +1,153 @@
+<section id="mpart">
+  
+  <div class="stripbox pr">
+  	<div class="white-box"></div>
+    <div class="light-gray-box"></div>
+  </div>
+  <div class="container clearfix">
+    <div class="dashbord-cpart row">
+      <%= render 'client_left_sidebar' %>
+      <div class="content-rpart">
+        <div class="inner-title-box clearfix">
+          <h2 class="fl">Inbox</h2>
+          <div class="fr">
+          	<div class="fl wh-search-box">
+            	<%= form_tag "/clients/search_messages", method: :post do %>
+                <input type="text" name="search" placeholder="Search Messages" value="" />
+                <%= submit_tag "", :class => "search-btn" %>
+              <% end %>
+            </div>
+          	<!--div class="fl add-pro-box"><a href="#"><span class="plus-box"><%= image_tag "blank-img.png", :class => "plus-icon"  %></div-->
+          </div>
+        </div>
+        <div class="inbox-cpart clearfix">
+      	  <div id="message" class="email-box fl">
+            <%= render 'message_tabs' %>
+          </div>
+          <%= form_tag({controller: "clients/conversations", action: "create"}, method: :post, multipart: true) do %>
+            <div class="email-detail-box fl">
+              <div class="email-add">
+                <span class="to-text">To</span>
+                <%= select_tag "recipients", options_from_collection_for_select(@client_recipients,"email","name", (@recipient.present? ? @recipient.email : "")), multiple: true, class: 'recipient-new-message-field', style: "width:84%;" %>
+              </div>
+              <div class="email-subj">
+                <span class="to-text">Subject</span>
+                <%= text_field_tag :subject, '', class: 'subject-new-message-field' %>
+              </div>
+              <div class="email-desc">
+                <span class="to-text">Message</span>
+                <%= text_area_tag :body, '', class: 'body-new-message-field' %>
+              </div>
+              <div class="btn-box clearfix">
+                <a href="#" class="fl gray-btn" id="attach_file">Attach File</a>
+                <input type='file' name='message_attachment' id='attach_message_file' style='display:none'/>
+                <div class="fr">
+                  <span class="blue-btn"><%= submit_tag 'Send' %></span>
+                  <span class="gray-btn ml6 cancel-new-msg-btn confirm">Cancel</span>
+                </div>
+                <span id='attachment_detail' style='margin: 10px 2px 2px 5px; color: red;'></span>
+                <a href="javascript:void(0)" id='delete_attachment' style="display:none;">Delete</a>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= stylesheet_link_tag "select2" %>
+<%= javascript_include_tag 'jquery.uniform' %>
+<%= javascript_include_tag 'bootstrap.min' %>
+<%= javascript_include_tag 'jquery.colorbox' %>
+<%= javascript_include_tag "select2" %>
+
+
+<script type="text/javascript">
+  $(function(){
+
+    $(".recipient-new-message-field").select2(
+      { minimumInputLength: 2 }  
+    );
+
+	  $("select, :radio, :checkbox, :file").uniform();
+	  $(".ajax").colorbox();
+	  $("#message").tabs();
+
+	  var maxHeight = 0;
+
+  	$("div.inner-title-box").each(function(){
+  	  if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+  	});
+
+	  $("div.white-box, div.light-gray-box").height(maxHeight);
+
+  	$("div.dashbord-cpart").each(function(){
+  	  if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+  	});
+
+	  $(".nav-lpart, .content-rpart").height(maxHeight);
+
+  	$("div.inbox-cpart").each(function(){
+  	  if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+  	});
+
+	  $("div.email-box, div.email-detail-box").height(maxHeight);
+
+    $('.cancel-new-msg-btn').click(function(){
+      $recipient = $('.recipient-new-message-field').val();
+      $subject = $('.subject-new-message-field').val();
+      $body = $('.body-new-message-field').val();
+      if($recipient == '' && $subject == '' && $body == ''){
+        window.location.replace("/clients/messages");
+      }else{
+        var r = confirm("The message form fields will be lost. Are you sure you want to go back?");
+        if(r == true){
+          window.location.replace("/clients/messages");
+        }
+      }
+    });
+
+    $('#attach_file').click(function() {
+      $('#attach_message_file').click();
+      return false;
+    })
+
+    if ($('#attachment_detail').html() != ""){
+      $('.attach-box').html("<li><a href='javascript:void(0)'><img src='../assets/blank-img.png' class = 'attch-icon'>" + $('#attachment_detail').html() + "</a></li>");
+    }
+
+    $('#attach_message_file').change(function() {
+      var ext = $('#attach_message_file').val().split('.').pop().toLowerCase();
+      var errors = "";
+      if (this.files[0].size > 5000000) {
+        errors += "File size should not be more than 5MB."
+      }
+      if ($.inArray(ext, ['doc', 'docx', 'pdf']) == -1) {
+        $('#attach_message_file').val('');
+        $('#attach_message_file').replaceWith($('#attach_message_file').val('').clone(true));
+        errors += "Attachments of type doc, docx and pdf are only allowed. "
+      } else {
+        var pattern = /\\/;
+        $('#attachment_detail').html($('#attach_message_file').val().split(pattern).slice(-1)[0]);
+        $('#attachment_detail').css('color', '#000');
+      }
+      if ( errors != '' ) {
+        $('#attachment_detail').html(errors);
+        $('#attachment_detail').css('color', 'red');  
+        return false;
+      }
+      $("#delete_attachment").show();
+    })
+
+    $("#delete_attachment").click(function(){
+      $('#attach_message_file').val('');
+      $('#attach_message_file').replaceWith($('#attach_message_file').val('').clone(true));
+      $('#attachment_detail').html('');
+      $("#delete_attachment").hide();
+      return false;
+    })
+
+
+  })
+</script>

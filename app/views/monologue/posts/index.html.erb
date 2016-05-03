@@ -1,0 +1,56 @@
+<div class="clearfix"></div>
+<div class="outer-fix">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="blog-left-new">
+        <% @posts.each do |post| %>
+          <% revision = post.posts_revisions.first %>
+          <div class="well">
+            <div class="media">
+              <div class="row">
+                <div class="col-md-12 col-xs-12 ">
+                  <div class="blog-title">
+                    <h4>
+                      <%= link_to revision.title, revision.full_url %>
+                    </h4>
+                  </div>
+                  <% if post.image.present? %>
+                    <%= image_tag(post.image) %>
+                  <% end  %>
+                  </div>
+                </div>
+                <div class="media-body readmore">
+                  <p><%= raw truncate(revision.content, :length => 500) %></p>
+                  <p>
+                    <%= link_to "Read More", revision.full_url, :class => "btn btn-primary btn-xs" %>
+                  <hr>
+                  <div class="row">
+                    <div class="comment-unerline">
+                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                        <span><i class="glyphicon glyphicon-calendar"></i>
+                        <%= revision.published_at.to_date.to_formatted_s(:long_ordinal) %> </span>
+                      </div>
+                      <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
+                        <%= link_to revision.full_url do %>
+                          <i class="glyphicon glyphicon-comment"></i> 
+                          <%=post.active_comments.size %> comments
+                        <% end %>
+                      </div>
+                      <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6">
+                        <div class="socail-blog">
+                          <%= social_share_button_tag(revision.title, :url => "http://103.3.60.103:4003/#{revision.full_url}") %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+              <%= render "pagination" %>
+            
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

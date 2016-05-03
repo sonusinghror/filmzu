@@ -1,0 +1,6 @@
+
+<%= form_for @message, :url => url_for(:controller => 'conversations', :action => 'reply'), method: :post do |f| %> 
+ <%= f.text_area :body %>
+ <%= f.submit "Send Message", class: 'btn btn-primary' %>
+ <%= submit_tag 'Clear Reply Box', type: :reset, class: 'btn btn-danger' %>
+ <% end %>

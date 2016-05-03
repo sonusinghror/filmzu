@@ -1,0 +1,149 @@
+
+
+.no-margin-b { margin-bottom: 0; }
+.no-margin-t { margin-top: 0; }
+
+
+
+pre.prettyprint {
+
+    overflow: auto;
+    padding: 2em 2em;
+
+}
+
+
+
+header #socialbreak {
+
+    display: none;
+
+}
+
+
+.body,
+.example {
+
+    padding: 4em 7em 5em;
+
+}
+
+.body,
+.example .wrapper {
+
+    max-width: 1000px;
+    margin: auto;
+
+}
+
+.body {
+
+    padding-bottom: 14em;
+
+}
+
+
+
+.example {
+    
+    color: white;
+
+    background-color: #2883B6;
+    background-image: url('http://simey.me/img/grid.png');
+    
+    background-image: url('http://simey.me/img/grid.png'), -moz-radial-gradient(center, ellipse cover,  rgba(40,131,182,1) 0%, rgba(8,70,136,1) 100%); /* FF3.6+ */
+    background-image: url('http://simey.me/img/grid.png'), -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(40,131,182,1)), color-stop(100%,rgba(8,70,136,1))); /* Chrome,Safari4+ */
+    background-image: url('http://simey.me/img/grid.png'), -webkit-radial-gradient(center, ellipse cover,  rgba(40,131,182,1) 0%,rgba(8,70,136,1) 100%); /* Chrome10+,Safari5.1+ */
+    background-image: url('http://simey.me/img/grid.png'), -o-radial-gradient(center, ellipse cover,  rgba(40,131,182,1) 0%,rgba(8,70,136,1) 100%); /* Opera 12+ */
+    background-image: url('http://simey.me/img/grid.png'), -ms-radial-gradient(center, ellipse cover,  rgba(40,131,182,1) 0%,rgba(8,70,136,1) 100%); /* IE10+ */
+    background-image: url('http://simey.me/img/grid.png'), radial-gradient(ellipse at center,  rgba(40,131,182,1) 0%,rgba(8,70,136,1) 100%); /* W3C */
+    
+    background-repeat: repeat;
+    background-repeat: repeat, no-repeat;
+    
+    border-top: 15px solid rgba(255,255,255,0.5);
+    position: relative;
+    text-align: center;
+
+    padding: 10% 7em 12%;
+
+}
+
+.example h2 {
+
+    margin-top: 1em;
+
+}
+
+.example p.scroll {
+
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 0.1em;
+    left: 0;
+    font-size: 0.9em;
+    font-weight: 400;
+
+}
+
+
+
+
+
+.row > .half {
+
+    width: 49%;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    text-align: left;
+    vertical-align: top;
+
+}
+
+.showcase {
+
+    margin: 1em 0;
+    padding: 2em 4em;
+    border-radius: 4px;
+    background: white;
+    border: 1px solid #ADADAD;
+    border: 1px solid rgba(79, 88, 97, 0.45);
+
+}
+
+.showcase .output {
+
+    display: block;
+    text-align: center;
+    margin: 0 0 1em;
+
+}
+
+pre + .showcase {
+
+    margin-top: -1em;
+    margin-bottom: 5em;
+    border-radius: 0 0 4px 4px;
+    padding: 3em 4em 2em;
+
+}
+
+@media only screen and (max-width: 45em) {
+
+    .body, .example {
+
+        padding: 4em 3em 5em;
+
+    }
+
+    header #socialbreak {
+        display: block;
+        margin: 1em;
+    }
+
+}
+
+
+

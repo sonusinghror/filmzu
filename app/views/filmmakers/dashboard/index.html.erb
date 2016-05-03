@@ -1,0 +1,173 @@
+<%= javascript_include_tag 'social-share-button' %>
+<section id="mpart">
+	<div class="stripbox pr">
+		<div class="white-box"></div>
+		<div class="light-gray-box"></div>
+	</div>
+	<div class="container clearfix">
+		<div class="dashbord-cpart row">
+			<%= render 'filmmakers/shared/filmmaker_left_sidebar' %>			
+			<div class="content-rpart">
+				<div class="inner-title-box clearfix">
+					<h2 class="fl">Dashboard</h2>
+
+					<!--div class="wh-sm-select fl">
+						<select>
+							<option>Sort Results</option>
+						</select>
+					</div-->
+				</div>
+				<div class="pro-mpart clearfix">
+					<div class="review-box fl">
+						<%if @projects %>
+						<ul class="pro-listing ">
+							<% @projects.each do |project| %>
+							<%= render :partial => 'project', :locals => {:project => project} %>
+							<% end %>
+						</ul>
+						<% end %>
+						<div class="pagination1 clearfix">
+						  <%unless @projects.empty? %>
+						    <%= link_to_previous_page @projects, image_tag("blank-img.png", :class => "left-arrow larrow-icon") if @projects.current_page > 1  %>
+						    <% if @projects.total_count > 10 %>
+						      <ul class="page-numbox">
+							      <li>
+								      <a href="#"><%= @projects.current_page%></a>
+							      </li>
+						      </ul>
+						      <%= link_to_next_page @projects, image_tag("blank-img.png", :class => "right-arrow rarrow-icon") %>
+						    <% end %>
+						  <%end%>
+					  </div>
+					</div>
+					<div class="pro-tips fr">
+						<div class="pro-tips-box">
+							<div class="tips-title clearfix">
+								<div class="left-box fl">
+									Your profile is <%= current_filmmaker.completeness %>% complete!
+								</div>
+								<div class="right-box fr">
+									<%= link_to "Update", filmmakers_portfolio_url %>
+								</div>
+							</div>
+							<ul class="pro-link-box">
+								<% if !current_filmmaker.photos.present? %>
+								<li>
+									<%= link_to filmmakers_portfolio_url do %>
+										<%= image_tag("blank-img.png", :class => "red-plus-icon" )%>Add profile photo<% end %><span> + 10%</span>
+								</li>
+								<% end %>
+								<% if !current_filmmaker.location.present? %>
+								<li>
+									<%= link_to filmmakers_portfolio_url do %>
+										<%= image_tag("blank-img.png", :class => "red-plus-icon" )%>Add your location<% end %><span> + 10%</span>
+								</li>
+								<% end %>
+								<% if !current_filmmaker.about.present? %>
+								<li>
+									<%= link_to filmmakers_portfolio_url do %>
+										<%= image_tag("blank-img.png", :class => "red-plus-icon" )%>Add about you<% end %><span> + 10%</span>
+								</li>
+								<% end %>
+								<% if !current_filmmaker.rate.present? %>
+								<li>
+									<%= link_to filmmakers_portfolio_url do %>
+										<%= image_tag("blank-img.png", :class => "red-plus-icon" )%>Add your day rate<% end %><span> + 10%</span>
+								</li>
+								<% end %>
+								<% if !current_filmmaker.skills.present? %>
+								<li>
+									<%= link_to filmmakers_portfolio_url do %>
+										<%= image_tag("blank-img.png", :class => "red-plus-icon" )%>Add your skills<% end %><span> + 10%</span>
+								</li>
+								<% end %>
+								<% if !current_filmmaker.videos.present? &&  %>
+								<li>
+									<%= link_to filmmakers_portfolio_url do %>
+										<%= image_tag("blank-img.png", :class =>"red-plus-icon" )%>Add your demo reel<% end %><span> + 10%</span>
+								</li>
+								<% end %>
+								<% if !current_filmmaker.resume.present? %>
+								<li>
+									<%= link_to filmmakers_portfolio_url do %>
+										<%= image_tag("blank-img.png", :class => "red-plus-icon" )%>Add your resume<% end %><span> + 10%</span>
+								</li>
+								<% end %>
+							</ul>
+							<div id="progressbar" value="<%= current_filmmaker.completeness %>"></div>
+
+						</div>
+						<div class="prodata-box">
+								<li class="dropdown">
+									
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tell a friend <%= image_tag("blank-img.png", :class => "rarrow-icon mt6 fr" )%></a>
+								
+								<ul class="dropdown-menu" role="menu">						
+									            
+								            <li><div class="social-share-button" data-title="Filmzu the easiest way to get videos made online!" data-img="http://filmzu.com/assets/logo.png" data-url="http://filmzu.com">	<a href="#" class="tellfriend" data-site="facebook" onclick="return SocialShareButton.share(this);" rel="nofollow " title="Share to Facebook">Share on Facebook</a></div></li>
+								            <li class="divider"></li>
+								            <li><div class="social-share-button" data-title="Filmzu the easiest way to get videos made online!" data-img="http://filmzu.com/assets/logo.png" data-url="http://filmzu.com"><a href="#" class="tellfriend" data-site="google_plus" onclick="return SocialShareButton.share(this);" rel="nofollow " title="Share to Google+">Share on Google Plus</a></div></li>
+								            <li class="divider"></li>														
+								            <li><div class="social-share-button" data-title="Filmzu the easiest way to get videos made online!" data-img="http://filmzu.com/assets/logo.png" data-url="http://filmzu.com"><a href="#" class="tellfriend" data-site="twitter" onclick="return SocialShareButton.share(this);" rel="nofollow " title="Share to Twitter">Share to Twitter</a></div></li>				
+									
+								</ul>
+					      </li>
+						</div>
+						<div class="pro-title">
+							Filmmaker Trust
+						</div>
+						<ul class="pro-link">
+							<li>
+								<%= link_to "Dispute Management", filmmakers_disputes_url %>
+							</li>
+							<li>
+								<%= link_to "Filmmaker Protection", filmmaker_protection_url %>
+							</li>
+							<li>
+								<%= link_to "Client Protection", client_protection_url %>
+							</li>
+							<li>
+								<%= link_to "Terms & Conditions", terms_url %>
+							</li>
+						</ul>
+						<div class="pro-title">
+							About Filmzu
+						</div>
+						<ul class="pro-link">
+							<li>
+								<%= link_to "Privacy Policy", privacy_url %>
+							</li>
+							<li>
+								<%= link_to "Contact Us", contact_url %>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<%= javascript_include_tag 'jquery.uniform' %>
+<%= javascript_include_tag 'jquery-ui' %>
+<script type="text/javascript">
+	$(function() {
+		$("select, :radio, :checkbox, :file").uniform();
+		$('img').tooltip();
+		$("#progressbar").progressbar({
+			value : parseInt($("#progressbar").attr('value'))
+		});
+		var maxHeight = 0;
+		$("div.inner-title-box").each(function() {
+			if ($(this).height() > maxHeight) {
+				maxHeight = $(this).height();
+			}
+		});
+		$("div.white-box, div.light-gray-box").height(maxHeight);
+		$("div.dashbord-cpart").each(function() {
+			if ($(this).height() > maxHeight) {
+				maxHeight = $(this).height();
+			}
+		});
+		$(".nav-lpart, .content-rpart").height(maxHeight);
+	})
+</script>

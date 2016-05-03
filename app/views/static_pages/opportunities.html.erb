@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag "static_pages/static_pages" %>
+<%= javascript_include_tag "static_pages/parallax" %>
+<!--<div class="op_con">&nbsp;</div> Deprecated Old Parallax -->
+<section id="oppo_parallax" class="visible-lg visible-md" data-speed="5" data-type="background">
+  <article class="op_con"></article>
+</section>
+<section id="oppo_parallax_sm" class="visible-sm" data-speed="5" data-type="background">
+  <article class="op_con_sm"></article>
+</section>
+<section id="oppo_parallax_xs" class="visible-xs" data-speed="5" data-type="background">
+  <article class="op_con_xs"></article>
+</section>
+<div class="bl_outer">
+		<div class="oppo_con">
+			<div class="row">
+			  <div class="col-md-6 col-md-offset-3"><h5>Opportunities at Filmzu</h5></div>
+			</div>
+			<div class="row opp_text">
+			  <div class="col-sm-5 col-sm-offset-1">The team at Filmzu are enthusiastic, hard-working and absolutely passionate about online video. We love seeing businesses succeed and believe a great video campaign can turn around the fortunes of even the least exciting business. We are a team of problem-solvers, dreamers, tech-heads, and are passionate about our company.<br><br>
+
+				If you share our passion and are motivated to not only solve one of the major problems with how businesses market themselves while also delivering talented film professionals plenty of work then you may be a great fit here with the Filmzu team.<br><br>
+
+				If you are interesting in getting in touch with us, or you're looking for an internship, employment or becoming a partner then we encourage you to contact us through our <%= link_to('contact page', 'contact') %>.</div>
+			  <div class="col-sm-5 col-sm-offset-1"><%= image_tag("static_pages/team-img.jpg")%>
+				</div>
+			</div>
+			<%= render "static_pages/cta" %>
+		</div>
+</div>

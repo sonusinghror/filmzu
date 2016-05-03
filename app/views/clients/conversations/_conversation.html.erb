@@ -1,0 +1,34 @@
+<%= content_tag_for(:li, conversation) do |conversation| %>
+	<div class="<%= conversation.is_unread?(current_client) ? 'unread' : '' unless (action_name == 'search_messages') %>" id="msg-block">
+    <div style="">
+      <span class='sender'>
+				<%= link_to "/clients/message/#{conversation.id}", :remote => true do %>
+				<%= conversation.sender.try(:name).try(:titleize) %>
+				<% end %>
+        <% if action_name == "search_messages" %>
+          <p class="message_type"><%= conversation.receipts.where("receiver_type = ?", "Client").first.mailbox_type.titleize %></p>
+        <% end %>
+			</span>
+      <span class="date-box fr">
+        <% time = time_ago_in_words(conversation.created_at, include_seconds: true) %>
+        <span class="date">
+          <%= conversation.created_at.strftime("%b %d") %>
+          <%= image_tag "blank-img.png", :class => "gray-clock-icon", title: "#{time} ago" %></span>
+          <% unless action_name == "search_messages" %>
+            <% if conversation.is_trashed?(current_client) %>
+              <%= link_to 'Untrash', client_message_untrash_path(conversation.conversation.id), :remote => true  %>
+              <%#= link_to image_tag("delete-permanently.png", title: "Delete Permanently"), client_message_delete_permanently_path(conversation.conversation.id) %>
+            <% else %>
+              <%#= link_to "Move to Trash", {:controller => "conversations", :action =>
+                "trash", :id => conversation.id}, :title=> "Move to Trash", :method=>'post' %>
+              <%= link_to image_tag("trash-icon.png", title: "Move to trash"), client_message_trash_path(conversation.conversation.id), :remote => true %>
+            <% end %>
+          <% end %>   
+      </span>
+    </div>
+
+    <div class="subj">
+      <i class="icon-envelope icon-white"></i>
+      <%= link_to conversation.subject.truncate(30), "/clients/message/#{conversation.id}", :remote => true %>    </div>
+  </div>
+<% end %>

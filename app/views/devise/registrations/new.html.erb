@@ -1,0 +1,61 @@
+<%= stylesheet_link_tag "signup" %>
+
+<%= devise_error_messages! %>
+
+<div class='sign_up_div'>
+
+  <div class='email_div pull-left'>
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true) do |f| %>
+      
+      <div>
+        <%= f.text_field :name, :validate => { :presence => true }, :placeholder => 'Full Name' %>
+        
+      </div>
+      
+      <div>
+        <%= f.email_field :email, :validate => { :presence => true }, :placeholder => 'Email address ' %>
+        <div class='div_hint'>
+          We NEVER, EVER spam our users email addresses
+        </div>
+      </div>
+      
+      <div>
+        <%= f.password_field :password, :validate => { :presence => true }, :placeholder => 'Password' %>
+      </div>
+      
+      <div>
+        <%= f.password_field :password_confirmation, :validate => { :presence => true }, :placeholder => 'Confirm Password' %>
+        <div class='div_hint'>
+          Password minimum 6 characters long
+        </div>
+			</div>
+      
+    
+     
+     
+      
+
+      <%= f.button :submit, "I'm ready, let me in!" %>
+
+    <% end %>
+  </div>
+
+  <div class='social_signup pull-left'>
+    <a href='' id='fb_auth'>
+      <div class='facebook_link'>
+        
+      </div>
+    </a>
+    <div class='div_hint'>
+      We will never post on your wall without your permission
+    </div>
+    
+  </div>
+
+  <div id='or'>
+    or
+  </div>
+
+  <div class='clearfix'></div>
+  
+</div>

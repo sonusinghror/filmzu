@@ -1,0 +1,32 @@
+.nav-lpart
+  %ul
+    %li{class: "#{(controller_name == 'dashboard' && action_name == 'index') ? 'active' : ''}"}
+      = link_to filmmakers_dashboard_url do
+        = image_tag("blank-img.png", :class => "dashbord-icon")
+        Dashboard
+    %li{class: "#{(controller_name == 'profile' && action_name == 'index') ? 'active' : ''}"}
+      = link_to filmmakers_profile_url do
+        = image_tag("blank-img.png", :class => "profile-icon")
+        Profile
+    %li{class: "#{(controller_name == 'conversations') ? 'active' : ''}"}
+      = link_to filmmakers_messages_url do
+        - filmmaker_notifications = current_filmmaker.receipts.is_unread if current_filmmaker.present?
+        - if filmmaker_notifications.present? && filmmaker_notifications.count != 0
+          %span.alerts-box= filmmaker_notifications.count
+        = image_tag("blank-img.png", :class => "msg-icon")
+        Messages
+    %li{class: "#{(controller_name == 'projects') ? 'active' : ''}"}
+      = link_to filmmakers_projects_url do
+        - unless current_filmmaker.own_projects.empty?
+          %span.alerts-box= current_filmmaker.own_projects.count
+        = image_tag("blank-img.png", :class => "project-icon")
+        My Projects
+    %li{class: "#{(controller_name == 'accounts') ? 'active' : ''}"}
+      = link_to filmmakers_accounts_url do
+        = image_tag("blank-img.png", :class => "account-icon")
+        Accounts
+    - unless (current_filmmaker.uid.present? || current_filmmaker.provider.present?)
+      %li{class: "#{(controller_name == 'dashboard' && action_name == 'settings') ? 'active' : ''}"}
+        = link_to filmmakers_settings_url do
+          = image_tag("blank-img.png", :class => "setting-icon")
+          Settings

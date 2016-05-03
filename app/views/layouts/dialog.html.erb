@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Filmzu | Video Production Marketplace</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <%= stylesheet_link_tag("style") %>
+    <%= stylesheet_link_tag    "proposals", :media => "all" %>
+	  <%= javascript_include_tag "proposals.js" %>
+     <style>
+			#wraper { position:relative; }
+			#slider{ opacity:0;height:0;width:0;}
+			#sliderElements{position: relative;}
+			#slideImgs{position:absolute;width: 73.2%;top: 16%;z-index: 2;left: 13.3%;}
+			.posSbs{position:absolute;left:0;}
+			.frameWindow{position: relative;z-index: 3;}
+		</style>
+  </head>
+  <body>
+    <div id="wraper">
+     <%= yield %>
+    </div> 
+  </body>
+</html>    

@@ -1,0 +1,38 @@
+.project-desc
+  %p
+    %span.flabel.pr Project:
+    %span.field Direct Hire Request
+  - if !direct_hire_proposal.desired_start_date.blank? && !direct_hire_proposal.desired_end_date.blank?
+    %p
+      %span.flabel Dates:
+      %span.field
+        = direct_hire_proposal.desired_start_date.strftime("%B %-d, %Y")
+        %br/
+        = direct_hire_proposal.desired_end_date.strftime("%B %-d, %Y")
+.proposal-content
+  .first-row
+    %p.first Proposed Milestone
+    %p.rest Delivery Date
+    %p.rest Amount
+  .next-row
+    - direct_hire_proposal.direct_hire_proposal_milestones.each do |milestone|
+      %div
+        %p.first= milestone.name
+        %p.rest= milestone.delivery_date
+        %p.rest= milestone.amount
+  .next-row
+    %div.last
+      %p.first
+      %p.rest.rest1
+        Total
+      %p.rest
+        = direct_hire_proposal.direct_hire_proposal_milestones.collect(&:amount).try(:sum)
+
+
+.proj_cover
+  %p.cover Cover Letter:
+  %p
+    = direct_hire_proposal.cover_letter        
+        
+        
+    - direct_hire_proposal.direct_hire_proposal_milestones

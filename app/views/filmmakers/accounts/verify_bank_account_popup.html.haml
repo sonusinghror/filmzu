@@ -1,0 +1,29 @@
+.bank-account
+  %h3.heading7 Verify Bank Account
+  %div.bank-message
+    Your bank account will now receive 2 deposits of an amount less then $1 with the description: 'Balanced Verification' in 2-5 days. Once they are received, enter in the corresponding amounts below to complete the verification process.
+  = form_tag filmmaker_verify_bank_account_url(@bank_account), id: 'filmmaker_verify_bank_account_form' do
+    %ul.bank-form
+      %li
+        %label.lb-name First Amount
+        $ 0.
+        = text_field_tag :amount_one, '', class: 'amount-one-input width-60', maxlength: 2
+      %li
+        %label.lb-name Second Amount
+        $ 0.
+        = text_field_tag :amount_two, '', class: 'amount-two-input width-60', maxlength: 2
+      %li.btn-part
+        %input#submit_btn.sm-blue-btn{type: 'submit', value: 'Verify'}
+:javascript
+  $(document).ready(function(){
+    $('#submit_btn').click(function(e){
+      e.preventDefault();
+      $amount_one = $('.amount-one-input').val();
+      $amount_two = $('.amount-two-input').val();
+      if($.isNumeric($amount_one) && $.isNumeric($amount_two)){
+        $('#filmmaker_verify_bank_account_form').submit();
+      }else{ alert('Please enter valid amount fields'); }
+    });
+  });
+:css
+  .width-60{ width: 60px; }

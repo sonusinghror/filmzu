@@ -1,0 +1,115 @@
+<% if conversation.present? %>
+  <% message = conversation %>
+  <% conversation = message.conversation %>
+  <% originator = conversation.originator %>
+  <% project_proposal = conversation.project_proposal_from_conversation %>
+  <% proposal_resumes = project_proposal.proposal_resumes rescue [] %>
+  <div class="email-add clearfix"> 
+    <h3 class="sub-line fl"><%= message.subject %></h3>
+    <% if !proposal_resumes.blank? %>
+      <span class="attach-num fr">
+        <%= proposal_resumes.count %>
+        <%= image_tag('blank-img.png', class: 'attch-icon m16') %>
+      </span>
+    <% elsif (!message.attachment.blank? && !message.attachment.file.blank?) %>
+      <span class="attach-num fr">
+        1
+        <%= image_tag('blank-img.png', class: 'attch-icon m16') %>
+      </span>
+    <% end %>  
+  </div> 
+  <div class="subject-box clearfix">
+    <div class="thumb-box fl">
+      <%= image_tag originator.header_photo, :width => 57, :height => 57 %>
+    </div>
+    <div class="subject-cpart fl">
+      <div class="sub-title clearfix">
+        <h4 class="fl"><%= originator.name %></h4>
+        <span class="gray-time-box fr">
+          <%= message.created_at.strftime("%d %b, %H:%M %p") %>
+          <%= image_tag('blank-img.png', class: 'gray-clock-icon') %>
+        </span>
+      </div>
+      <% unless originator.location.blank? %>
+        <ul class="gray-status-box clearfix">
+          <li>
+            <%= image_tag('blank-img.png', class: 'loc-icon') %>
+            <%= originator.location %>  
+          </li>
+        </ul>
+      <% end %>
+      <div class="des-text">
+        <%= message.body.html_safe %>  
+      </div>
+    </div>
+  </div>
+  <% if message.attachment.blank? %>
+    <% unless proposal_resumes.blank? %>
+      <div class="attachments-box">
+        <% proposal_resumes.each_with_index do |pro_res,index| %>
+          <div class="row1 clearfix <%= (index == 0) ? 'nmt' : 'mt10' %>">
+            <div class="attach-text fl">
+              <%= image_tag('blank-img.png', class: 'attch-icon') %>
+              <%= pro_res.attachment.file.filename %>
+            </div> 
+            <div class="link-box fr">
+              <!-- <a href="<%#= pro_res.attachment.url %>" class="cbox" target="_blank">View</a> -->
+              <a href="<%= pro_res.attachment.url %>" class="cbox" target="_blank">Download</a>
+            </div> 
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="attachments-box">
+      <div class="row1 clearfix nmt">
+        <div class="attach-text fl">
+          <%= image_tag('blank-img.png', class: 'attch-icon') %>
+          <%= message.attachment.file.filename %>
+        </div> 
+        <div class="link-box fr">
+          <!-- <a href="<%#= pro_res.attachment.url %>" class="cbox" target="_blank">View</a> -->
+          <a href="<%= message.attachment.url %>" class="cbox" target="_blank">Download</a>
+        </div> 
+      </div>
+    </div>      
+  <% end %>  
+  <% if (project_proposal) && (!project_proposal.is_approved && !project_proposal.is_declined) %>
+    <div class="btn-box dh-box clearfix" id="<%= project_proposal.id %>">
+      <%= link_to 'Accept Proposal', client_accept_project_proposal_path(project_proposal), :class => 'red-btn accept', method: :post, :remote =>true %>
+      <%#= link_to 'Edit Proposal', client_edit_project_proposal_path(project_proposal), :class => 'orange-btn mt10 fr ajax cboxElement' %>
+      <%= link_to 'Decline', client_decline_project_proposal_path(project_proposal), :class => 'gray-btn ml6 decline', method: :post, :remote => true %> 
+    </div>
+  <% end %>
+  <div class="btn-box clearfix">
+    <form accept-charset="UTF-8" action="/clients/messages/<%= conversation.id %>/reply" data-remote="true" enctype="multipart/form-data" method="post">
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+      <%= text_area_tag 'message', nil, class: 'reply-textbox', id: "#{conversation.id}", placeholder: "Start typing here to reply" %>
+      
+      <div class="btn-box clearfix" style="border-top:0px;padding: 25px 0 0 0;">
+        <!--img src="../../assets/blank-img.png" class="attch-icon" alt="" title="" /-->
+	      <a href="javascript:void(0)" class="fl gray-btn" id='attach_file'>Attach File</a>
+        <input type='file' name='proposal_attachment' id='message_attach_proposal_file' style='display:none;'/>
+        <div class="fr">
+           <%= submit_tag "Send Reply", class: "blue-btn reply-btn client-message-reply"%>
+           <a href="javascript:void(0)" class="gray-btn clear-message ml6">Delete</a>
+        </div>
+      </div>
+      <p>  
+        <span id='message_attachment_detail' style='margin: 10px 2px 2px 5px;'></span>
+        <a href="javascript:void(0)" id='message_delete_attachment' style="display:none;">Delete</a>
+      </p>  
+  
+    </form>  
+  </div>
+<% end %>
+
+<%= javascript_include_tag 'projects_proposal' %>
+<script type='text/javascript'>
+$(function(){
+	$(".edit").colorbox({ speed:"350", onOpen:function() {
+   $('#ui-datepicker-div').remove();
+  } });
+})
+</script>
+

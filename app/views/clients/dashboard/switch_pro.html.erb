@@ -1,0 +1,115 @@
+<% url_str = if !current_client.nil?
+						 then '/clients/dashboard/switch_pro'
+						 elsif !current_filmmaker.nil?
+						 then '/filmmakers/dashboard/switch_pro'
+						 end	
+%>
+
+<%= form_tag url_for(url_str), :id=>'pro_ac_form' do %>
+<section id="mpart">	
+
+	<div class="stripbox-2 pr">    	
+        <div class="light-gray-box"></div>
+        <div class="white-box"></div>
+    </div>
+    
+    <div class="reg-box">    
+		<div class="container">
+        	<div class="row clearfix">
+            	<ul class="reg-lpart fl">
+                    <li><a href="#"><span class="icon-box"><%= image_tag("blank-img.png", :class => "ok-icon")%></span>Basics</a></li>
+                    <li class="active"><a href="#"><span class="icon-box"><%= image_tag("blank-img.png", :class => "plus-icon")%></span>Account</a></li>
+                    <li><a href="#"><span class="icon-box"><%= image_tag("blank-img.png", :class => "plus-icon")%></span>Portfolio</a></li>
+                </ul>
+
+                <div class="reg-rpart fl">
+                
+                	<div class="reg-hpart clearfix">
+                        <div class="fl">
+                            <h2>Pick an Account Type</h2>
+                            <p>Step 2: Pro or Standard</p>
+                        </div>
+                        <div class="fr">
+                        	<a href="#" class="text-link">Sign Up as Filmaker</a>
+                            <a href="#" class="blue-btn ml6">Next step</a><a href="#" class="gray-btn ml6">Cancel</a>
+                        </div>
+                	</div>
+                    
+                    <div class="clearfix">
+                    	<ul class="ac-type fl">
+                        	<li class="ac-hpart">
+                            	<h3>Pro</h3>
+                                <p>US $9/MO</p>
+                            </li>
+                            <li class="ac-benefit">Pro Benefits</li>
+                            <li class="ac-data1">Message All Users</li>
+                            <li class="ac-data1">Apply to up to 50 projects per month</li>
+                            <li class="ac-data1">
+                            	<div class="feature-title">Unique features</div>
+                            	<ul class="feature-text">
+                                	<li><%= image_tag("dot-img.jpg")%> View job posts before standard users</li>
+                                    <li><%= image_tag("dot-img.jpg")%> Featured Profiles</li>
+                                    <li><%= image_tag("dot-img.jpg")%> Vetter Profile ensures professionalism</li>
+                                    <li><%= image_tag("dot-img.jpg")%> Appear Higher in search results</li>
+                                </ul>
+                            </li>
+
+                            <li class="member-text">Filmzu Pro Members are admiddted through a simple application 
+process only. Learn about the qualifications <a href="#">here</a></li>
+							<li class="mt50"><a href="#" class="big-orange-btn switch_ac ">Go Pro</a></li>
+                        </ul>
+                        <ul class="ac-type fr">
+                        	<li class="ac-hpart">
+                            	<h3>Standard</h3>
+                                <p>Free</p>
+                            </li>
+                            <li class="ac-benefit">Standard Benefits</li>
+                            <li class="ac-data1">Message Standard Users Only</li>
+                            <li class="ac-data1">Apply to up to 20 projects per month</li>
+							<li class="mt259"><a href="#" class="big-gray-btn switch_ac">Select Now</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+       	</div>          	
+    </div> 
+       
+</section>
+<%= hidden_field_tag :account_type %>
+
+<% if request.get? && !current_client.nil? %>
+	<%= hidden_field_tag :current_client_id, current_client.id %>
+<% elsif request.get? && !current_filmmaker.nil? %>
+	<%= hidden_field_tag :current_filmmaker_id, current_filmmaker.id %>
+<% end %>
+
+<% end %>
+
+<script type="text/javascript">
+
+$(function(){
+
+	$('.switch_ac').click(function(){
+		if($(this).html() == 'Select Now'){
+			$('#account_type').val('standard');
+		}
+		else if($(this).html() == 'Go Pro'){
+			$('#account_type').val('pro');
+		}
+
+		$('#pro_ac_form').submit();
+	})
+
+	$(".ajax").colorbox()
+	$("select, :radio, :checkbox, :file").uniform();
+	var maxHeight = 0;
+
+	$("div.reg-box").each(function(){
+	   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+	});
+
+	$("div.white-box, div.light-gray-box").height(maxHeight);
+
+})
+</script>

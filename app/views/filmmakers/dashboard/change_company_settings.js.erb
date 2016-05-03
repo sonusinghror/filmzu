@@ -1,0 +1,8 @@
+<% if current_filmmaker.errors.any? %>
+	<% error = "Company "+current_user.errors.messages[:is_company][0] %>
+	$('.change_company_settings_form .errors').html("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>&times;</button><br/><%= error %><br/></div>")
+	<% error = "Company "+current_user.errors.messages[:company][0] %>
+	$('.change_company_settings_form .errors').html("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>&times;</button><br/><%= error %><br/></div>")
+<% else %>
+	$('.change_company_settings_form .errors').html("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button>Company Settings Updated.<br/></div>")
+<% end %>

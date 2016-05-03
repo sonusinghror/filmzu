@@ -1,0 +1,74 @@
+#active_admin_content.without_sidebar
+  #main_content_wrapper
+    #main_content
+      = semantic_form_for [:admin, @filmmaker], :builder => ActiveAdmin::FormBuilder do |f|
+        %fieldset.inputs
+          %legend
+            %span Filmmaker Details
+          %ol
+            %li= f.input :name
+            %li= f.input :email
+            %li= f.input :password
+            %li= f.input :password_confirmation
+            %li= f.input :about
+            %li= f.input :location
+            %li= f.input :skills, :as => :string, :input_html => {:class => 'left-text', :data => {:role => 'tagsinput'}, :validate => { :presence => true }}
+            %li= f.input :rate
+            %li= f.input :is_company
+            %li= f.input :company
+
+        %fieldset.inputs
+          %legend
+            %span Attachments
+          %ol
+            - if @filmmaker.resume.present?
+              %li
+                %label Current Resume
+                = @filmmaker.resume.filename
+            = f.fields_for :resume, @filmmaker.resume || @filmmaker.build_resume do |r|
+              = r.input :document, as: :file, label: "Resume"
+          %ol
+            = f.fields_for :videos, @filmmaker.videos.last || @filmmaker.videos.build do |v|
+              = v.input :url, label: 'Video'
+          %ol
+            - if @filmmaker.photos.present? && @filmmaker.photos.last.present?
+              - exphoto = @filmmaker.photos.last
+              %li
+                %label Current Profile Picture
+                = image_tag(exphoto.image, width: '150px', height: '150px')
+            = f.fields_for :photos, @filmmaker.photos.last || @filmmaker.photos.build do |v|
+              = v.input :image, as: :file, label: 'Profile picture'
+
+        %fieldset.actions
+          %ol
+            =f.actions do
+              = f.action :submit
+              %li.cancel
+                = link_to I18n.t('active_admin.cancel'), {:action => "index"}
+:css
+  .bootstrap-tagsinput {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    display: inline-block;
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    color: #555;
+    vertical-align: middle;
+    border-radius: 4px;
+    max-width: 100%;
+    line-height: 22px;
+    cursor: text;
+    width: 60%;
+  }
+  .bootstrap-tagsinput input {
+    border: 0;
+    box-shadow: none;
+    outline: none;
+    background-color: transparent;
+    padding: 4px 6px;
+    margin: 5px 0 0 0 !important;
+    max-width: inherit;
+    display: block;
+    width: 150px !important;
+  }

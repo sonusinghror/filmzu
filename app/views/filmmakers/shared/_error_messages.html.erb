@@ -1,0 +1,10 @@
+<% if resource.present? && resource.errors.present? %>
+  <div id="error_explanation" class='flash_message alert alert-danger'>
+    <h4><%= pluralize(resource.errors.count, "error") %> prohibited this mark from being saved:</h4>
+    <ul>
+      <% resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

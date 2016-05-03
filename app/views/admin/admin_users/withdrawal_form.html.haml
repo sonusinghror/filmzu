@@ -1,0 +1,22 @@
+#active_admin_content.without_sidebar
+  #main_content_wrapper
+    #main_content
+      = form_tag withdraw_admin_admin_user_path(@admin_user), :id => 'admin_withdrawal_form' do
+        %fieldset.inputs
+          %legend
+            %span Withdrawal
+          %ol
+            %li
+              %label.lb-name Your current balance is:
+              = "$#{@admin_user.balance}"
+            %li
+              %label.lb-name Amount
+              $
+              = text_field_tag :amount, '', class: 'withdraw-amount', style: "width: 50px !important;"
+              .error-message-withdraw{style: "font-size: 10px; color: red; line-height: 15px; min-height: 25px; padding-top: 10px; margin-left: 20%;"}
+        %fieldset.actions
+          %ol
+            %li
+              = submit_tag 'Withdraw', class: 'admin-withdrawal-btn'
+            %li.cancel
+              = link_to I18n.t('active_admin.cancel'), {:action => "index"}

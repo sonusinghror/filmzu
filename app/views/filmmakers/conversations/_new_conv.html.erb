@@ -1,0 +1,103 @@
+<%= form_tag filmmakers_messages_new_path, method: :post do %>
+  <div class="email-add">
+      <span class="to-text">To</span>
+      <%= select_tag "recipients", options_from_collection_for_select(@recipients, "email", "name",  (@recipient.present? ? @recipient.email : "")), multiple: true, class: 'recipient-new-message-field', style: "width:84%;" %>
+  </div>
+  <span class="to_mail" style="display:none;color:red;">To address required to send an email</span>
+  <div class="email-subj"><span class="to-text">Subject</span><%= text_field_tag :subject  %></div>
+  <div class="email-desc"><span class="to-text">Message</span><%= text_area_tag :body %> </div>
+  <div class="btn-box clearfix">
+      <a href="#" class="fl gray-btn" id="attach_file">Attach File</a>
+      <input type='file' name='file' id='attach_message_file' style='display:none'/>
+      <div class="fr">
+      	<span class="blue-btn submit_btn"><%= submit_tag 'Send' %></span>
+          <span class="gray-btn cancel-new-msg-btn ml6">Cancel</span>
+      </div>
+      <span id='attachment_detail' style='margin: 10px 2px 2px 5px; color: red;'></span>
+  </div>
+<% end %>
+
+<%= javascript_include_tag("select2") %>
+<%= stylesheet_link_tag "select2" %>
+<script type="text/javascript">
+$(function(){
+
+  $(".recipient-new-message-field").select2();
+
+  $('.cancel-new-msg-btn').click(function(){
+    $recipient = $('#recipients').val();
+    $subject = $('#subject').val();
+    $body = $('#body').val();
+    if($recipient == '' && $subject == '' && $body == ''){
+      window.location.replace("/filmmakers/messages");
+    }else{
+      var r = confirm("The message form fields will be lost. Are you sure you want to go back?");
+      if(r == true){
+        window.location.replace("/filmmakers/messages");
+      }
+    }
+  });
+
+  $('#attach_file').click(function() {
+    $('#attach_message_file').click();
+    return false;
+  });
+
+  if ($('#attachment_detail').html() != ""){
+    $('.attach-box').html("<li><a href='javascript:void(0)'><img src='../assets/blank-img.png' class = 'attch-icon'>" + $('#attachment_detail').html() + "</a></li>");
+  }
+
+  $('#attach_message_file').change(function() {
+    var errors = [];
+    var ext = $('#attach_message_file').val().split('.').pop().toLowerCase();
+    if (this.files[0].size > 5000000) {
+      errors.push("File size should not be more than 5MB.");
+    }
+    if ($.inArray(ext, ['doc', 'docx', 'pdf']) == -1) {
+      $('#attach_message_file').val('');
+      $('#attach_message_file').replaceWith($('#attach_message_file').val('').clone(true));
+      errors.push('Invalid file type');
+      $('#attachment_detail').html(errors.join("<br>"));
+      return false;
+    } else {
+      var pattern = /\\/;
+      $('#attachment_detail').html($('#attach_message_file').val().split(pattern).slice(-1)[0]);
+      $('#attachment_detail').css('color', '#000');
+    }
+  })
+			
+  $(".submit_btn").click(function() {
+    console.log("hi");
+    var errors = [];
+    var errors_count = 0;
+    if ($("#recipients").val() == "") {
+      errors_count += 1;
+      msg = "To email required!";
+	    if ($.inArray(msg, errors) == -1) { errors.push(msg); }
+	    //$(".to_mail").show();
+    }
+    if ($("#subject").val() == "") {
+      errors_count += 1;
+      msg = "Message subject required!";
+	    if ($.inArray(msg, errors) == -1) { errors.push(msg); }
+    }
+    
+  	if ($("#attachment_detail").is(":visible") && ($("#attachment_detail").html() == "Invalid file type")) {
+			errors_count += 1;
+			msg = "Choose proper attachment";
+	    if ($.inArray(msg, errors) == -1) { errors.push(msg); }
+		}
+    
+    if ( errors_count == 0 ) {
+      //$('#new_direct_hire_proposal').submit();
+      console.log("if");
+      return true;
+    } else {
+      alert($.unique(errors).join("\n"));
+      return false;
+    }
+  });
+
+})
+
+</script>

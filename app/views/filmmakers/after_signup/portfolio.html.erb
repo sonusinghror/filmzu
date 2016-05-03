@@ -1,0 +1,273 @@
+<section id="mpart">
+	<%= form_for current_filmmaker, :url => '/filmmakers/portfolio', :validate => true, :html => { :class => 'form-horizontal' , :name => 'formElem', :id => 'filmmaker_edit_form', :multipart => true}, :method=>:post do |f| %>
+		<div class="span12">
+			<div class="full-inner-title-box">
+				<div class="container clearfix">
+					<div class="row text-center">
+						<h2 class="pb10">Complete Portfolio</h2>
+						<p>
+							The more complete it is, the better your odds of getting hired! Filmzu is a Community of invite only,
+							<br />
+							top tier filmmakers. Having a complete profile is the first step in helping connect you to paying clients
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="stripbox-2 pr">
+				<div class="light-gray-box"></div>
+				<div class="white-box"></div>
+			</div>
+
+			<div class="reg-box">
+				<div class="container">
+					<div class="row clearfix">
+						<ul class="reg-lpart fl">
+							<li >
+								<a href="#"><span class="icon-box"><%= image_tag("blank-img.png", :class => "plus-icon" )%></span>Basics</a>
+							</li>
+							<li class="active">
+								<a href="#"><span class="icon-box"><%= image_tag("blank-img.png", :class => "plus-icon")%></span>Portfolio</a>
+							</li>
+						</ul>
+						<div class="reg-rpart fl">
+							<div class="clearfix">
+								<div class="fl w50">
+									<div class="photo-box clearfix">
+										<div class="chimg-box fl" id="uploaded_image">
+											<% if !current_filmmaker.photos.empty? %>
+												<%= image_tag current_filmmaker.profile_photo, :id=>"preview-photo" %>
+											<%else%>
+												<%= image_tag("ch-img.jpg")%>
+											<%end%>
+										</div>
+										<div class="photo-text">
+											<h3>Choose an Image</h3>
+											<%= file_field 'image','photo'%>
+											<p></p>
+										</div>
+									</div>
+									<ul class="gray-form reg-form1">
+										<li>
+											<!-- <label class="lb-text">Location</label>
+											<input type="text" id='location' value="Enter" />
+											<p class="left-text"><%= image_tag("blank-img.png", :class => "loc-icon")%>Click icon to use current location</p> -->
+											<label class="lb-text">Day Rate (approx)</label>
+											<div class="dollar-int"><span class='dollar-box'>$</span><%= f.text_field :rate, :class => 'left-text' ,:validate => { :presence => true } %></div>
+										</li>
+										<li>
+											<label class="lb-text">Location</label>
+											<%= f.text_field :location,:class => 'left-text' ,:validate => { :presence => true }, :placeholder => 'Enter Location' %>
+										</li>
+										<li>
+											<label class="lb-text mb0">Your Skills <span  class="tagtext">Press enter to save tag (<b>8 Skills Max</b>)</span></label>
+											<%= f.text_field :skills,:class => 'left-text', :data => {:role => 'tagsinput'}, :validate => { :presence => true }, :placeholder => 'Enter the things you are best at, ie. commercials' %>
+										</li>
+										<li class="tag_button">
+											<label class="lb-text">Popular Tags:</label>
+											<% if @popular_tags.present? %>
+												<% @popular_tags.each do |popular_tag| %>
+													<% if popular_tag.present? && popular_tag.name.present? %>
+														<a href="#" class='white-btn popular-tags'><%= popular_tag.name %></a>
+													<% end %>
+												<% end %>
+											<% else %>
+												<a href="#" class="white-btn popular-tags">Video Ads</a>
+												<a href="#" class="white-btn popular-tags">Visual Effects</a>
+												<a href="#" class="white-btn popular-tags">Animation</a>
+											<% end %>
+										</li>
+									</ul>
+								</div>
+								<div class="fr w50 pl22">
+									<ul class="right_content">
+										<li>
+											<label class="lb-text mb0">About You</label>
+											<%= f.text_area :about, :class => 'left-text' ,:rows => "5", :validate => { :presence => true }, :placeholder => 'Let clients get to know a bit about you' %>
+										</li>
+										<li>
+											<label class="lb-text">Resume</label>
+											<% document = current_filmmaker.document_name %>
+											<% unless document.blank? %>
+											  <p id="resume-sec">
+											    Uploaded Resume:
+								          <b id='name'><%= document %></b>
+								          <br>
+								          <span>You can update your resume here</span>
+								        </p>
+								      <% end %>
+										  <%= f.fields_for :resume, current_filmmaker.resume || current_filmmaker.build_resume do |r|  %>
+										    <%= r.file_field :document, :style => "background:none;" %>
+							        <% end %>
+										</li>
+
+									  <li>
+                      <label class="lb-text">Demo Reel:</label>
+                      <%= text_field_tag "video_url", "#{current_filmmaker.videos.empty? ? "" : current_filmmaker.videos.last.url}", :placeholder => "Enter link to your demo reel" %>
+                      <p>*if you have multiple demo reels, studies show combing your best work into a single, 2-3 min. reel showcase your talent effectively.</p>
+											<p class='video-error' style="color: red; font-size: 10px;"></p>
+                    </li>
+                    <li>
+                      <div class="video-display">
+												<% if !current_filmmaker.videos.empty? %>
+													<iframe src="<%=current_filmmaker.videos.last.embed_url%>" frameborder="0" allowfullscreen="allowfullscreen" style="height: 270px; width: 369px;"></iframe>
+                        <% else %>
+													<%= image_tag('dash-box.jpg', :height => '270', :width => '369') %>
+												<% end %>
+                      </div>
+                    </li>
+									</ul>
+								</div>
+							</div>
+							<div class="text-center clearfix">
+								<%= f.submit "Save Changes", :class => 'big-blue-btn fl save-portfolio' %>
+								<a href="/filmmakers/dashboard" class="big-blue-btn fr">Skip</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+
+		<script type="text/javascript">
+
+			$(document).ready(function() {
+
+			  $('#filmmaker_location').geocomplete();
+
+				var availableTags = ["Cannon D5", "Video Ads", "Visual Effects", "Animation"];
+
+				$("#filmmaker_skills").autocomplete({
+					source : availableTags,
+					select : function(event, ui) {
+						var selected_skill = ui.item.value;
+						$("#filmmaker_skills").val(selected_skill);
+						return false;
+					}
+				});
+
+				$('a.popular-tags').click(function(e){
+					e.preventDefault();
+					if($(this).hasClass('active')){
+						$('#filmmaker_skills').tagsinput('remove', $(this).text());
+						$(this).removeClass('active');
+					}else{
+						$('#filmmaker_skills').tagsinput('add', $(this).text());
+						$(this).addClass('active');
+					}
+				});
+
+			/*	$('#filmmaker_location').autocomplete({
+					source : function(request, response) {
+						$.ajax({
+							url : '/search_location.json',
+							data : {
+								term : request.term
+							},
+							dataType : 'json',
+							success : function(data) {
+								response($.map(data, function(obj) {
+									return obj;
+								}))
+							}
+						})
+					},
+					minLength : 3,
+					select : function(event, ui) {
+						console.log(ui.item.location);
+					}
+				});
+
+      */
+
+				$("#image_photo").change(function() {
+					var file = $("#image_photo")[0].files[0];
+					$("#uploaded_image").empty();
+					displayAsImage3(file, "uploaded_image");
+					$("#uploaded_image img").css('height', '171');
+					$("#uploaded_image img").css('width', '171');
+				});
+
+        $('#video_url').change(function() {
+          var url = $(this).val(); //.split("v=")[1];
+          var yid = ytVidId(url);
+          if (yid != false){
+            $(".video-display").html("<iframe src='http://www.youtube.com/embed/"+ yid +"' frameborder='0' allowfullscreen='allowfullscreen' style='height: 270px; width: 369px;'></iframe>");
+          }
+        });
+
+        function ytVidId(url) {
+          var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+          return (url.match(p)) ? RegExp.$1 : false;
+        }
+
+				function displayAsImage3(file, containerid) {
+					if ( typeof FileReader !== "undefined") {
+						var container = document.getElementById(containerid), img = document.createElement("img"), reader;
+						container.appendChild(img);
+						reader = new FileReader();
+						reader.onload = ( function(theImg) {
+								return function(evt) {
+									theImg.src = evt.target.result;
+								};
+							}(img));
+						reader.readAsDataURL(file);
+					}
+				}
+
+				function get_hostname(url){
+					var m = url.match(/^http:\/\/[^/]+/);
+					return m ? m[0] : null;
+				}
+
+				$('.save-portfolio').click(function(e){
+					e.preventDefault();
+					var $video_url = $('#video_url').val();
+					var $trim_video_url = $.trim($video_url);
+					var $video_error = $('.video-error');
+					if($trim_video_url != ''){
+						if(/^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i.test($trim_video_url)){
+					    if($trim_video_url.indexOf("youtube") > -1 || $trim_video_url.indexOf("youtu.be") > -1 || $trim_video_url.indexOf("vimeo") > -1){
+								$('#filmmaker_edit_form').submit();
+							}else{
+								$video_error.html('Only Youtube or Vimeo video urls are accepted');
+								$(window).scrollTop($('#video_url').offset().top);
+							}
+						}else{
+					    $video_error.html('The url for video is not valid');
+							$(window).scrollTop($('#video_url').offset().top);
+						}
+					}else{
+						$('#filmmaker_edit_form').submit();
+					}
+				});
+
+			});
+
+		</script>
+</section>
+
+<script type="text/javascript">
+	$(function() {
+		$(".ajax").colorbox()
+		$("select, :radio, :checkbox, :file").uniform();
+		var maxHeight = 0;
+		$("div.reg-box").each(function() {
+			if ($(this).height() > maxHeight) {
+				maxHeight = $(this).height();
+			}
+		});
+		$("div.white-box, div.light-gray-box").height(maxHeight);
+	});
+
+	function validate(evt) {
+		var theEvent = evt || window.event;
+		var key = theEvent.keyCode || theEvent.which;
+		key = String.fromCharCode(key);
+		var regex = /[]|\./;
+		if (!regex.test(key)) {
+			theEvent.returnValue = false;
+			if (theEvent.preventDefault)
+				theEvent.preventDefault();
+		}
+	}
+</script>

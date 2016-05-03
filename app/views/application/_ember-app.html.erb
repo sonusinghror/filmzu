@@ -1,0 +1,1531 @@
+<script type='text/x-handlebars' data-template-name='index'>
+    <div class="md-modal md-effect-12" id="modal-1">
+      <div class="md-content">
+      <iframe width="100%" class="iframe-height" src="https://www.youtube.com/embed/1_gmfOBW_qI" frameborder="0" allowfullscreen></iframe>
+        <div class="md-close"></div>
+      </div>
+    </div>
+    <div class="md-modal md-effect-12" id="modal-2">
+      <div class="md-content">
+      	<iframe width="100%" class="iframe-height" src="https://www.youtube.com/embed/hcpcVJ33UDA" frameborder="0" allowfullscreen></iframe>
+        <div class="md-close"></div>
+      </div>
+    </div>
+    <div class="md-modal md-effect-12" id="modal-3">
+      <div class="md-content">
+      	<iframe width="100%" class="iframe-height" src="https://www.youtube.com/embed/71L7-vBMHLI" frameborder="0" allowfullscreen></iframe>
+        <div class="md-close"></div>
+      </div>
+    </div>
+    <div class="md-modal md-effect-12" id="modal-4">
+      <div class="md-content">
+        <iframe width="100%" class="iframe-height" src="https://www.youtube.com/embed/GQ_0WrxHCms" frameborder="0" allowfullscreen></iframe>
+        <div class="md-close"></div>
+      </div>
+    </div>
+    
+    <section class="box-video-height">
+    <div class="four-video-box">
+    	<div class="banner-uptext">Video is the best way to reach your audience<br><span>Filmzu is the world's <b>marketplace</b> for <b>premium</b> web video.</span></div>
+      <div class="four-box-one-vid" video_id="1">
+        <img class="md-trigger img-responsive" data-modal="modal-1" src="/assets/video_icons/video1.jpg" />
+        <div class="play-icon1">
+                  <div class=""></div>
+               </div>
+         <div class="overbox">
+        <div class="title overtext"> Play Video </div>
+        </div>
+      </div>
+      <div class="four-box-one-vid" video_id="2">
+        <img class="md-trigger img-responsive" data-modal="modal-2" src="/assets/video_icons/video2.jpg" />
+        <div class="play-icon1">
+                  <div class=""></div>
+               </div>
+         <div class="overbox">
+        <div class="title overtext"> Play Video </div>
+        </div>
+      </div>
+      <div class="four-box-one-vid" video_id="3">
+        <img class="md-trigger img-responsive" data-modal="modal-3" src="/assets/video_icons/video3.jpg" />
+        <div class="play-icon1">
+                  <div class=""></div>
+               </div>
+         <div class="overbox">
+        <div class="title overtext"> Play Video </div>
+        </div>
+      </div>
+      <div class="four-box-one-vid" video_id="4">
+        <img class="md-trigger img-responsive" data-modal="modal-4" src="/assets/video_icons/video4.jpg" />
+        <div class="play-icon1">
+                  <div class=""></div>
+               </div>
+        <div class="overbox">
+        <div class="title overtext"> Play Video </div>
+        </div>
+      </div>
+    </div>
+    
+    </section>
+    <div class="md-overlay"></div>
+  </div>
+  <section>
+    <div class="text-center reg-box">
+    	{{# link-to 'clients.create-project' classNames="orange-btn"}}Post your job now, it's risk free.{{/ link-to }}<br />
+			</div>
+	</section>
+	<section id="intro" style="display: none;">
+		<div id="banner-part" >
+			<div class="container">
+				<div class="banner-text fadeInDown delay animated">
+					<h1>Video is the best way to reach your audience</h1>
+					<p>Filmzu is the world's <b>marketplace</b> for <b>premium</b> web video</p>
+
+					<% if false %>
+						<div class="row" style="padding-top:10px">
+							<form action="http://filmzu.us6.list-manage2.com/subscribe/post?u=f7f6702bd4e503b98fda073a0&amp;id=122bcc356e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+								<div class="col-sm-6 col-sm-offset-3">
+									<div class="input-group">
+										<input type="email" placeholder="Email Address"  class="form-control">
+										<span class="input-group-btn">
+											<button class="btn btn-default access" onclick="this.form.submit()" id="mc-embedded-subscribe" name="subscribe" type="button">Early Access</button>
+										</span>
+									</div><!-- /input-group -->
+								</div><!-- /.col-lg-6 -->
+							</form>
+						</div><!-- /.row -->
+					<% end %>
+
+					<div class="play-vid">
+						<a href="//www.youtube.com/embed/1_gmfOBW_qI" target="_false" id="watch-reel" class="play-btn"><%= image_tag("play-icon.png") %></a>
+					</div>
+					
+					<div class="reg-box">
+						{{# link-to 'clients.create-project' classNames="orange-btn"}}Post your job now, it's risk free.{{/ link-to }}<br />
+					</div>
+					
+					<div class="arrow-box"><a href="#steps-box"><%= image_tag("bot-arrow-icon.png") %></a></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="two" class="main style2 left dark fullscreen">
+		<div id="steps-box">
+			<div class="container">
+				<h3 class="heading2">How it works:</h3>
+				<div class="row">
+					<div class="col-md-3 inn-step-box animated">
+						<div class="icon-box">
+							<span class="step1"><%= image_tag("blank-img.png", :class =>"list-icon") %></span>
+						</div>
+						<h3>List Your Project</h3>
+						<p>It takes less than 3 minutes to post your project and details on Filmzu.</p>
+					</div>
+					<div class="col-md-3 inn-step-box delay animated">
+						<div class="icon-box">
+							<span class="step2"><%= image_tag("blank-img.png", :class =>"proposal-icon") %></span>
+						</div>
+						<h3>Review Proposals</h3>
+						<p>Within 24 hours have proposals from the top 10% talent in the industry.</p>
+					</div>
+					<div class="col-md-3 inn-step-box delay1 animated">
+						<div class="icon-box">
+							<span class="step3"><%= image_tag("blank-img.png", :class =>"proposal-icon") %></span>
+						</div>
+						<h3>Pay Securely</h3>
+						<p>Securely deposit funds into an Escrow account. 100% safe. Guaranteed.</p>
+					</div>
+					<div class="col-md-3 inn-step-box delay2 animated">
+						<div class="icon-box">
+							<span class="step4"><%= image_tag("blank-img.png", :class =>"video-icon") %></span>
+						</div>
+						<h3>Get Your Video</h3>
+						<p>Choose your favourite, and get your vision made into video. Exclusively for you.</p>
+					</div>
+					<!--span class="border-box"></span-->
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section>
+	<div id="banner-define-part" >
+	<div class="container">
+		<div class="banner-define-text fadeInDown delay animated">
+			<h1>Redefine your company through video</h1>
+			<p>Simple follow these three easy steps</p>
+	</div>
+	</section>
+
+	<!-- Macbook Air Images -->
+	<section id="slide-show-box">
+		<div class="arrow-box"><a href="#video-box"><%= image_tag("bot-arrow-icon.png") %></a></div>
+		<div class="step1 delay animated">
+			<div class="container">
+				<div class="row text-center">
+					<h2>1. Answer some simple questions.</h2>
+					<p>You don't need to know anything about making a video to get started.</p>
+				</div>
+			</div>
+			<%= image_tag("slide-img1.jpg", :class => 'apple', :style => 'padding-bottom: 80px') %>
+		</div>
+		<div class="step2 delay animated">
+			<div class="container">
+				<div class="row text-center">
+					<h2>2. Review the proposals.</h2>
+					<p>Watch the filmmakers demo reels, sort by price, and find one you want to work with</p>
+				</div>
+			</div>
+			<%= image_tag("slide-img2.jpg", :class => 'apple', :style => 'padding-bottom: 80px') %>
+		</div>
+		<div class="step3 delay animated">
+			<div class="container">
+				<div class="row text-center">
+					<h2>3. Securely pay for video.</h2>
+					<p>Set milestones to hit and put the money in escrow until your video is complete.</p>
+				</div>
+			</div>
+			<%= image_tag("slide-img3.jpg", :class => 'apple') %>
+		</div>
+	</section>
+
+	<section id="port" class="main style3 primary">
+		<div id="video-box">
+			<div class="container">
+				<div class="row">
+					<div class="arrow-box"><a href="#vid-cam-box"><%= image_tag("bot-arrow-icon.png") %></a></div>
+					<div class="title-box">
+						<h2>Not sure why video matters?</h2>
+						<p>Here's just a few reasons why it really does.</p>
+					</div>
+					<div class="video-box-cpart pr">
+						<div class="vid-box1 animated"><%= image_tag("vid-img1.png") %></div>
+						<div class="vid-box2 delay animated"><%= image_tag("vid-img2.png") %></div>
+						<div class="vid-box3 delay1 animated"><%= image_tag("vid-img3.png") %></div>
+						<div class="vid-box4 delay2 animated"><%= image_tag("vid-img4.png") %></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="work" class="main style3 primary hidden-xs height-810">
+		<div class='creative-juices-container' id="vid-cam-box">
+			<div class="container">
+				<div class="row">
+					<div class="title-box">
+						<h2>Case Studies: Follow the success of the best</h2>
+						<p>Click on the videos below to watch some examples of really successful video campaigns</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="container start-left-container">
+				<table class='video-boxes-table'>
+					<tr>
+						<td>
+							<div class='video-type-box tvspot'>
+								<%= image_tag("static_pages/creative6.png", :class => 'video-type-box-image') %>
+								<p class='vbox-title'>TV Spot</p>
+								<span class='vbox-body'>
+									Epic Split: Volvo Trucks
+								</span>
+								<span class='vbox-body'>
+								</span>
+							</div>
+						</td>
+						<td>
+							<div class='video-type-box narrative'>
+								<%= image_tag("static_pages/creative5.png", :class => 'video-type-box-image') %>
+								<p class='vbox-title'>Narrative</p>
+								<span class='vbox-body'>
+									Lions: Go Pro
+								</span><br/>
+								<span class='vbox-body'>
+								</span>
+							</div>
+						</td>
+						<td>
+							<div class='video-type-box crowdfunding'>
+								<%= image_tag("static_pages/creative2.png", :class => 'video-type-box-image') %>
+								<p class='vbox-title'>Crowdfunding</p>
+								<span class='vbox-body'>
+									The Coolest, Kickstarter
+								</span>
+								<span class='vbox-body'>
+								</span>
+							</div>
+						</td>
+						<td>
+							<div class='video-type-box explainer'>
+								<%= image_tag("static_pages/creative4.png", :class => 'video-type-box-image') %>
+								<p class='vbox-title'>Explainer</p>
+								<span class='vbox-body'>
+									What is Filmzu?
+									<br /><br />
+								</span>
+							</div>
+						</td>
+						<td>
+							<div class='video-type-box viralad'>
+								<%= image_tag("static_pages/creative3.png", :class => 'video-type-box-image') %>
+								<p class='vbox-title'>Viral Ad</p>
+								<span class='vbox-body'>
+									Dollar Shave Club
+									<br />
+								</span>
+								<span class='vbox-body'>
+								</span>
+							</div>
+						</td>
+						<td>
+							<div class='video-type-box event'>
+								<%= image_tag("static_pages/creative1.png", :class => 'video-type-box-image') %>
+								<p class='vbox-title'>Event</p>
+								<span class='vbox-body'>
+									Apple iPhone 6 Launch
+								</span>
+								<span class='vbox-body'>
+								</span>
+							</div>
+						</td>
+						<td>
+							<div class='video-type-box whiteboard'>
+								<%= image_tag("static_pages/creative7.png", :class => 'video-type-box-image') %>
+								<p class='vbox-title'>White Board</p>
+								<span class='vbox-body'>
+									Good Ideas
+								</span><br/>
+								<span class='vbox-body'>
+								</span>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class='container'>
+			<div class='row'>
+				<div class='youtube-video-box'>
+					<iframe width="560" height="315" src="//www.youtube.com/embed/1_gmfOBW_qI" frameborder="0" allowfullscreen></iframe>
+				</div>
+			</div>
+			<div class='row'>
+				<div class='your-video-next-container'>
+					<!--span class='your-video-next-btn'-->
+						{{# link-to 'clients.create-project' classNames="btn btn-default"}}Your video could be up here next, get creating{{/ link-to}}
+					<!--/span-->
+				</div>
+			</div>
+		</div>
+
+		<% if false %>
+			<div id="vid-cam-box" >
+				<div class="container">
+					<div class="row">
+						<div class="title-box">
+							<h2>Get the creative juices flowing</h2>
+							<p>Mouse over the areas to watch some examples of really successful video campaigns.</p>
+						</div>
+						<div class="arrow-box"><a href="#tweet-box"><%= image_tag("bot-arrow-icon.png") %></a></div>
+					</div>
+				</div>
+				<div class="vid-sam-img pr">
+					<div class="sam-video-box">
+						<div class="vid-sam-box1">
+							<a href="https://www.youtube.com/watch?v=ASO_zypdnsQ?autoplay=1" class="fancybox"><%= image_tag("sam-video-img1.png") %></a>
+						</div>
+						<div class="vid-sam-box2">
+							<a href="http://www.youtube.com/watch?v=IVYFF1mrvEg&feature=youtu.be?autoplay=1" class="fancybox"><%= image_tag("sam-video-img2.png") %></a>
+						</div>
+						<div class="vid-sam-box3">
+							<a href="http://www.youtube.com/watch?v=e99SkdcB2UU&feature=youtu.be?autoplay=1" class="fancybox"><%= image_tag("sam-video-img3.png") %></a>
+						</div>
+						<div class="vid-sam-box4">
+							<a href="http://www.youtube.com/watch?v=kWBhP0EQ1lA&feature=youtu.be?autoplay=1" class="fancybox"><%= image_tag("sam-video-img4.png") %></a>
+						</div>
+						<div class="vid-sam-box5">
+							<a href="http://www.youtube.com/watch?v=dy-Ac9X9oSo&feature=youtu.be?autoplay=1" class="fancybox"><%= image_tag("sam-video-img5.png") %></a>
+						</div>
+						<div class="vid-sam-box6">
+							<a href="https://www.youtube.com/watch?v=ZUG9qYTJMsI?autoplay=1" class="fancybox"><%= image_tag("sam-video-img6.png") %></a>
+						</div>
+						<div class="vid-sam-box7">
+							<a href="http://www.youtube.com/watch?v=km6q4WGNEQ0&feature=youtu.be?autoplay=1" class="fancybox"><%= image_tag("sam-video-img7.png") %></a>
+						</div>
+						<div class="vid-sam-box8">
+							<a href="http://www.youtube.com/watch?v=OiTiKOy59o4&feature=youtu.be?autoplay=1" class="fancybox"><%= image_tag("sam-video-img8.png") %></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	</section>
+
+	<section id="contact" class="main style3 secondary">
+		<div id="tweet-box">
+			<div class='container'>
+				<div class='row'>
+					<div class="arrow-box"><a href="#fpart"><%= image_tag("bot-arrow-icon.png") %></a></div>
+					<div class='border-div'></div>
+					<div class='talented-filmmakers'>
+						Our filmmakers are talented.
+						<div class='talented-filmmakers-body'>
+							No matter how big or small your budget, we have carefully selected people for your project
+						</div>
+						<div class='created-content-for'>
+							Our filmmakers have created content for
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class='content-created-for-images'>
+				<table class='content-created-for-table'>
+					<tr>
+						<td>
+							<%= image_tag("static_pages/worked4-1.png") %>
+						</td>
+						<td>
+							<%= image_tag("static_pages/worked2.png") %>
+						</td>
+						<td>
+							<%= image_tag("static_pages/worked3.png") %>
+						</td>
+						<td>
+							<%= image_tag("static_pages/worked1.png") %>
+						</td>
+						<td>
+							<%= image_tag("static_pages/worked5-1.png") %>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class='border-div margin-bottom-30'></div>
+
+
+			<div class="container">
+				<div class="row">
+					<div class="title-box">
+						<h2>Other People always say it best.</h2>
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="row pr">
+					<div class="quote-box"><%= image_tag("quotes-icon.jpg") %></div>
+						<div class="col-md-4 delay animated">
+						<div class="pl-box1">
+							<p>Filmzu helped immensely when it came time to film our commercial. </p>
+							<p>Through Filmzu we found cast, crew and everything was handled for us leaving us with a fantastic product.</p>
+						</div>
+						<div class="pl-descrip">
+							<div class="pl-detail">
+								Mike Z.<br>
+								CEO <span><a href="http://www.sencit.net/" target="_blank">@Sencit</a></span>
+							</div>
+							<div class="pl-img-box"><%= image_tag("user-img1.jpg") %></div>
+						</div>
+					</div>
+					<div class="col-md-4 delay1 animated">
+						<div class="pl-box1">
+							<p>Filmzu is the platform for businesses to get online video content made exclusively for them.</p>
+							<p>Since we had our explainer video created we've been featured in Forbes and could not be happier.</p>
+						</div>
+						<div class="pl-descrip">
+							<div class="pl-detail">
+								Erin G.<br>
+								<span><a href="https://www.linkedin.com/in/eringargan" target="_blank">Entrepreneur</a></span>
+							</div>
+							<div class="pl-img-box"><%= image_tag("user-img2.jpg") %></div>
+						</div>
+					</div>
+					<div class="col-md-4 delay2 animated">
+						<div class="pl-box1">
+							<p>The team behind Filmzu are the best in the business. </p>
+							<p>I had my company testimonial videos handled by them, they setup and took care of everything, it was a really easy process.</p>
+						</div>
+						<div class="pl-descrip">
+							<div class="pl-detail">
+								Labinot B.<br>
+								CEO <span><a href="https://www.solaborate.com/" target="_blank">@Solaborate</a></span>
+							</div>
+							<div class="pl-img-box"><%= image_tag("user-img3.jpg") %></div>
+						</div>
+					</div>
+					<div class="quote-box1"><%= image_tag("quotes-icon1.jpg") %></div>
+				</div>
+			</div>
+			
+			<br><br>
+				<div class="reg-box">
+					<a href="../../#/clients/create-project" class="orange-btn">Post your job now, it's free.</a><br />
+				</div>
+			<br><br>
+		</div>
+	</section>
+	<script>
+		$(function() {
+			$( "div.video-type-box.tvspot" ).click(function() {
+				$( "div.youtube-video-box" ).replaceWith( '<div class="youtube-video-box"><iframe width="560" height="315" src="//www.youtube.com/embed/M7FIvfx5J10" frameborder="0" allowfullscreen></iframe></div>' );
+			});
+			$( "div.video-type-box.narrative" ).click(function() {
+				$( "div.youtube-video-box" ).replaceWith( '<div class="youtube-video-box"><iframe width="560" height="315" src="//www.youtube.com/embed/MNCzSfv4hX8" frameborder="0" allowfullscreen></iframe></div>' );
+			});
+			$( "div.video-type-box.crowdfunding" ).click(function() {
+				$( "div.youtube-video-box" ).replaceWith( '<div class="youtube-video-box"><iframe width="420" height="315" src="//www.youtube.com/embed/l4irb2K1p8E" frameborder="0" allowfullscreen></iframe></div>' );
+			});
+			$( "div.video-type-box.explainer" ).click(function() {
+				$( "div.youtube-video-box" ).replaceWith( '<div class="youtube-video-box"><iframe width="560" height="315" src="//www.youtube.com/embed/1_gmfOBW_qI" frameborder="0" allowfullscreen></iframe></div>' );
+			});
+			$( "div.video-type-box.viralad" ).click(function() {
+				$( "div.youtube-video-box" ).replaceWith( '<div class="youtube-video-box"><iframe width="560" height="315" src="//www.youtube.com/embed/ZUG9qYTJMsI" frameborder="0" allowfullscreen></iframe></div>' );
+			});
+			$( "div.video-type-box.event" ).click(function() {
+				$( "div.youtube-video-box" ).replaceWith( '<div class="youtube-video-box"><iframe width="560" height="315" src="//www.youtube.com/embed/38IqQpwPe7s" frameborder="0" allowfullscreen></iframe></div>' );
+			});
+			$( "div.video-type-box.whiteboard" ).click(function() {
+				$( "div.youtube-video-box" ).replaceWith( '<div class="youtube-video-box"><iframe width="560" height="315" src="//www.youtube.com/embed/NugRZGDbPFU" frameborder="0" allowfullscreen></iframe></div>' );
+			});
+      
+      $('.four-box-one-vid').click(function(){
+        var data_id = $(this).attr('video_id')
+        $("#modal-"+data_id).addClass('md-show');
+      });
+
+      $('.md-close').click(function(){
+      	$(this).parent().parent().removeClass('md-show');
+      	//$(this).parent().find('video.video-item').get(0).pause();
+      	$("iframe").each(function() { 
+	        var src= $(this).attr('src');
+	        $(this).attr('src',src);  
+				});
+      });
+
+      var h = window.innerHeight;
+		  $('video').css({'height':h +'px'});
+		  $(window).resize(function(){
+				$('video').css({'height':h +'px'});
+		  });
+
+		});
+		
+		$('#watch-reel').click(function() {
+      var href = $(this).attr('href');
+      if (href.length <= 1) { return false; }
+      else {
+        $(this).colorbox({iframe:true, innerWidth:525, innerHeight:350});
+      }
+    });
+
+	</script>
+</script>
+
+<script type='text/x-handlebars' data-template-name='filmmakers/sign_up'>
+	<section id="mpart">
+		<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true) do |f| %>
+			<div class="full-inner-title-box">
+				<div class="container clearfix">
+					<div class="row">
+						<h2>Connect with clients on paid video and film projects</h2>
+						<p>Filmzu puts paying clients at your fingertips, plus it’s FREE and always will be. Have an account? {{# link-to 'filmmakers.sign_in' }}Sign In Here{{/link-to}}. Are you hiring? {{# link-to 'clients.create-project' }}Post a Project{{/link-to}}.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="stripbox-1 pr">
+				<div class="light-gray-box"></div>
+				<div class="white-box"></div>
+			</div>
+
+			<div class="reg-box">
+				<div class="container">
+					<div class="row clearfix">
+						<div class="reg-white-box fr">
+							<p>Have trouble remembering passwords?</p>
+							<a href="<%= user_omniauth_authorize_path(:facebook, 'social_action' => 'signup', 'social_user' => 'filmmaker' ) %>" class="big-blue-btn ajax cboxElement"><%= image_tag("blank-img.png", :class => "fb-icon") %><span>Sign Up With Facebook</span></a>
+							<a href="<%= user_omniauth_authorize_path(:linkedin, 'social_action' => 'signup', 'social_user' => 'filmmaker' ) %>" class="big-blue-btn ajax cboxElement"><%= image_tag("blank-img.png", :class => "link-icon")%><span>Sign Up With Linkedin</span></a>
+						</div>
+						<div class="reg-gray-box fl">
+							<ul class="reg-form">
+								<li>
+									<label>Full Name</label>
+									{{input type="text" id="filmmaker_name" name="filmmaker[name]" class="wh-txt-box" value=name placeholder="Full Name"}}
+								</li>
+								<li>
+									<label>Email Address</label>
+									<%= f.email_field :email,:class => 'wh-txt-box' , :validate => { :presence => true }, :placeholder => 'Email address ' %>
+									<p class="right-text">We NEVER NEVER Spam our users emails.</p>
+								</li>
+								<li>
+									<label>Password</label>
+									<%= f.password_field :password,:class => 'wh-txt-box' , :validate => { :presence => true }, :placeholder => 'Password' %>
+								</li>
+								<li>
+									<label> Confirm Password</label>
+									<%= f.password_field :password_confirmation,:class => 'wh-txt-box' , :validate => { :presence => true }, :placeholder => 'Confirm Password' %>
+									<p class="right-text">Minimum 6 characters.</p>
+								</li>
+								<li>
+									<label>How do you want to represent yourself?</label>
+									<div class="ch-box clearfix">
+										<div class="fl"><input type="checkbox" id="individual" checked='checked'/> Individual</div>
+										<div class="fl"><%= f.check_box :is_company, :id => "company" %> Company</div>
+									</div>
+								</li>
+								<li class="company">
+									<label>Company Name</label>
+									<%= f.text_field :company,:class => 'wh-txt-box' ,:validate => { :presence => false }, :placeholder => 'Company' %><input type="radio" name="radio">
+								</li>
+								<!-- <li class="wh-select">
+									<label>Role that Describe you</label>
+									<select><option>Select</option></select>
+								</li>-->
+								<li>
+									<div class="fl"><input type="checkbox" class='terms-and-conditions'></div>
+									<div class="agree-txt"><span>I <b>{{name}}</b> agree to Filmzu's <a href="/terms" target="_blank">Terms and Conditions</a>.</span></div>
+								</li>
+								<li>
+									<%= f.button :submit, "I'm ready, let me in!", :class=>"big-blue-btn filmmaker-signup-btn", style: "display: none;" %>
+									<!--<a href = "#" class="text-link">Hiring? Sign Up as a Client</a>-->
+									{{# link-to 'clients.create-project' class='text-link'}}Hiring? Sign Up as a Client{{/link-to}}
+								</li>
+							</ul>
+							<script>
+								$(function() {
+									$("select, :radio, :checkbox, :file").uniform();
+								});
+								$(function() {
+									var maxHeight = 0;
+									$("div.reg-box").each(function() {
+										if ($(this).height() > maxHeight) {
+											maxHeight = $(this).height();
+										}
+									});
+									$("div.white-box, div.light-gray-box").height(maxHeight);
+									$('.company').hide();
+								});
+								$(function() {
+									$('#individual').change(function() {
+										if ($(this).is(":checked")) {
+											$('.company').hide();
+											$('#company').prop("checked", false);
+											$('#uniform-company span').removeClass('checked');
+										}else{
+											$('#individual').prop("checked", false);
+											$('#uniform-individual span').removeClass('checked');
+
+											$('.company').show();
+											$('#company').prop('checked',true);
+											$.uniform.update('#uniform-company span');
+											$.uniform.update('#company');
+										}
+									});
+									$('#company').change(function() {
+										if ($(this).is(":checked")) {
+											$('.company').show();
+											$('#individual').prop("checked", false);
+											$('#uniform-individual span').removeClass('checked');
+										}else{
+											$('.company').hide();
+											$('#company').prop("checked", false);
+											$('#uniform-company span').removeClass('checked');
+
+											$('#individual').prop('checked',true);
+											$.uniform.update('#uniform-individual span');
+											$.uniform.update('#individual');
+										}
+									});
+									$('.terms-and-conditions').change(function() {
+										if ($(this).is(":checked")) {
+											$('.filmmaker-signup-btn').show();
+										}else{
+											$('.filmmaker-signup-btn').hide();
+										}
+									});
+								})
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	</section>
+</script>
+
+<script type='text/x-handlebars' data-template-name='clients/sign_up'>
+	<section id="mpart">
+		<div class="full-inner-title-box">
+			<div class="container clearfix">
+				<div class="row">
+					<h1>Welcome to the Client Sign-Up Page</h1>
+					<p>Filmzu puts paying clients at your fingertips, plus it’s FREE and always will be. Have an account?{{# link-to 'clients.sign_in' }}Sign In Here{{/link-to}} Post your job now, it's risk free.</p>
+				</div>
+			</div>
+		</div>
+
+		<% lazy = params[:lazy] || params['lazy'] %>
+		<% prj = params[:prj] || params['prj'] %>
+		<% featured = params[:featured] || params['featured'] %>
+		<% session[:lazy] = lazy %>
+		<% session[:project_id] = prj %>
+		<% session[:featured] = featured %>
+
+		<div class="reg-box">
+			<div class="form-inputs">
+				<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true) do |f| %>
+					<% if lazy && prj%>
+						<%= hidden_field_tag :lazy, lazy %>
+						<%= hidden_field_tag :project_id, prj %>
+						<% if featured.present? %>
+							<%= hidden_field_tag :is_featured, featured %>
+						<% end %>
+					<% end %>
+					<%= f.input :email, :required => true, :autofocus => true %>
+					<%= f.input :password, :required => true %>
+					<%= f.input :password_confirmation, :required => true %>
+				</div>
+			</div>
+
+			<div class="form-actions">
+				<%= f.button :submit, "Sign up" %>
+			</div>
+			<%= render "clients/shared/links" %>
+			{{outlet}}
+		</script>
+	<% end %>
+</section>
+
+<script type='text/x-handlebars' data-template-name='filmmakers/sign_in'>
+	<section id="mpart">
+		<div class="full-inner-title-box">
+			<div class="container clearfix">
+				<div class="row">
+					<h2>Filmmaker Sign In</h2>
+					<p>Filmzu puts paying clients at your fingertips, plus it’s FREE and always will be. Not a Filmmaker? Head over to {{# link-to 'clients.sign_in' }}Client Sign-in{{/link-to}}
+				</div>
+			</div>
+		</div>
+
+		<div class="stripbox-1 pr">
+			<div class="light-gray-box"></div>
+			<div class="white-box"></div>
+		</div>
+
+		<div class="reg-box">
+			<div class="container">
+				<div class="row clearfix">
+					<div class="reg-gray-box fl">
+						<%= simple_form_for(@filmmaker, :as => :filmmaker, :url => session_path(:filmmaker)) do |f| %>
+							<ul class="reg-form">
+								<li>
+									<%= f.input :email, :placeholder => "Email", :label => "Email Address", :required => false, :autofocus => true, input_html: { class: 'wh-txt-box' } %>
+								</li>
+								<li>
+									<%= f.input :password, :placeholder => "Password", :label => "Password", :required => false, input_html: { class: 'wh-txt-box' } %>
+								</li>
+								<li>
+									<%= f.button :submit, "Sign In", :class => 'big-blue-btn' %>
+								</li>
+								<li>
+									<%= link_to "Forgot your password?", new_password_path(resource_name), :class =>'link' %>
+								</li>
+							</ul>
+						</div>
+					<% end %>
+					<div class="reg-white-box fl">
+						<p>Have trouble remembering passwords?</p>
+						<a href="<%= user_omniauth_authorize_path(:facebook, 'social_action' => 'signin', 'social_user' => 'filmmaker' ) %>" class="big-blue-btn"><%= image_tag('blank-img.png', :class =>'fb-icon')%><span>Log In With Facebook</span></a>
+						<a href="<%= user_omniauth_authorize_path(:linkedin, 'social_action' => 'signin', 'social_user' => 'filmmaker' ) %>" class="big-blue-btn"><%= image_tag('blank-img.png', :class =>'link-icon')%><span>Log In With Linkedin</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(function(){
+				var maxHeight = 0;
+				$("div.reg-box").each(function(){
+					if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+				});
+				$('.company').hide();
+				$("div.white-box, div.light-gray-box").height(maxHeight);
+			});
+		</script>
+	</section>
+</script>
+
+<script type='text/x-handlebars' data-template-name='clients/sign_in'>
+	<section id="mpart">
+		<div class="full-inner-title-box">
+			<div class="container clearfix">
+				<div class="row">
+					<h2>Client Sign In</h2>
+					<p>Filmzu puts the top filmmakers at your fingertips, plus it’s FREE and always will be. Not a Client? {{# link-to 'filmmakers.sign_in' }}Filmmaker Sign-in{{/link-to}}
+				</div>
+			</div>
+		</div>
+
+		<div class="stripbox-1 pr">
+			<div class="light-gray-box"></div>
+			<div class="white-box"></div>
+		</div>
+
+		<div class="reg-box">
+			<div class="container">
+				<div class="row clearfix">
+					<div class="reg-gray-box fl">
+						<%= simple_form_for(@client, :as => :client, :url => session_path(:client)) do |f| %>
+							<ul class="reg-form">
+								<li>
+									<%= f.input :email, :label => "Email Address", :placeholder => "Email", :required => false, :autofocus => true, input_html: { class: 'wh-txt-box' } %>
+								</li>
+								<li>
+									<%= f.input :password, :label => "Password", :placeholder => "Password", :required => false, input_html: { class: 'wh-txt-box' } %>
+								</li>
+								<li>
+									<%= f.button :submit, "Sign in", :class => 'big-blue-btn' %>
+								</li>
+								<li>
+									<%= link_to "Forgot your password?", new_password_path(:client), :class =>'link' %>
+								</li>
+							</ul>
+						<% end %>
+					</div>
+					<div class="reg-white-box fl">
+						<p>Have trouble remembering passwords?</p>
+						<a href="<%= user_omniauth_authorize_path(:facebook, 'social_action' => 'signin', 'social_user' => 'client' ) %>" class="big-blue-btn"><%= image_tag('blank-img.png', :class =>'fb-icon')%><span>Log In With Facebook</span></a>
+						<a href="<%= user_omniauth_authorize_path(:linkedin, 'social_action' => 'signin', 'social_user' => 'client' ) %>" class="big-blue-btn"><%= image_tag('blank-img.png', :class =>'link-icon')%><span>Log In With Linkedin</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(function(){
+				$(".ajax").colorbox();
+				var maxHeight = 0;
+				$("div.reg-box").each(function(){
+					if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+				});
+				$('.company').hide();
+				$("div.white-box, div.light-gray-box").height(maxHeight);
+			});
+		</script>
+	</section>
+</script>
+<style>
+	.shared_links { padding-top: 15px; }
+	.shared_links a {
+		color: #1facc9;
+		font-size: 14px;
+		font-weight: 400;
+		text-decoration: underline;
+		padding: 2px 0;
+		display: inline-block;
+	}
+	.shared_links a:hover { text-decoration: none; }
+</style>
+
+<script type='text/x-handlebars' data-template-name='clients/create-project'>
+	<section id="mpart">
+		<div class="container">
+			<div class="row emberprojcreate">
+				<%= form_tag 'projects/create_project', :multipart => true, :id=>'create_project_frm', :remote => true do %>
+					<div id="step1" class="create-prj">
+						<ul class="step-nav" style="width: 412px !important;">
+							<li class="active"><a href="javascript:void(0)"><span class="icon-box"><%= image_tag('blank-img.png', :class => "sign-icon" )%></span><strong>The  Basics</strong></a><%= image_tag('blue-tab-arrow.png', :class => "tab-arrow" )%></li>
+							<%# Temporary comment for featured step in sign up %>
+							<% if false %>
+								<li><a href="javascript:void(0)"><span class="icon-box"><%= image_tag('blank-img.png', :class => "plus-icon" )%></span><strong>Feature</strong></a><%= image_tag('gray-tab-arrow.png', :class => "tab-arrow" )%></li>
+							<% end %>
+							<li><a href="javascript:void(0)"><span class="icon-box"><%= image_tag('blank-img.png', :class => "plus-icon" )%></span><strong>Preview</strong></a></li>
+						</ul>
+						<div class="create-hpart">
+							<h2>Create Project</h2>
+							<p>List your project, and get the video you want made!</p>
+						</div>
+						<ul class="fields-box">
+							<li tabindex='1'>
+								<label>What is the title of your video?</label>
+								<input value="" id='project_title' type="text" name=project[title] class="text-intbox" />
+								<span id='title_error' style='display: inline; color: red;'></span>
+							</li>
+							<li id='que_1' tabindex='2'>
+								<label>What type of video do you want?</label>
+								<%= hidden_field_tag 'question_1', 'What type of video do you want?' %>
+								<%= hidden_field_tag 'answer_1', '' %>
+								<span class="gray-btn">TV Commercial</span>
+								<span class="gray-btn ml10">Crowdfunding</span>
+								<span class="gray-btn ml10">Web Video</span>
+								<span class="gray-btn mt10 ml10">Explainer Video</span>
+								<span class="gray-btn mt10 ml10">Event</span>
+								<span class="gray-btn ml10 mt10">Other</span>
+							</li>
+							<li id='que_2' tabindex='3'>
+								<%= hidden_field_tag 'question_2', 'What style of video do you want?' %>
+								<%= hidden_field_tag 'answer_2', '' %>
+								<label>What style of video do you want?</label>
+								<span class="gray-btn">Live Action</span>
+								<span class="gray-btn ml10">Animated</span>
+								<span class="gray-btn ml10">Stop Motion</span>
+								<span class="gray-btn mt10 ml10">Motion Graphics</span>
+								<span class="gray-btn mt10 ml10">Whiteboard</span>
+							</li>
+							<li id='que_3' tabindex='4'>
+								<label>Do you have an idea for a script?</label>
+								<%= hidden_field_tag 'question_3', 'Do you have an idea for a script?' %>
+								<%= hidden_field_tag 'answer_3', '' %>
+								<span class="gray-btn">Yes</span>
+								<span class="gray-btn ml10">No</span>
+								<span class="gray-btn ml10">I don’t know</span>
+							</li>
+							<li id='que_4' tabindex='5'>
+								<label>Do you need any actors?</label>
+								<%= hidden_field_tag 'question_4', 'Do you need any actors?' %>
+								<%= hidden_field_tag 'answer_4', '' %>
+								<span class="gray-btn">Yes</span>
+								<span class="gray-btn ml10">No</span>
+								<span class="gray-btn ml10">I don’t know</span>
+							</li>
+							<li id='que_5' tabindex='6'>
+								<label>Do you need music?</label>
+								<%= hidden_field_tag 'question_5', 'Do you need music?' %>
+								<%= hidden_field_tag 'answer_5', '' %>
+								<span class="gray-btn">No</span>
+								<span class="gray-btn ml10">Original</span>
+								<span class="gray-btn ml10">Licensed</span>
+								<span class="gray-btn ml10 mt10">Stock</span>
+							</li>
+							<li id='que_6' tabindex='7'>
+								<%= hidden_field_tag 'question_6', 'About how long do you want it to be?' %>
+								<%= hidden_field_tag 'answer_6', '' %>
+								<label>About how long do you want it to be?</label>
+								<span class="gray-btn">30 sec</span>
+								<span class="gray-btn ml10">1 min</span>
+								<span class="gray-btn ml10">1-2 min</span>
+								<span class="gray-btn ml10">2-5 min</span>
+								<span class="gray-btn ml10 mt10">5+ min</span>
+							</li>
+							<li id='que_7' tabindex='8'>
+								<%= hidden_field_tag 'question_7', 'Proposals due by' %><%= hidden_field_tag 'answer_7', '' %>
+								<label>Proposals due by:</label>
+								<span class="gray-btn">1 day</span>
+								<span class="gray-btn ml10">3 days</span>
+								<span class="gray-btn ml10">5 days</span>
+								<span class="gray-btn ml10">7 days</span>
+								<span class="gray-btn ml10 mt10">10 days</span>
+							</li>
+							<li style="min-height:105px;" tabindex='9'>
+								<label>What’s your approx budget? <p>Filmmakers give their own estimates, but will tailor scope towards budgets</p></label>
+								<div class="dollar-int"><span class='dollar-box'>$</span>
+									<%#= number_field_tag :price, 10000, :id =>'project_budget', :class => 'text-smallbox' %>
+									<%= text_field_tag :price, 10000, :id =>'project_budget', :class => 'text-smallbox' %>
+									<div id="smallbudget"></div>
+									<span id='project_budget_error' style='display: inline; color: red;'></span>
+								</div>
+								<input id="Slider1" style="display:none;" />
+							</li>
+							<li>
+								<div id="slider13"></div>
+							</li>
+							<% if false %>
+							<li id='que_8'>
+								<%= hidden_field_tag 'question_8', 'Who do you want applicants by?' %>
+								<%= hidden_field_tag 'answer_8', '' %>
+								<label>Who do you want applicants by? <p>Filmzu Pro is the top 1% in the industry</p></label>
+								<span class="gray-btn">Everyone</span>
+								<span class="gray-btn ml10">Filmzu Pro Only</span>
+							</li>
+							<% end %>
+							<li tabindex='10'>
+								<label>Tell us in your own words what you want</label>
+								<textarea name='project[description]' id='project_description' placeholder='Enter your brief about the video here...'></textarea>
+								<span id='project_description_error' style='display: inline; color: red;'></span>
+							</li>
+							<li tabindex='11'>
+								<label>Location <p>Optional: Only if you require someone on location</p></label>
+								<input type="text" id='project_location' value="" name='project[location]' class="text-intbox" />
+							</li>
+							<li tabindex='12'>
+							<label>Tag which skills you want <p>Optional: This could be equipment, style, personality. <b>Press Enter/Return to Tag</b></p></label>
+						    <input type="text" name='skills' id='skills' class="text-intbox" data-role="tagsinput">
+								<%#= select_tag "skills", options_for_select(["Equipment", "Style", "Personality"]), multiple: true, class: 'project-new-skills' %>
+  							<input type='hidden' id='is_featured' name='is_featured' value='false'>
+
+								<input type='hidden' id='project_status' name='project[status]' value=''>
+							</li>
+						</ul>
+						<div class="btn-box step-btn clearfix">
+							<a href="#" id='attach_file' class="gray-btn1 fl">Attach File</a> <label><p class="docs"> Optional: PDF, DOC or DOCX allowed.</p></label>
+							<input type='file' name='project_attachment' id='attach_project_file' style='display:none'/>
+							<span id='attachment_detail' style='margin: 10px 2px 2px 5px; color: red;'></span>
+							<a id="reset-file" href="javascript:void(0);">reset</a>
+							<div class="fr">
+								<a href="javascript:void(0)" class="orange-btn" id="next-btn1">Next</a>
+								<a href="#" id='close_btn' class="gray-btn ml10">Cancel</a>
+							</div>
+						</div>
+					</div>
+					<div id="step2" class="create-prj">
+						<ul class="step-nav">
+							<li class="#">
+								<a href="javascript:void(0)">
+									<span class="icon-box"><%= image_tag('blank-img.png', :class => "sign-icon" )%></span><strong>The  Basics</strong>
+								</a>
+								<%= image_tag('gray-tab-arrow.png', :class => "tab-arrow" )%>
+							</li>
+							<li class="active"><a href="javascript:void(0)">
+								<span class="icon-box"><%= image_tag('blank-img.png', :class => "plus-icon" )%></span><strong>Feature</strong></a>
+								<%= image_tag('blue-tab-arrow.png', :class => "tab-arrow" )%>
+							</li>
+							<li>
+								<a href="javascript:void(0)"><span class="icon-box"><%= image_tag('blank-img.png', :class => "plus-icon" )%></span>
+								<strong>Preview</strong></a>
+							</li>
+						</ul>
+						<div class="create-hpart">
+							<h2>Feature Your Project</h2>
+							<p>Feature your project to receive top proposals and applicants</p>
+						</div>
+						<ul class="create-listText">
+							<li>Receive proposals faster and make sure your post stands out</li>
+							<li>Access to Filmzu Pro users who provide verified work</li>
+							<li>Attract top talent that know you are serious about making something great</li>
+						</ul>
+						<div class="btn-box step-btn">
+							<a href="javascript:void(0)" class="gray-btn fl" id="next-btn2">No Thanks</a>
+							<div class="fl ml10 fee-box">
+								<a href="javascript:void(0)" id='feature_prj' class="orange-btn">Yes, Feature Me!</a>
+								<span>One time $15 fee</span>
+							</div>
+						</div>
+					</div>
+
+					<div id="step3" class="create-prj">
+						<ul class="step-nav" style="width: 412px !important;">
+							<li class="#">
+								<a href="javascript:void(0)"><span class="icon-box">
+									<%= image_tag('blank-img.png', :class => "sign-icon" )%></span>
+									<strong>The  Basics</strong>
+								</a>
+								<%= image_tag('gray-tab-arrow.png', :class => "tab-arrow" )%>
+							</li>
+							<% if false %>
+								<%# Temporary comment for featured step %>
+								<li>
+									<a href="javascript:void(0)">
+										<span class="icon-box"><%= image_tag('blank-img.png', :class => "sign-icon" )%></span>
+										<strong>Feature</strong>
+									</a>
+									<%= image_tag('gray-tab-arrow.png', :class => "tab-arrow" )%>
+								</li>
+							<% end %>
+							<li class="active">
+								<a href="javascript:void(0)"><span class="icon-box"><%= image_tag('blank-img.png', :class => "plus-icon" )%></span>
+									<strong>Preview</strong>
+								</a>
+							</li>
+						</ul>
+						<div class="job-box">
+							<div class="job-rpart">
+							    <div class="create-hpart preview-hpart">
+							      <h2>Preview Your Project</h2>
+						        </div>
+								<div class="job-title">
+									<h3>Filmzu Job Title</h3>
+								</div>
+								<!--ul class="gray-status-box clearfix">
+									<li><div class="glyphicon glyphicon-map-marker location_div"></div><span></span></li>
+									<li><div class="glyphicon glyphicon-facetime-video"></div> <span></span></li>
+									<li><div class="glyphicon glyphicon-time"></div> <span class='film_length'> xxxx</span> </li>
+									<li><div class="glyphicon glyphicon-usd"></div> <span class='film_budget'> $xxxx</span></li>
+
+									<!-- li>
+										<%= image_tag('blank-img.png', :class => "sm-user-icon" )%>
+										<span id='actors_needed'></span>
+									</li-->
+								</ul-->
+								<div class="job-des">
+									<p>Job description</p>
+									<div class="film-detail col-md-12">
+										<table class="table table-hover">
+										      <thead>
+										        <tr>
+										          <th></th>
+										          <th>Options</th>
+										          <th>Selection</th>
+										        </tr>
+										      </thead>
+													<tbody>
+										        <tr>
+										          <td><div class='glyphicon glyphicon-facetime-video'></div></td>
+										          <td>Video Type</td>
+										          <td><span id='film_type'>Event</span></td>
+										        </tr>
+										        <tr>
+										          <td><div class='glyphicon glyphicon-film'></div></td>
+										          <td>Video Style</td>
+										          <td><span id='film_style'>Animated</span></td>
+										        </tr>
+										        <tr>
+										          <td><div class='glyphicon glyphicon-time'></div></td>
+										          <td>Video Length</td>
+										          <td><span id='film_length'>3min</span></td>
+										        </tr>
+										        <tr>
+										          <td><div class='glyphicon glyphicon-file'></div></td>
+										          <td>Script</td>
+										          <td><span id='script'>No</span></td>
+										        </tr>
+										        <tr>
+										          <td><div class='glyphicon glyphicon-user'></div></td>
+										          <td>Actors</td>
+										          <td><span id='actors'>No</span></td>
+										        </tr>
+										        <tr>
+										          <td><div class='glyphicon glyphicon-music'></div></td>
+										          <td>Music</td>
+										          <td><span id='music'>No</span></td>
+										        </tr>
+										        <tr>
+										          <td><div class='glyphicon glyphicon-list'></div></td>
+										          <td>Proposals due in</td>
+										          <td><span id='proposals_due_length'> 1day</span></td>
+										        </tr>
+										        <tr>
+										          <td><div class='glyphicon glyphicon-usd'></div></td>
+										          <td>Total Budget</td>
+										          <td><span id='film_budget'> $500</span></td>
+										        </tr>
+														<% if false %>
+										        <tr>
+										          <td><div class='glyphicon glyphicon-eye-open'></div></td>
+										          <td>Visibility</td>
+										          <td><span id='film_visibility'> Filmzu Pro Only</span></td>
+										        </tr>
+														<% end %>
+													</tbody>
+										</table>
+									</div>
+									<ul class="attach-box">
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="btn-box step-btn tx-right">
+							<!--a href="javascript:void(0)" class="draft-link">Save draft for later</a-->
+							<a href="javascript:void(0)" id="next-btn3" class="gray-btn">Edit Project</a>
+							<!--a href="#" class="orange-btn ml10" id='signup_now'>Start My Project</a-->
+							<input type='submit' value='Start my Project' id='signup_now' class='orange-btn ml10'>
+						</div>
+						<p class="docs">In order to maintain the high quality of projects in Filmzu and to ensure the accuracy of the work received by Filmmaker please be aware that Editing or Deleting your project after submission requires the assistance of an admin. </p>
+					</div>
+
+					<div id="step4" class="create-prj">
+						<div class="create-hpart">
+							<h2>Almost Done!</h2>
+							<p>Before we can list your project your must register</p>
+						</div>
+						<ul class="create-listText">
+							<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</li>
+							<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</li>
+							<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</li>
+						</ul>
+						<div class="btn-box">
+							<a href="#" class="gray-btn fl">No Thanks</a><a href="#" class="orange-btn ml10">Yes, Register Now!</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	</section>
+
+	<script type = "text/javascript" > $(function() {
+		$('#skills').tagsinput('refresh');
+			/*$('#signup_now').click(function(){
+			 $('#create_project_frm').submit();
+			 })*/
+
+			var availableTags = ["Skill 1", "Skill 2", "Skill 3"];
+
+			$("#skill_tags").autocomplete({
+				source : availableTags,
+				select : function(event, ui) {
+					console.log('skill select')
+					var selected_skill = ui.item.value;
+					html_str = "<li><a href='#!'><img src='../assets/blank-img.png' class='red-minus-icon'>" + selected_skill + "</a></li>"
+					$('.skills-box').append(html_str);
+					$('#skills').val($('#skills').val() + "," + selected_skill);
+					$("#skill_tags").val('');
+					console.log($("#skills").val());
+					var index = availableTags.indexOf(selected_skill);
+					if (index != -1) {
+						availableTags.splice(index, 1);
+					}
+					return false;
+				}
+			});
+
+			/*$('#project_location').autocomplete({
+				source : function(request, response) {
+					$.ajax({
+						url : '/search_location.json',
+						data : {
+							term : request.term
+						},
+						dataType : 'json',
+						success : function(data) {
+							response($.map(data, function(obj) {
+								return obj;
+							}))
+						}
+					})
+				},
+				minLength : 3,
+				select : function(event, ui) {
+					//console.log(ui.item.location);
+				}
+			})*/
+
+			/*$('input[name^="fileupload"]').rules('add', {
+			 required: true,
+			 accept: "application/msword"
+			 })*/
+
+			$("select, :radio, :checkbox, :file").uniform();
+			var $slider13 = $("#slider13").slider({
+				prefix : "$",
+				min : 1000,
+				step : 250,
+				max : 50000,
+				value : 1000
+			});
+			$slider13.slider("pips").slider("float", {
+				pips : true,
+				rest : "label",
+				prefix : "$"
+			});
+
+			$slider13.on('slidechange', function(e, ui) {
+				$("#project_budget").val(ui.value);
+			});
+
+			$("#project_budget").keyup(function() {
+			  var budget = $(this).val();
+			  if ((budget != "") && (budget.length > 3)) {
+			   if ((parseInt(budget) >= 1000) && (parseInt(budget) <= 50000)) {
+			     $slider13.slider("value", budget);
+			   }
+			  }
+			});
+
+			$("#project_budget").change(function() {
+			  var budget = $(this).val();
+			  if (budget == "") { $(this).val($("#slider13").slider("value")); }
+			  else if (parseInt(budget) < 1000) {
+					$('#project_budget_error').html('');
+					$(this).val(1000); $("#slider13").slider("value", 1000);
+					$( "#smallbudget p" ).empty();
+					$( "#smallbudget p" ).css( "color", "red" );
+					$( "<p>For smaller projects below $1000 please use the <a href='http://filmzu.com/filmmakers'>direct hire</a> function</p>" ).appendTo( "#smallbudget" );
+				}
+				else if(parseInt(budget) >= 1000){
+					$('#project_budget_error').html('');
+					$("#slider13").slider("value", budget);
+				}
+			});
+
+			jQuery("#SliderSingle").slider({
+				from : 100,
+				to : 5000,
+				step : 2.5,
+				round : 1,
+				format : {
+					locale : 'de'
+				},
+				dimension : '&nbsp;$',
+				skin : "round"
+			});
+			$('.create-prj').hide()
+
+			$('#reset-file').hide();
+			$('#reset-file').click(function() {
+			  $('#attach_project_file').val('');
+			  $('#step1 #attachment_detail').html('');
+			  $(this).hide();
+			});
+
+			$('#attach_file').click(function() {
+				$('#attach_project_file').click();
+				return false;
+			})
+
+			$('#attach_project_file').change(function() {
+				var ext = $('#attach_project_file').val().split('.').pop().toLowerCase();
+				//$('#reset-file').show();
+				if ($.inArray(ext, ['doc', 'docx', 'pdf']) == -1) {
+					$('#attach_project_file').val('');
+					$('#attach_project_file').replaceWith($('#attach_project_file').val('').clone(true));
+					$('#step1 #attachment_detail').html('Attachments of type doc, docx and pdf are only allowed');
+					$('#attach_project_file').val('');
+					$('#step1 #attachment_detail').css('color','red');
+					return false;
+				} else {
+					var pattern = /\\/;
+					$('#step1 #attachment_detail').html($('#attach_project_file').val().split(pattern).slice(-1)[0]);
+					$('#step1 #attachment_detail').css('color','#000000');
+				}
+			})
+
+			$('#step1').show()
+			$("#project_title").change(function(){
+				if ($.trim($("#project_title").val()) == "") {
+					nxt_flag = false;
+					$('#title_error').show();
+					$('#title_error').html('Title is required');
+				}else{ $('#title_error').hide(); }
+			});
+            $("#step1 #project_description").change(function(){
+			  if ($.trim($("#step1 #project_description").val()) != "") {
+                if ($.trim($('#step1 #project_description').val()).length > 1000) {
+					nxt_flag = false;
+					$('#project_description_error').show();
+					$('#project_description_error').html('Maximum length 1,000 characters.');
+				}
+				else {
+                  $('#project_description_error').hide();
+				}
+			  }else{ $('#project_description_error').hide(); }
+			});
+			$("#next-btn1").click(function(e) {
+				var nxt_flag = false;
+				var options_available = false;
+				if ($.trim($('#step1 #project_description').val()) != "") {
+				  if ($.trim($('#step1 #project_description').val()).length > 1000) {
+				    e.preventDefault();
+					nxt_flag = false;
+					$('#project_description_error').html('Maximum length 1,000 characters.');
+					return false;
+				  }
+				}
+
+				var $budget = $("#project_budget").val();
+				if($.isNumeric($budget)){
+					$('#project_budget_error').html('');
+				}else{
+					e.preventDefault();
+					nxt_flag = false;
+					$('#project_budget_error').html('Please enter valid budget');
+					$('html, body').animate({
+						scrollTop: $("#project_budget").offset().top
+					}, 2000);
+					return false;
+				}
+
+				if ($.trim($("#project_title").val()) == "") {
+					e.preventDefault();
+					nxt_flag = false;
+					$('#title_error').html('Title is required');
+				}else{
+					$('.fields-box').find('li').each(function() {
+						var total_options = $(this).find('.gray-btn').length;
+
+						if ($.trim($("#project_title").val()) == "") {
+							nxt_flag = false;
+							$('#title_error').html('Title is required');
+						}
+
+						if ($("#attachment_detail").is(":visible") && ($("#attachment_detail").val() == "Invalid file type")) {
+							nxt_flag = false;
+							return false;
+						}
+
+						if (total_options > 0) {
+							options_available = true;
+							var default_selected_options = $(this).find('.active').length;
+							if (default_selected_options == 0 && options_available) {
+								if ($(this).find('.opt_req').is(':visible')) {}
+								else {
+									$(this).append("<br><br><span class='opt_req' style='color:red;'>Please select an option</span>");
+								}
+								nxt_flag  = false;
+							} else {
+								nxt_flag = true;
+							}
+						}
+
+					})
+				}
+
+
+
+				var req_ans = $('.opt_req').length;
+
+				if ($("#attachment_detail").is(":visible") && ($("#attachment_detail").html() == "Invalid file type")){
+						req_ans = req_ans+1;
+				}
+
+			  if (req_ans == 0) {
+					if($.trim($("#project_title").val()) != ""){
+						$('#step1').toggle('slide', {
+							direction : 'left'
+						}, 500);
+						//$('#step2').delay(500).fadeIn();
+						$('#step3').delay(500).fadeIn();
+						initialize_values();
+					}else{
+						$('html, body').animate({
+      				scrollTop: $("#project_title").offset().top
+  					}, 2000);
+					}
+			  }
+			});
+
+			$("#step1 .gray-btn").click(function() {
+
+				$(this).parent().find('.gray-btn').each(function() {
+					$(this).removeClass('active');
+				});
+				$(this).addClass("active");
+
+				if($("#"+$(this).parent().attr('id')).find('.opt_req').is(':visible')){
+					$("#"+$(this).parent().attr('id')).find('.opt_req').remove();
+				}
+
+				var parent_id = $(this).parent().attr('id');
+				var que_num = parent_id.split("_")[1];
+				$("#answer_" + que_num.toString()).val($(this).html());
+			})
+
+			$("#next-btn2").click(function() {
+			  $('#is_featured').val(false);
+				$('#step2').toggle('slide', {
+					direction : 'left'
+				}, 500)
+				$('#step3').delay(500).fadeIn()
+				initialize_values();
+			});
+
+			$('#feature_prj').click(function(){
+				$('#is_featured').val(true);
+				$('#step2').toggle('slide', {
+					direction : 'left'
+				}, 500)
+				$('#step3').delay(500).fadeIn()
+				initialize_values();
+			})
+
+			function initialize_values() {
+				$('#step3 .job-title h3').html($('#step1 #project_title').val());
+				if ($('#project_location').val() != ""){
+					$('.location_div').show();
+					$('#step3 .job-rpart .gray-status-box').find('li').first().find("span").html($('#project_location').val());
+				}else{
+					$(".loc-icon").parent().hide();
+					$('.location_div').hide();
+				}
+				$('#step3 .job-rpart .job-des').find('p').html($('#step1 #project_description').val());
+				$('#step3 .job-rpart .job-des .film-detail #film_type').html($('#answer_1').val());
+				$('#step3 .job-rpart .job-des .film-detail #film_style').html($('#answer_2').val());
+				$('#step3 .job-rpart .job-des .film-detail #film_length').html($('#answer_6').val());
+				$('#step3 .job-rpart .gray-status-box #actors_needed').html($('#answer_4').val());
+				$('#step3 .job-rpart .job-des .film-detail #proposals_due_length').html($('#answer_7').val());
+				$('#step3 .job-rpart .job-des .film-detail #film_budget').html('$' + $('#step1 #project_budget').val());
+				//$('#step3 .job-rpart .job-des .film-detail #film_visibility').html($('#answer_8').val());
+				$('#step3 .job-rpart .job-des .film-detail #actors').html($('#answer_4').val());
+				$('#step3 .job-rpart .job-des .film-detail #music').html($('#answer_5').val());
+				$('#step3 .job-rpart .job-des .film-detail #script').html($('#answer_3').val());
+
+				$('.film_length').html($('#answer_6').val());
+				$('.film_budget').html(' ' + $('#step1 #project_budget').val());
+
+				//$('#step3 .job-rpart .job-des .attach-box').html("<li><a href='javascript:void(0);'><img src='../assets/blank-img.png' class = 'attch-icon'>" + $('#step1 #attachment_detail').html() + "</a></li>");
+				var attachment_validation_message = "Attachments of type doc, docx and pdf are only allowed";
+				var $attachment_detail = $('#step1 #attachment_detail');
+				if ($attachment_detail.html() != "" && $attachment_detail.html() != attachment_validation_message){
+					$('#step3 .job-rpart .job-des .attach-box').html("<li><a href='javascript:void(0)'><img src='../assets/blank-img.png' class = 'attch-icon'>" + $('#step1 #attachment_detail').html() + "</a></li>");
+				}
+
+				if ($('#skills').val() != ""){
+					var skills_list = $('#skills').val().split(',');
+					$('#step3 .job-rpart .job-des .film-detail').find("li:last-child span").html("Skills: <ul class='mt10'> </ul>");
+					var cList = $('ul.mt10');
+					$.each(skills_list, function(i)
+					{
+					    var li = $(' <li/> ')
+					        .addClass('skill')
+									.attr('style', 'margin:4px !important;padding: .2em .6em .3em !important;')
+					        .appendTo(cList)
+					        .text(skills_list[i]);
+					});
+				}
+
+				$('#step3 .job-rpart .gray-status-box').find('li:nth-child(2)').find("span").html($('#answer_1').val());
+				// answer_1
+			}
+
+			$('a.draft-link').click(function(){
+				$('#project_status').val('draft');
+				$('#create_project_frm').submit();
+			});
+
+			$("#next-btn3").click(function() {
+				$('#step3').toggle('slide', {
+					direction : 'right'
+				}, 500);
+				$('#step1').delay(500).fadeIn()
+			});
+
+			$("#project_location").geocomplete();
+
+			/*$(".project-new-skills").select2(
+              { minimumInputLength: 2 }
+            );*/
+
+		})
+
+	</script>
+	<%#= stylesheet_link_tag "select2" %>
+  <%= javascript_include_tag "select2" %>
+	<%= javascript_include_tag "jquery-ui-slider-pips" %>
+	<%= javascript_include_tag "jquery.geocomplete" %>
+	<%= javascript_include_tag "bootstrap-tagsinput" %>
+  <%= javascript_include_tag "classie" %>
+  <%= javascript_include_tag "modalEffects" %>
+	<%= stylesheet_link_tag "bootstrap-tagsinput" %>
+	<%= stylesheet_link_tag "jquery_ui_slide_pips" %>
+  <%= stylesheet_link_tag "component" %>
+	<script src='http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places'></script>
+</script>
+
+<% if false %>
+	<style>
+	  #select2-drop {
+	    width: 71.5% !important;
+	  }
+	  .project-new-skills {
+	    width: 100% !important;
+	  }
+	  .select2-choices {
+	    width: 100% !important;
+	    background: #eaeded !important;
+	    border-radius: 3px;
+	    -moz-border-radius: 3px;
+	    -webkit-border-radius: 3px;
+	    padding: 5px 10px;
+	    font-size: 15px;
+	    font-weight: 400;
+	    color: #424242;
+	  }
+
+	  .select2-container-multi .select2-choices {
+	    min-height: 50px !important;
+	    border: 0 !important;
+	  }
+
+	  .select2-drop-active {
+	    border: 1px solid #eaeded;
+	    border-top: none;
+	  }
+	</style>
+<% end %>

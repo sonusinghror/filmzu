@@ -1,0 +1,188 @@
+<section id="mpart">
+  <div class="stripbox pr">
+  	<div class="white-box"></div>
+    <div class="light-gray-box"></div>
+  </div>
+	<div class="container clearfix">
+    <div class="row">
+      <%= render 'clients/shared/left_sidebar' %>
+      <div class="content-rpart">
+        <div class="inner-title-box">
+          <h2>Accounts</h2>
+          <p>Manage the financial accounts to be used when making withdrawals and payments on Filmzu.</p>
+        </div>
+        <div class="box-space">
+          <div class="ac-title">
+          	<div class="fl">
+            	Active Accounts<span class="gray-box"><%= image_tag("blank-img.png", :class => "qua-icon help-link mt6", :title => "Back Accounts and Credit Cards you have added to your Filmzu account. All data is securely sent through SSL encryption.") %></span>
+          	</div>
+          </div>
+          <table class="ac-data" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <th width="33%">Filmzu Account</th>
+              <th width="33%">Balance</th>
+              <th>Actions</th>
+            </tr>
+            <tr>
+              <td>
+								<%= image_tag("blank-img.png", :class => "card-icon")%>
+								<%= "Client Account ##{current_client.id}" %>
+							</td>
+							<% if current_client.balance >= 0 %>
+								<td>$<%= current_client.balance %></td>
+							<% else %>
+								<td class="debit">$<%= current_client.balance %></td>
+							<% end %>
+              <td class="link debit">
+								<%= link_to "Fund", client_add_fund_url, class: 'client-fund-btn ajax' %>
+							</td>
+            </tr>
+          </table>
+					<div class='ac-title'><%= link_to 'View all Transactions', client_transactions_url, class: 'blue-btn fr' %></div>
+          <table class="ac-data" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <th>Bank Accounts</th>
+			    		<th>Bank Name</th>
+							<th>Verification Status</th>
+              <th width="25%">Actions</th>
+            </tr>
+						<%if @bank_accounts.empty? %>
+              <tr>
+                <td colspan="4">
+                  No Account Available
+                </td>
+              </tr>
+						<% else %>
+							<% @bank_accounts.each do |bank_account| %>
+								<tr>
+									<td>
+										<%= Balanced::BankAccount.fetch(bank_account.bank_account_uri).attributes['account_number'] %>
+									</td>
+									<td><%= bank_account.bank_name %></td>
+									<td>
+										<% if bank_account.verification_status.present? %>
+											<%= bank_account.verification_status.titleize %>
+										<% end %>
+									</td>
+									<td class="link">
+										<% if bank_account.verification_status.present? && bank_account.verification_status != 'succeeded' && bank_account.verification_status != 'failed'%>
+										  <%= link_to 'Verify', client_verify_bank_account_popup_url(bank_account.id), class: 'ajax' %>
+										<% end %>
+										<%= link_to 'Delete', remove_client_bank_account_url(bank_account.id), data: {confirm: 'Are you sure?'} %>
+									</td>
+                </tr>
+							<% end %>
+						<% end %>
+          	<tr>
+              <td colspan="2">
+                <a href="/clients/add-bank-account" id='add_bank_ac' class="blue-btn ajax cboxElement">Enter New Bank Account</a>
+              </td>
+            </tr>
+          </table>
+          <table class="ac-data" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <th width="33%">Credit Cards</th>
+              <th width="33%">Authentication</th>
+              <th>Actions</th>
+            </tr>
+						<% if @credit_cards.present? %>
+							<% @credit_cards.each do |card| %>
+                <tr>
+                  <td>
+										<%= image_tag("blank-img.png", :class => "card-icon") %>
+										<%= card.card_type %>
+										<%=	Balanced::Card.fetch(card.credit_card_uri).attributes['number'] %>
+									</td>
+                  <td>
+										<% if card.is_authenticated %>
+											<%= image_tag("blank-img.png", :class => "ok-icon") %>
+										<% else %>
+											X
+										<% end %>
+									</td>
+                  <td class="link">
+										<%= link_to 'Delete', remove_client_credit_card_url(card.id), data: {confirm: 'Are you sure?'} %>
+									</td>
+                </tr>
+							<% end %>
+						<% else %>
+							<tr>
+								<td colspan="3">
+									No Credit Cards Available
+								</td>
+							</tr>
+						<% end %>
+            <tr>
+              <td colspan="3">
+                <a href="/clients/add-credit-card" id='add_cc' class="blue-btn ajax cboxElement">Enter New Credit Card</a>
+              </td>
+            </tr>
+          </table>
+					
+					<div class="ac-title">
+          	<div class="fl">
+            	Default Backup and Payment Account
+							<span class="gray-box"><%= image_tag("blank-img.png", :class => "qua-icon help-link mt6", :title => "Where deposits will be received from please choose either a bank account or credit card. Bank Account transfers take 2-3 business days.") %></span>
+            </div>
+            <a href="#" class="blue-btn fr set_default_account_btn">Save</a>
+          </div>
+          <ul class="select-payment">
+            <li>
+              <label>Select Default Payment Account</label>
+              <%= form_tag({controller: 'clients/accounts', action: 'set_default_account'}, {class: 'set_default_account_form', method: :post, prompt: "Select Account"}) do %>
+								<% if current_client.default_account.present? && current_client.default_account_type.present? %>
+									<%= select_tag :default_account, options_for_select(@default_accounts_array, "#{current_client.default_account_type}#{current_client.default_account}"), {prompt: "Select Account"} %>
+								<% else %>
+									<%= select_tag :default_account, options_for_select(@default_accounts_array, ''), {prompt: "Select Account"} %>
+								<% end %>
+							<% end %>
+            </li>
+            <li>
+              <label>Select Backup Payment Account</label>
+              <%= form_tag({controller: 'clients/accounts', action: 'set_default_backup_account'}, {class: 'set_default_backup_account_form', method: :post, prompt: "Select Account"}) do %>
+								<% if current_client.default_backup_account.present? && current_client.default_backup_account_type.present? %>
+									<%= select_tag :default_backup_account, options_for_select(@default_accounts_array, "#{current_client.default_backup_account_type}#{current_client.default_backup_account}"), {prompt: "Select Account"} %>
+								<% else %>
+									<%= select_tag :default_backup_account, options_for_select(@default_accounts_array, ''), {prompt: "Select Account"} %>
+								<% end %>
+							<% end %>
+            </li>
+          </ul>
+          <a href="#" class="blue-btn fr set_default_backup_account_btn">Save</a>
+				</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= javascript_include_tag 'bootstrap.min.js' %>
+<%= javascript_include_tag 'jquery.colorbox' %>
+<%= javascript_include_tag 'jquery.uniform.js' %>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".ajax").colorbox();
+		$("select, :radio, :checkbox, :file").uniform();
+    $(".help-link").tooltip();
+
+		var maxHeight = 0;
+
+		$("div.inner-title-box").each(function(){
+		   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+		});
+
+		$("div.white-box, div.light-gray-box").height(maxHeight);
+		<%if params[:prj].present? %>
+			console.log('project is present...');
+			$('#add_cc').attr('href',$('#add_cc').attr('href')+'?prj_id='+<%=params[:prj]%>);
+			$("#add_cc").trigger('click');
+		<% end %>
+
+		$('.set_default_account_btn').click(function(){
+			$('.set_default_account_form').submit();
+		});
+
+		$('.set_default_backup_account_btn').click(function(){
+			$('.set_default_backup_account_form').submit();
+		});
+	})
+</script>

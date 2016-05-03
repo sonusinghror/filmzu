@@ -1,0 +1,11 @@
+<div style="padding:25px; width:550px;">
+<div class="prp-hpart">
+	<h2>Your Proposal Was Submitted!</h2>
+	<p>What can you do now?</p>
+</div>
+<ul class="prp-link">
+	<li><a href="/filmmakers/projects">Go to projects page</a></li>
+	<li><a href="/projects">Search for more opportunities</a></li>
+	<li><%= link_to "View your proposal", filmmaker_proposals_path(url_encode(@proposal.id)) %></li>
+</ul>
+</div>

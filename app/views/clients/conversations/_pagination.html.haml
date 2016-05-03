@@ -1,0 +1,7 @@
+.pagination1.clearfix
+  = link_to_previous_page messages, image_tag("blank-img.png", :class => "left-arrow larrow-icon") if messages.current_page > 1 && messages.total_count > 5
+  - if messages.total_count > 5
+    %ul.page-numbox
+      %li
+        = messages.current_page
+    = link_to_next_page messages, image_tag("blank-img.png", :class => "right-arrow rarrow-icon")

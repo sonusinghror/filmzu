@@ -1,0 +1,37 @@
+<%#= content_tag_for(:li, conversation) do |conversation| %>
+  <div class="<%= conversation.is_unread?(current_filmmaker) ? 'unread' : '' unless (action_name == 'search_messages') %>" id="msg-block">
+    <div>
+      <span class="sender">
+				 <%= link_to filmmaker_message_path(conversation.conversation.id, :message_id => conversation.id), :remote => true do %>
+        <%= conversation.sender.try(:name).try(:titleize) %>
+				<% end %>
+        <% if action_name == "search_messages" %>
+          <p class="message_type">
+             <%= conversation.receipts.where("receiver_type = ?","Filmmaker").first.mailbox_type.titleize %>
+           </p>
+        <% end %>  
+      </span>
+      <span class="date-box fr">
+        <% time = time_ago_in_words(conversation.created_at, include_seconds: true) %>
+        <span class='date'>
+          <%= conversation.created_at.strftime("%b %d") %>
+          <%= image_tag "blank-img.png", :class => "gray-clock-icon", title: "#{time} ago" %></span>
+          <% unless action_name == "search_messages" %>
+            <% if conversation.is_trashed?(current_filmmaker) %>
+              <%= link_to 'Untrash', filmmaker_message_untrash_path(conversation.conversation.id), :remote => true %>
+            <% else %>
+              <%#= link_to "Move to Trash", {:controller => "conversations", :action => 
+                  "trash", :id => conversation.id}, :title=> "Move to Trash", :method=>'post' %>
+              <%= link_to image_tag("trash-icon.png", title: "Move to trash"), filmmaker_message_trash_path(conversation.conversation.id), :remote => true %>
+            <% end %>
+          <% end %>
+      </span>
+    </div>
+
+    <div class="subj">
+      <i class="icon-envelope icon-white"></i>
+        <%#= link_to conversation.subject.truncate(30), "/filmmakers/#{conversation.attributes['sender_id'].to_s}/conversations/#{conversation.id}", :remote => true %>
+       <%= link_to conversation.subject.truncate(30), filmmaker_message_path(conversation.conversation.id, :message_id => conversation.id), :remote => true %>
+    </div>
+  </div>
+<%# end %>

@@ -1,0 +1,3 @@
+$('#cboxClose').trigger('click');
+$('.email-detail-box').html("<%= escape_javascript(render :partial => 'conversations/conversation_content', :locals => {:data => @response_data, :proposal => @proposal})%>");
+

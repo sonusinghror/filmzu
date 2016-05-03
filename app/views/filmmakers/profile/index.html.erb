@@ -1,0 +1,252 @@
+<% awarded_projects = @filmmaker.project_stats('awarded_projects') %>
+<% completed_projects = awarded_projects.select {|proj| proj.is_complete? } %>
+<section id="mpart">
+  <div class="stripbox-3 pr">
+    <div class="white-box"></div>
+    <div class="light-gray-box"></div>
+  </div>
+  <div class="container clearfix">
+    <div class="dashbord-cpart row">
+      <div class="nav-lpart">
+        <ul>
+          <li>
+            <% filmmaker_notifications = current_filmmaker.receipts.is_unread if current_filmmaker.present? %>
+            <% if filmmaker_notifications.present? && filmmaker_notifications.count != 0 %>
+              <span class="alerts-box"><%= filmmaker_notifications.count %></span>
+            <% end %>
+            <%= link_to filmmakers_dashboard_url do %><%= image_tag("blank-img.png", :class => "dashbord-icon")%>Dashboard<% end %>
+          </li>
+          <li class="active"><%= link_to filmmakers_profile_url do %><%= image_tag("blank-img.png", :class => "profile-icon")%>Profile<% end %></li>
+          <li><%= link_to filmmakers_messages_url do %><%= image_tag("blank-img.png", :class => "msg-icon")%>Messages<% end %></li>
+          <li><%= link_to filmmakers_projects_url do %><%= image_tag("blank-img.png", :class => "project-icon")%>My Projects<% end %></li>
+          <li><%= link_to filmmakers_accounts_url do %><%= image_tag("blank-img.png", :class => "account-icon")%>Accounts<% end %></li>
+          <li><%= link_to filmmakers_settings_url do %><%= image_tag("blank-img.png", :class => "setting-icon")%>Settings<% end %></li>
+        </ul>
+      </div>
+      <div class="content-rpart">
+        <div class="profile-title-box clearfix">
+          <div class="profile-lpart fl">
+            <div class="profile-img fl">
+              <%= image_tag @filmmaker.profile_photo, :width => 95, :height => 95 %>
+            </div>
+            <div class="profile-cpart">
+              <h2><%= filmmaker_name %></h2>
+              <ul class="profile-status">
+                <% if @filmmaker.is_pro? %>
+                  <li><span class="red-box">Pro</span></li>
+                <% end %>
+                <% unless @filmmaker.location.blank? %>
+                  <li>
+                    <%= image_tag("blank-img.png", :class => "red-loc-icon")%>
+                    <%= link_to @filmmaker.location, filmmakers_url(:location => "#{@filmmaker.location}") %>
+                  </li>
+                <% end %>
+                <li><%= image_tag("blank-img.png", :class => "red-profile-icon")%> <%= pluralize(completed_projects.count, 'project') %> Completed</li>
+              </ul>
+              <div class="pro-about-cpart">
+                <h4>About</h4>
+                <p><%= @filmmaker.about %></p>
+								<% if current_filmmaker %>
+								  <%= link_to("Update", filmmakers_portfolio_url, :class => "orange-btn") %>
+								<% else %>
+                  <a href="/filmmakers/hire?filmmaker_id=<%= @filmmaker.id %>" class="orange-btn ajax cboxElement">Hire <%= @filmmaker.name %></a>
+								<% end %>
+              </div>
+            </div>
+          </div>
+          <div class="profile-rpart fr">
+            <div class="pro-row1 clearfix">
+              <div class="review-box fl">
+                <% filmmaker_feedbacks = @filmmaker.filmmaker_feedbacks %>
+                <img src="../assets/star-<%= filmmaker_feedbacks.any? ? filmmaker_feedbacks.average(:rating).round : 0 %>.png">
+                <p><a href="#"><%= pluralize((filmmaker_feedbacks.count)/(7),'review') %></a></p>
+              </div>
+              <!-- <a href="#" class="fr"><%#= image_tag("blank-img.png", :class => "flag-icon")%></a> -->
+            </div>
+            <div class="pro-row2"><strong> <%= awarded_projects.count %></strong><span>Jobs Awarded</span></div>
+            <div class="pro-row2">
+              <strong>$<%= @filmmaker.rate.blank? ? 0 : @filmmaker.rate %></strong><span>Daily Rate</span>
+            </div>
+            <div class="pro-row2"><strong><%= @filmmaker.created_at.year %></strong><span>Member Since</span></div>
+          </div>
+        </div>
+        <div class="pro-mpart clearfix">
+          <div class="review-box fl">
+            <div class="end-box clearfix">
+              <div class="rev-text fl"><span class="feedbacks-display deco">Reviews</span> (<%= @reviews_data[:total_reviews] %>)</div>
+              <div class="end-text fl"><span class="projects-display">Projects</span> (<%= awarded_projects.blank? ? 0 : awarded_projects.count %>)</div>
+            </div>
+            <div class="projects-listing" style="display:none;">
+              <% unless awarded_projects.blank? %>
+                <hr>
+                <ul class="pro-listing">
+                  <% awarded_projects.each do |project| %>
+                    <%= render '/clients/project', :project => project %>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+            <div class="feedbacks-listing">
+              <% unless @reviews_data[:reviews].blank? %>
+                <hr>
+                <ul class="pro-listing">
+                  <% @reviews_data[:reviews].each do |review,index| %>
+                    <li>
+                      <div class="img-box fl">
+                        <%= image_tag("thumb-img-1.jpg")%>
+                      </div>
+                      <div class="listing-cpart">
+                        <div class="ls-hpart">
+                          <div class="fl" style="text-decoration: underline;">
+                            <h3><%= link_to review[:client_details][:name], "/clients/#{review[:client_details][:id]}" %></h3>
+                            <% unless review[:client_details][:location].blank? %>
+                              <div class="cat-part clearfix">
+                                <div class="fl">
+                                  <%= image_tag("blank-img.png", :class => "loc-icon")%><%= review[:client_details][:location] %>
+                                </div>
+                              </div>
+                            <% end %>
+                            <div class="star-box">
+                              <%= image_tag("big-blue-star-#{review[:client_details][:rating]}.png") %>
+                              <a href="#"><%= review[:client_details][:rating] %> stars</a>
+                            </div>
+                          </div>
+                          <span class="time-box gray-text fr">
+                            <%= chronic_date(review[:feedback_details][:created_at]) %>
+                            <%= image_tag("blank-img.png" ,:class => "gray-clock-icon")%>
+                          </span>
+                        </div>
+                        <div class="des-text">
+                          <%= review[:project_details][:thought] %>
+                        </div>
+                        <ul class="status-box clearfix">
+                          <li>
+                            <span>Total Budget:</span> <%= number_to_currency(review[:project_details][:price].to_i, precision: 0) %>
+                          </li>
+                          <% unless review[:project_details][:project_type].blank? %>
+                            <li><%= image_tag("blank-img.png", :class => "sm-doc-icon")%><%= review[:project_details][:project_type] %></li>
+                          <% end %>
+                          <% unless review[:project_details][:client_type].blank? %>
+                            <li><%= image_tag("blank-img.png", :class => "sm-user-icon")%><%= review[:project_details][:client_type] %></li>
+                          <% end %>
+                        </ul>
+                        <div class="job-rating">
+                          <div class="job-title">
+                            <%= link_to review[:client_details][:name], "/clients/#{review[:client_details][:id]}" %> Rating for this Job
+                          </div>
+                          <div class="star-box">
+                            <div class="wh-row">
+                              <%= image_tag("big-blue-star-#{review[:client_details][:rating]}.png")%>
+                              <a href="#" style="margin-top: 2px;"><%= review[:client_details][:rating] %> stars</a>
+                            </div>
+                            <div class="gray-star-box clearfix">
+                              <div class="fl">
+                                <div class="star-row">
+                                  <%= image_tag("gray-star-#{review[:feedback_details][:quality_of_work]}.png")%>
+                                  <a href="#">Quality Of Work</a>
+                                </div>
+                                <div class="star-row">
+                                  <%= image_tag("gray-star-#{review[:feedback_details][:attitude]}.png")%>
+                                  <a href="#">Attitude</a>
+                                </div>
+                                <div class="star-row">
+                                  <%= image_tag("gray-star-#{review[:feedback_details][:responsiveness]}.png")%>
+                                  <a href="#">Responsiveness</a>
+                                </div>
+                              </div>
+                              <div class="fr">
+                                <div class="star-row">
+                                  <%= image_tag("gray-star-#{review[:feedback_details][:experience]}.png")%>
+                                  <a href="#">Experience</a>
+                                </div>
+                                <div class="star-row">
+                                  <%= image_tag("gray-star-#{review[:feedback_details][:on_budget]}.png")%>
+                                  <a href="#">On Budget</a>
+                                </div>
+                                <div class="star-row">
+                                  <%= image_tag("gray-star-#{review[:feedback_details][:on_time]}.png")%>
+                                  <a href="#">On Time</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="job-title">
+                            Comment
+                          </div>
+                          <div class="star-box">
+                            <div class="wh-row">
+                              <%= review[:feedback_details][:comment] %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+          </div>
+          <div  class="about-details fr">
+            <h3 class="heading3">Portfolio</h3>
+						<% if current_filmmaker.videos.present? %>
+							<% unless current_filmmaker.videos.last.url.blank? %>
+              	<a href="<%= current_filmmaker.videos.any? ? current_filmmaker.videos.last.embed_url : '#' %>" target=_false class="ab-gray-btn" id="watch-reel">Watch Demo Reel</a>
+							<% end %>
+						<% end %>
+            <% if current_filmmaker.resume.present? && current_filmmaker.resume.document? %>
+              <a href="<%= current_filmmaker.resume.document.url %>" class="ab-gray-btn mt6">View Resume</a>
+            <% end %>
+            <div class="pro-title mt30">Skills</div>
+            <ul class="mt10">
+              <% if skills_list.present? %>
+                <% skills_list.each do |skill| %>
+                  <li class="skill">
+                    <%= link_to skill, filmmakers_url(:skill => "#{skill}") %>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= javascript_include_tag 'bootstrap.min' %>
+<%= javascript_include_tag 'jquery.colorbox' %>
+
+<script type="text/javascript">
+  $(function(){
+    $(".ajax").colorbox()
+
+    var maxHeight = 0;
+
+    $("div.profile-title-box").each(function(){
+      if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+    });
+
+    $("div.white-box, div.light-gray-box").height(maxHeight);
+/*
+    $("div.pro-mpart").each(function(){
+      if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+    });
+
+    $(".pro-mpart div.review-box, div.about-details").height(maxHeight);
+
+    $("div.dashbord-cpart").each(function(){
+      if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+    });
+
+    $(".nav-lpart, .content-rpart").height(maxHeight);
+*/
+    $('#watch-reel').click(function() {
+      var href = $(this).attr('href');
+      if (href.length <= 1) { return false; }
+      else {
+        $(this).colorbox({iframe:true, innerWidth:525, innerHeight:350});
+      }
+    });
+  })
+</script>
+<br />

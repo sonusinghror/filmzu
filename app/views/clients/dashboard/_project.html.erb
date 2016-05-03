@@ -1,0 +1,133 @@
+<li>
+  <% question = project.project_questions.find_by_question_text("What type of video do you want?") %>
+  <%= render :partial => 'clients/dashboard/project_icon', :locals => {:project_type => question.answer_text} unless question.blank? %>
+	<% if question.blank? %>
+	<div class="img-box fl">
+	<%= image_tag("video_icons/direct-hire.png", :data => {:toggle => "tooltip", :placement => "left"}, :title => "#{project.title}")%>
+	</div>
+	<% end %>
+
+	<div class="listing-cpart">
+		<div class="ls-hpart">
+			<div class="fl">
+				<h3><%= link_to project.title, view_project_url(url_encode(project.id)) %></h3>
+				<div class="cat-part clearfix">
+					<div class="fl">
+					  <% client_details = project.client_details %>
+						by <span><%= link_to client_details[:name], "/clients/#{client_details[:id]}" %></span>
+					</div>
+				</div>
+			</div>
+
+			<span class="time-box gray-text fr">
+			  <% days_left = project.proposal_due_days %>
+		    <% if (days_left < 0) %>
+		      Closed
+			  <% else %>
+			   <%=  days_left %>d Left
+			  <% end %>
+			  <%= image_tag("blank-img.png", :class => "gray-clock-icon")%>
+			</span>
+			<% if false %>
+			 <span class="time-box gray-text fr"><%= project.project_status %> <%= image_tag("blank-img.png", :class => "gray-clock-icon")%></span>
+		  <% end %>
+		</div>
+
+		<div class="des-text">
+			<%= truncate(project.description, length: 300) %>
+		</div>
+
+		<ul class="status-box clearfix">
+			<li>
+				<%= image_tag("blank-img.png", :class => "sm-user-icon")%>
+        <% if project.direct_hire_proposals.present? %>
+          <%= project.direct_hire_proposals.count%> Proposals
+        <% else %>
+          <%= project.project_proposals.count%> Proposals
+        <% end %>
+			</li>
+			<li class="blue-text">
+        <% if project.direct_hire_proposals.approved.first.present? %>
+          <% if project.is_direct_hire_project_complete? %>
+            <%= image_tag('blank-img.png', class: 'blue-ok-icon')%> completed
+          <% else %>
+            <%= image_tag('blank-img.png', class: 'blue-ok-icon')%> In Progress
+          <% end %>
+        <% else %>
+          <% if project.is_complete? %>
+            <%= image_tag('blank-img.png', class: 'blue-ok-icon')%> completed
+          <% elsif project.is_funded? %>
+  				  <%= image_tag('blank-img.png', class: 'blue-ok-icon')%> In Progress
+          <% end %>
+        <% end %>
+			</li>
+		</ul>
+
+		<div class="btn-box tx-right">
+			<div class="sm-gray-select">
+        <% redirect_project = (project.is_complete? || project.project_proposals.exists?(:is_approved => true)) ? false : true %>
+        <% proposal_id = project.project_proposals.where(:is_approved => true).first.id rescue nil %>
+				<select class="actions-select" id="<%= project.id %>" data-id="<%= project.id %>" data-redirect="<%= redirect_project %>" data-redirect-url="<%= project_proposals_url(url_encode(project.id)) %>" data-colorbox-url="<%= clients_release_payment_url(proposal_id: proposal_id) rescue nil%>">
+					<option>Actions</option>
+					<option>Messages</option>
+					<option>Payments</option>
+					<option>Feedback</option>
+					<option>Edit / Delete</option>
+					<option>Dispute</option>
+					<% if project.is_featured && project.featured_payment_status %>
+					<% else %>
+					  <option value="feature_project">Feature Project</option>
+				  <% end %>
+				</select>
+			</div>
+      <% if project.direct_hire_proposals.approved.first.present? %>
+        <% if project.is_direct_hire_project_complete? && display_project_feedback_client(project) %>
+          <%= link_to "Leave Feedback", feedback_filmmaker_project_url(:project_id => project.id), :class =>"blue-btn" %>
+  	    <% else %>
+          <%= link_to 'Payments', client_release_direct_hire_payment_path(project.direct_hire_proposals.approved.first.id), class: 'ajax blue-btn ml6' %>
+  	    <%end%>
+      <% else %>
+        <% if project.is_complete? && display_project_feedback_client(project) %>
+          <%= link_to "Leave Feedback", feedback_filmmaker_project_url(:project_id => project.id), :class =>"blue-btn" %>
+        <% else %>
+          <% if project.project_proposals.exists?(:is_approved => true) %>
+            <a href="release_payment?proposal_id=<%= project.project_proposals.where(:is_approved => true).first.id %>" class="ajax blue-btn ml6">Payments</a>
+          <% else %>
+            <%= link_to 'View Proposals', project_proposals_path(url_encode(project.id)), :class => 'blue-btn ml6' %>
+          <% end %>
+        <%end%>
+      <% end %>
+		</div>
+	</div>
+</li>
+<%= javascript_include_tag 'jquery.colorbox' %>
+<script>
+  $(document).ready(function(){
+    $('.actions-select').change(function(){
+      var id = $(this).attr('id');
+      $actions_select = $(this).val();
+			if ($actions_select == 'Messages') {
+        window.location.href = "/clients/messages";
+      }else if ($actions_select == 'Dispute') {
+        window.location.href = "/clients/disputes";
+      }else if ($actions_select == 'Feedback') {
+        window.location.href = "/filmmakers/"+ id +"/feedback";
+      }else if ($actions_select == 'Edit / Delete') {
+        window.location.href = "/clients/messages/new?to_f=MQ==";
+      }else if ($actions_select == 'Payments') {
+        $redirect_status = $(this).data('redirect');
+        $project_id = $(this).data('id');
+        $colorbox_url = $(this).data('colorbox-url')
+        if($redirect_status == 'true' || $redirect_status == true){
+          window.location.href = $(this).data('redirect-url');
+        }else{
+          $.colorbox({href: $colorbox_url});
+          $(this).val('Actions');
+        }
+      }
+    });
+    $("select, :radio, :checkbox, :file").uniform();
+    $(".ajax").colorbox();
+    $('#close_btn').click(function(){$(".ajax").colorbox.close()});
+  });
+</script>

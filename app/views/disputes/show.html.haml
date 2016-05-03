@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Dispute:
+  = @dispute.dispute_id
+%p
+  %b Dispute description:
+  = @dispute.dispute_description
+%p
+  %b Dispute date:
+  = @dispute.dispute_date
+
+= link_to 'Edit', edit_dispute_path(@dispute)
+\|
+= link_to 'Back', disputes_path

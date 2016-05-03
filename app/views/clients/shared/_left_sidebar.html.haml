@@ -1,0 +1,23 @@
+.nav-lpart
+  %ul
+    %li{class: is_active(clients_dashboard_url)}
+      = link_to("#{image_tag('blank-img.png', class: 'dashbord-icon')}Dashboard".html_safe, clients_dashboard_url)
+    %li{class: is_active(clients_profile_url)}
+      = link_to("#{image_tag('blank-img.png', class: 'profile-icon')}Profile".html_safe, clients_profile_url)
+    %li{class: is_active(clients_messages_url)}
+      - client_notifications = current_client.notifications if current_client.present?
+      - if client_notifications.present? && client_notifications != 0
+        %span.alerts-box= client_notifications
+      = link_to("#{image_tag('blank-img.png', class: 'msg-icon')}Messages".html_safe, clients_messages_url)
+    -# %li{class: is_active(clients_projects_url)}
+      -# = link_to("#{image_tag('blank-img.png', class: 'project-icon')}Projects".html_safe, clients_projects_url)
+    - if false
+      %li{class: is_active(clients_projects_url)}
+        = link_to clients_projects_url do
+          = image_tag("blank-img.png", :class => "project-icon")
+          Projects
+    %li{class: is_active(clients_accounts_url)}
+      = link_to("#{image_tag('blank-img.png', class: 'account-icon')}Account".html_safe, clients_accounts_url)
+    - unless (current_client.uid.present? || current_client.provider.present?)
+      %li{class: is_active(clients_settings_url)}
+        = link_to("#{image_tag('blank-img.png', class: 'setting-icon')}Settings".html_safe, clients_settings_url)

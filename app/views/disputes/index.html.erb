@@ -1,0 +1,149 @@
+
+<section id="mpart">
+   <div class="full-inner-title-box clearfix">
+      <div class="container">
+         <div class="row">
+            <div class="inn-title-cpart fl">
+               <h2>Dispute  Center</h2>
+               <div class="title-des">
+                  This is where you can file a request for a refund or job cancellation of an in progress job. In any event that you cannot come to a resolution with your client or filmmaker, you may file a dispute moderated by Filmzu and/or third-party arbitration service.
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   
+   <div class="container clearfix">
+      <div class="row dispute-form">
+         <div class="dispute-lpart fl">
+            <h3 class="heading4">How It Works</h3>
+            <ul class="howit-step-box clearfix">
+               <li>
+                  <div class="step-cpart">Member Resolution: Client or filmmaker files a request for a refund or job cancellation. The recipient has 5 calendar days to accept the request. This notifies both parties and Filmzu that a dispute is in progress. 
+									</div>
+                  <%= image_tag("left-arrow.png", :class => "left-arrow1") %>
+               </li>
+               <li>
+                  <div class="step-cpart">If the other party disagrees with the request, they may file a dispute to request Filmzu's support, wherein Filmzu facilitates a call between parties with the goal to resolve the dispute over a Skype call with all parties included. 
+									</div>
+                  <%= image_tag("left-arrow.png", :class => "left-arrow1") %>
+               </li>
+               <li>
+                  <div class="step-cpart">If needed, arbitration by a third-party service may be requested by the client or freelancer. Final judgement by the arbitrator is binding for both parties, and fees for their services will be shared equally by the two parties.
+									</div>
+               </li>
+            </ul>
+            <div class="person-box">
+               <h3 class="heading4">Select a Person</h3>
+               <ul class="select-person">
+               	<%@proposed_projects.each do |project_proposal|%>
+               	  <%project = project_proposal.project%>
+                  <%client_detail = project.client_details%>
+                  <%project_detail = project.project_details%>
+		              <% filmmaker = project_proposal.filmmaker%>
+		  
+                  <li class="clearfix">
+                     <div class="per-img fl">
+                        <%= image_tag("thumb-img-1.jpg") %>
+                     </div>
+                     <div class="per-desc">
+                        <div class="per-lpart fl">
+                           <h3><%#= project.client_name%><%= filmmaker.name%></h3>
+                           <ul class="gray-status-box clearfix">
+                              <li>
+                                 <%= image_tag("blank-img.png", :class => "loc-icon") %>
+                                 <%=filmmaker.location%>
+                              </li>
+                              <li>
+                                 <%= image_tag("blank-img.png", :class => "sm-user-icon") %>
+				 <%= filmmaker.skills %>   
+                              </li>
+                              
+                              <li>
+                                 <%= image_tag("blank-img.png", :class => "gray-star-icon") %>
+                                  <%= filmmaker.filmmaker_feedbacks.any? ? filmmaker.filmmaker_feedbacks.average(:rating).to_i : 0 %>   stars
+                              </li>
+                           </ul>
+                           <div class="per-text"><%= filmmaker.about%></div>
+                           <div class="work-text">
+                              <span>Worked on</span>
+                              <h3><%=project.title%></h3>
+                           </div>
+                           <ul class="summ-film-detail">
+                              <li>
+                                 <span> Film Length:</span>
+                                 <%=project_detail.first%>
+                              </li>
+                              <li>
+                                 <span> Proposals due in:</span>
+                                 <%=client_detail[:proposal_due_in]%>
+                              </li>
+                              <li>
+                                 <span> Total Budget:</span>
+                                 <%=client_detail[:budget]%>
+                              </li>
+                              <li>
+                                 <span> Visibility:</span>
+                                 <%=project_detail.third%>
+                              </li>
+                              <li>
+                                 <span> Skills:</span>
+                                 <%=project.skills%>
+                              </li>
+                           </ul>
+                        </div>
+                        <div class="per-rpart fr">
+                           <div class="paid-text">
+                              <span>PAID $</span>
+                              5,000
+                           </div>
+                           <a class="orange-btn ajax cboxElement" href="disputedetails?proposal_id=<%=project_proposal.id%>">Dispute</a>
+                        </div>
+                     </div>
+                  </li>
+                  <%end%>
+               </ul>
+            </div>
+         </div>
+         <div class="dispute-rpart fr">
+            <h3 class="heading4">Pending Disputes</h3>
+						<% if current_client && @disputed_projects && @disputed_projects.count != 0  %>
+            <p class="disput-text">You have <%= @disputed_projects.count %> open cases</p>
+						<% @disputed_projects.each do |dispute| %>
+						<% disputed_filmmaker = Filmmaker.find(ProjectProposal.find(dispute.proposal_id).filmmaker_id) %>
+						<% disputed_project = Project.find(ProjectProposal.find(dispute.proposal_id).project_id) %>
+						
+						<ul class="summ-film-detail">
+						<p class="disput-text">
+						<li>Reference #<span><%= dispute.id %></span><li>
+						<li>Filmmaker <span><%= disputed_filmmaker.name %></span><li>
+						<li>Project <span><%= disputed_project.title %></span><li>
+						<li>Details <span><%= dispute.dispute_description %></span><li>
+						</p>
+						</ul>
+						<% end %>
+						<% else %>
+						<p class="disput-text">You have 0 open cases</p>
+            <% end %>
+         </div>
+      </div>
+   </div>
+</section>
+<%= javascript_include_tag 'bootstrap.min' %>
+<%= javascript_include_tag 'jquery.colorbox' %>
+<script>
+   $(function(){
+     $(".ajax").colorbox()
+     var maxHeight = 0;
+       
+     $("div.dispute-form").each(function(){
+        if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+     });
+   
+     $("div.dispute-lpart, div.dispute-rpart").height(maxHeight);  
+   })
+   
+   
+   
+   
+</script>

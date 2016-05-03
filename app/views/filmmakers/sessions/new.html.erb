@@ -1,0 +1,57 @@
+<section id="mpart">
+	<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+		<div class="full-inner-title-box">
+			<div class="container clearfix">
+      	<div class="row">
+      		<h2>Filmmaker Sign In</h2>
+      		<p>Filmzu puts paying clients at your fingertips, plus it’s FREE and always will be. Not a Filmmaker? <%= link_to "Client Sign In", new_client_session_url =%>.</p>
+        	<div class="error">
+						<%= render 'filmmakers/shared/error_messages', resource: resource %>
+          </div>
+  			</div>
+      </div>
+  	</div>
+
+		<div class="stripbox-1 pr">
+      <div class="light-gray-box"></div>
+      <div class="white-box"></div>
+  	</div>
+
+  	<div class="reg-box">
+			<div class="container">
+      	<div class="row clearfix">
+          	<div class="reg-gray-box fl">
+              <ul class="reg-form">
+                <li>
+                  <%= f.input :email, :label => "Email Address", :placeholder => "Email", :required => false, :autofocus => true, input_html: { class: 'wh-txt-box' } %>
+                </li>
+                <li>
+                  <%= f.input :password, :label => "Password", :placeholder => "Password", :required => false, input_html: { class: 'wh-txt-box' } %>
+								</li>
+                <li>
+                  <%= f.button :submit, "Sign In", :class => 'big-blue-btn' %>
+                </li>
+								<li><%= link_to "Forgot your password?", new_password_path(resource_name), :class =>'link' %></li>
+              </ul>
+            <% end %>
+					</div>
+          <div class="reg-white-box fl">
+            <p>Have trouble remembering password?</p>
+            <a href="/users/auth/facebook" class="big-blue-btn ajax cboxElement"><%= image_tag("blank-img.png", :class => "fb-icon") %><span>Log In With Facebook</span></a>
+            <a href="/users/auth/linkedin" class="big-blue-btn"><%= image_tag('blank-img.png', :class =>'link-icon')%><span>Log In With Linkedin</span></a>
+          </div>
+        </div>
+      </div>
+		</div>
+  </div>
+</section>
+
+<script>
+  var maxHeight = 0;
+
+  $("div.reg-box").each(function(){
+      if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+   });
+
+  $("div.white-box, div.light-gray-box").height(maxHeight);
+</script>

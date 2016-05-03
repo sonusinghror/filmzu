@@ -1,0 +1,45 @@
+  <div class="email-detail-box fl">
+		      
+                    	<div class="email-add clearfix">
+                        	<h3 class="sub-line fl"><%= data[:subject]%></h3>
+                            <span class="attach-num fr">2<img src="images/blank-img.png" class="attch-icon ml6" alt="" title="" /></span>
+                        </div>
+                        <div class="subject-box clearfix"> 
+                        	<div class="thumb-box fl"><%=data[:image]%></div>
+                            <div class="subject-cpart fl">
+                            	<div class="sub-title clearfix">
+                            		<h4 class="fl"><%= data[:name]%></h4>
+                                	<span class="gray-time-box fr"><%=data[:sent_at]%><%= image_tag "blank-img.png", :class => "gray-clock-icon"  %></span>
+                                </div>
+                                <ul class="gray-status-box clearfix"><li><img src="images/blank-img.png" class="loc-icon" alt="" title="" /><%= data[:location]%></li></ul>
+                                <div class="des-text"><%= data[:body]%></div>
+                            </div>
+                        </div>
+                        <div class="attachments-box">
+                        	<div class="row1 clearfix">
+                            	<div class="attach-text fl"><img src="images/blank-img.png" class="attch-icon" alt="" title="" /> Resume</div>		<div class="link-box fr"><a href="#">View</a><a href="#">Download</a></div>
+                                
+                            </div>
+                            <div class="row1 mt10 clearfix">
+                            	<div class="attach-text fl"><img src="images/blank-img.png" class="attch-icon" alt="" title="" />Bio</div>                       
+                                <div class="link-box fr"><a href="#">View</a><a href="#">Download</a></div>
+                            </div>
+                        </div>                        
+                        <div class="btn-box clearfix">
+		      <%= form_tag "/conversations/#{conversation.id}/reply" do %>
+                        	<textarea name='reply[text]' class="reply-textbox">Start typing here to reply</textarea>
+                            <div class="fr mt10">
+                            	<span class="msg-text">Or type enter to send</span>
+                                <input type='submit' class="blue-btn">Send Reply<a href="#" class="gray-btn ml6">Delete</a>
+                            </div>
+		      <% end %>    
+                        </div>
+                    </div>
+
+<script type='text/javascript'>
+    $(document).ready(function(){
+        
+    $(".ajax").colorbox();
+    })
+    
+</script>

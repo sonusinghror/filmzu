@@ -1,0 +1,84 @@
+
+<div class="bank-account">
+	<h3 class="heading7">Add a bank account</h3>
+	<%= form_tag '/filmmakers/create_bank_account', :id=>'bank_ac_form' do %>
+    <ul class="bank-form">
+        <li>
+            <label class="lb-name">Account holder's name</label>
+            <input type="text" name='bank_account[name]' id='ac_holder_name' class="int-box" />
+        </li>
+        <li>
+            <label class="lb-name">Routing Number</label>
+            <input type="text" name='bank_account[routing_number]' id='ac_routing_num' class="int-box" />
+        </li>
+        <li>
+            <label class="lb-name">Account Number</label>
+            <input type="text" name='bank_account[account_number]' id='ac_number' class="int-box" />
+        </li>
+        <li>
+            <label class="lb-name">Account Type</label>
+            <div class="radio-box clearfix">
+                <div class="wd50"><input type="radio" name='bank_account[account_type]' checked='checked' value='checking' />Checking</div>
+                <div class="wd50"><input type="radio" name="bank_account[account_type]" value='saving' />Savings</div>
+            </div>
+        </li>
+        <li class="btn-part">
+            <input type="button" value="Cancel" class="light-gray-btn" id='cancel_add_bank' /><input type="submit" id='submit_btn' onclick='return validate_bank_account();' value="Add Please" class="sm-blue-btn ml10" />
+        </li>
+    </ul>
+    <% if params[:prj_id].present? %>
+	<%= hidden_field_tag :featured_prj, params[:prj_id] %>
+    <% end %>	    
+	<% end %>
+</div>
+
+
+<script type='text/javascript'>
+	
+	$(document).ready(function(){
+		
+		$('#cancel_add_bank').click(function(){
+			update_featured_project();
+		})
+		
+	})
+	
+	function update_featured_project(){
+		
+		
+			window.location = '/filmmakers/dashboard';
+		
+	}
+	
+	function validate_bank_account() {
+		var h_name = $("#ac_holder_name").val()
+		var routing_num = $('#ac_routing_num').val();
+		var ac_num = $("#ac_number").val();
+		
+		
+		if (h_name != "" && routing_num != "" && ac_num != "") {
+			bank_ac_obj = {'bank_code': routing_num,
+				'account_number': ac_num,
+				'name': h_name};
+		//val_result = balanced.bankAccount.validate(bank_ac_obj);
+		validate_messages = balanced.bankAccount.validate(bank_ac_obj);
+		console.log(validate_messages.length);
+		
+			if (validate_messages.length > 0) {
+				alert(validate_messages[0].description);
+				return false;
+			}
+			else{
+				console.log('submitting now..')
+				$('input.sm-blue-btn.ml10').hide();
+				$('input.light-gray-btn').hide();
+				return true;
+			}
+		}
+		else{
+			alert("Please fill all bank details");
+			return false;
+		}
+	}
+	
+</script>

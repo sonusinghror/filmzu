@@ -1,0 +1,179 @@
+<section id="mpart">
+  <div class="container clearfix">
+    <div class="dashbord-cpart row">
+      <%= render 'filmmakers/shared/filmmaker_left_sidebar' %>
+      <div class="content-rpart">
+        <% unless @project_proposals.blank? %>
+          <ul class="prj-listing">
+            <% @project_proposals.each do |proposal| %>
+              <% project = proposal.project %>
+              <% filmmakers = proposal.filmmaker %>
+              <% proposal_milestones = proposal.project_proposal_milestones %>
+              <li>
+                <div class="prj-data-box clearfix">
+                  <div class="img-box fl">
+                  </div>
+                  <div class="prj-cpart">
+                    <div class="prj-heding clearfix">
+                      <h3 class="fl"><%= project.title %></h3>
+                      <% if proposal.is_approved %>
+                        <span class="green-alert-box">Hired</span>
+                      <% end %>
+                    </div>
+                    <div class="form-box">
+                      <div class="prp-form clearfix">
+                        <div class="colum1">
+                          <label>Proposal</label>
+                          <textarea><%= proposal.cover_letter %></textarea>
+                        </div>
+                        <div class="colum2">
+                          <label>Proposed Milestone</label>
+                          <% proposal_milestones.each do |pm| %>
+                            <input class="mt6" value="<%= pm.name %>" type="text">
+                          <% end %>
+                        </div>
+                        <div class="colum3">
+                          <label>Delivery Date</label>
+                          <% proposal_milestones.each do |pm| %>
+                            <input class="mt6" value="<%= pm.delivery_date %>" type="text">
+                          <% end %>
+                          <div class="total-text">
+                            Total
+                          </div>
+                        </div>
+                        <div class="colum4">
+                          <label>Amount</label>
+                          <% proposal_milestones.each do |pm| %>
+                            <input class="mt6" value="<%= pm.amount %>" type="text">
+                          <% end %>
+                          <div class="total-int">
+                            <input class="mt6" value="<%= proposal_milestones.collect(&:amount).compact.sum %>" type="text">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% if proposal.is_modified && !proposal.proposal_revisions.blank? %>
+                      <% modified_revisions = proposal.proposal_revisions %>
+                      <% last_revision = modified_revisions.last.revision_count %>
+                      <% modified_revisions.each_with_index do |revised_proposal, count| %>
+                         <div class="form-box">
+                            <div class="funding-form clearfix">
+                            <div><b>
+                              <% user = revised_proposal.revised_user %>
+                              <%= (user == current_filmmaker) ? "You" : user.name.titleize %>
+                              modified milestone deails:
+                            </b>
+                            <% if ((last_revision == revised_proposal.revision_count) && proposal.is_approved) %>
+                              <span style="color:#1facc9;font-size:12px;margin-left:20px;">
+                                <%= image_tag('blank-img.png', class: 'blue-ok-icon')%> Approved
+                              </span>
+                            <% end %>
+                            </div><br>
+                            <div class="fun-box1 fl">
+                              <label>Description</label>
+                              <%= text_area_tag "description", "#{revised_proposal.description.present? ? revised_proposal.description : ''}", :id => "cover_letter", :style => "resize:none;", readonly: true  %>
+                            </div>   
+                            <div class="fun-box1 fl">
+                              <table>
+                                <tr>
+                                  <td class="colum1 fl">
+                                    <label>Proposal Milestone</label>
+                                  </td>
+                                  <td class="colum2 fl">
+                                    <label>Delivery Date</label>
+                                  </td>
+                                  <td class="colum3 fl">
+                                    <label>Amount</label>
+                                  </td>
+                                </tr>
+                                <% updated_milestones = revised_proposal.updated_project_proposal_milestones %>
+                                <% milestone_sum = updated_milestones.collect(&:amount).reject(&:blank?).sum %>
+                                <% updated_milestones.each_with_index do |milestone, index| %>
+                                  <tr>
+                                    <td class="colum1 fl">
+                                      <%= text_field_tag "name#{index}", milestone.name, readonly: true, class: "int188.mt7" %>
+                                    </td>
+                                    <td class="colum2 fl">
+                                      <%= text_field_tag "date#{index}", milestone.delivery_date, readonly: true, class: "int96.mt7" %>
+                                    </td>
+                                    <td class="colum3 fl">
+                                      <%= text_field_tag "amount#{index}", milestone.amount, readonly: true, class: "int96.mt7" %>
+                                    </td>
+                                  </tr>
+                                <% end %>
+                                <tr>
+                                  <td class="colum1 fl"></td>
+                                  <td class="colum2 fl">
+                                    <div class="total-text">Total</div>
+                                  </td>
+                                  <td class="colum3 fl">
+                                    <%= text_field_tag "total_amount", milestone_sum, readonly: true, class: "int96.mt7" %>
+                                  </td>
+                                </tr>
+                              </table>
+                             <% if !proposal.is_approved && !proposal.is_declined && !proposal.is_delete %>
+                              <%# if count.odd? && count >= revised_counts.last.to_i %>
+                              <% if (revised_proposal.revised_user_type == "client") && (revised_proposal.revision_count >= last_revision) %>
+                               <div class="btn-box dh-box clearfix" id="<%= proposal.id %>">
+                                <%= link_to 'Accept Proposal', filmmaker_accept_project_proposal_path(proposal), :class => 'red-btn accept', method: :post %>
+                                <%= link_to 'Edit Proposal', filmmaker_edit_project_proposal_path(proposal), :class => 'orange-btn ajax cboxElement edit' %>
+                                <%= link_to 'Decline', filmmaker_decline_project_proposal_path(proposal), :class => 'gray-btn ml6 decline', method: :post %> 
+                                </div>
+                                <% end %>
+                              <% end %>
+                            </div>
+                           </div>
+                         </div>
+                      <% end %>
+                   <% end %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="proposals_blank">No Records Found</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .prj-data-box .prj-cpart {
+    margin-left: 25px;
+  }
+
+  .prj-data-box .prj-cpart .prj-heding {
+    margin-top: 10px;
+  }
+
+  .prj-cpart .form-box {
+    margin-top: 2px;
+  }
+</style>
+
+
+<%= javascript_include_tag 'bootstrap.min' %>
+
+<script type="text/javascript">
+  $(function(){
+    var maxHeight = 0;
+
+	  $(".edit").colorbox({ speed:"350", onOpen:function() {
+     $('#ui-datepicker-div').remove();
+    } });
+
+    $("div.inn-title-box").each(function(){
+       if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+    });
+
+    $("div.white-box, div.light-gray-box").height(maxHeight);
+
+    $("div.dashbord-cpart").each(function(){
+       if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+    });
+
+    $(".nav-lpart, .content-rpart").height(maxHeight);
+  })
+</script>

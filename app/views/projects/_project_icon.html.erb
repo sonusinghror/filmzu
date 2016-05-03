@@ -1,0 +1,17 @@
+<div class="img-box fl">
+ 
+   <!--span class="alerts-box">4</span-->
+   <%if project_type == "TV Commercial" %>
+     <%= image_tag("video_icons/tv-icon-lg.png", :width=>"100", :data => {:toggle => "tooltip", :placement => "left"}, :title => "#{project_type}")%>
+   <%elsif project_type == "Crowdfunding"%>
+     <%= image_tag("video_icons/crowd-funding-lg.png", :width=>"100", :data => {:toggle => "tooltip", :placement => "left"}, :title => "#{project_type}")%>
+   <%elsif project_type == "Web Video"%>
+     <%= image_tag("video_icons/web-video-icon-lg.png", :width=>"100", :data => {:toggle => "tooltip", :placement => "left"}, :title => "#{project_type}")%>
+   <%elsif project_type == "Event"%>
+     <%= image_tag("video_icons/event-icon-lg.png", :height=>"100", :data => {:toggle => "tooltip", :placement => "left"}, :title => "#{project_type}")%>
+   <%elsif project_type == "Other"%>
+     <%= image_tag("video_icons/other-icon-lg.png", :width=>"100", :data => {:toggle => "tooltip", :placement => "left"}, :title => "#{project_type}")%>
+   <%elsif project_type == "Explainer Video"%>
+     <%= image_tag("video_icons/exp-video-icon-lg.png", :width=>"100", :data => {:toggle => "tooltip", :placement => "left"}, :title => "#{project_type}")%>
+   <% end %>
+ </div>

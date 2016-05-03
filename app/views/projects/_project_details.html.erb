@@ -1,0 +1,143 @@
+<li>
+	<div class="fl ind-lpart">
+		<div class="ind-img-box fl">
+			<% question = project.project_questions.find_by_question_text("What type of video do you want?") %>
+			<%unless question.nil? %>
+				<%= render :partial => 'project_icon', :locals => {:project_type => question.answer_text}%>
+			<% else %>
+				<% if project.title = "Direct Hire Requested Project" %>
+					<%= image_tag("direct-hire-lg.png", :data => {:toggle => "tooltip", :placement => "left"}, :title => "#{project.title}")%>
+				<% else %>
+					<%= image_tag("thumb-img-2.jpg")%>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="ind-cpart">
+			<div class="ind-title">
+				<div class="row1">
+					<div class="pro-popup fl">
+              <% if project.is_featured && project.featured_payment_status %>
+                <span class="red-alert-box fl">Featured</span>
+              <% end %>
+						<div class="pro-hrbox">
+							<div class="inn-pro-hrbox">
+								<h3>film<span>zu</span> featured</h3>
+								<ul>
+									<li>
+										•  Verified business.
+									</li>
+									<li>
+										•  Verified project.
+									</li>
+									<li>
+										•  Top tier budget.
+									</li>
+									<li>
+										•  Seeking top 10% talent.
+									</li>
+								</ul>
+								<div class="btn-box">
+                                  <% if current_filmmaker.present? && current_filmmaker.pro_account.blank? %>
+                                    <%= link_to 'Go Pro', filmmakers_upgrade_path , class: 'orange-btn' %>
+                                  <% elsif current_filmmaker.present? && current_filmmaker.pro_account.present? && current_filmmaker.pro_account.account_type == 'standard' %>
+                                    <%= link_to 'Go Pro', filmmakers_upgrade_path , class: 'orange-btn' %>
+                                  <% else %>
+                                    <a href="#" class="orange-btn">Go Pro</a>
+                                  <% end %>
+								</div>
+							</div>
+						</div>
+					</div>
+					<h2 class="fl"><%= link_to project.title, view_project_url(:project_id => url_encode(project.id)) %></h2>
+				</div>
+				<div class="row2">
+					<%= question.answer_text %> by <span><%= link_to project.client_name, client_path(project.user_id) rescue nil %></span>
+				</div>
+			</div>
+			<ul class="gray-status-box clearfix">
+			  <% unless project.location.blank? %>
+			    <li>
+				  <%= image_tag("blank-img.png", :class => "loc-icon")%><%= project.location%>
+				</li>
+		      <% end %>
+			  <li>
+			    <%= image_tag("blank-img.png", :class => "sm-doc-icon")%><%= project.project_full_details[0] %>
+			  </li>
+				<li>
+					<%= image_tag("blank-img.png", :class => "gray-clock-icon")%> <%= project_detail.first%>
+				</li>
+			  <li>
+			    <%= image_tag("blank-img.png", :class => "sm-user-icon")%><%= pluralize(project.project_proposals.count, 'Proposal') %>
+			  </li>
+			</ul>
+			<div class="job-des">
+				<p>
+					<%= truncate(project.description, length: 300) %>
+				</p>
+
+					<% if false %>
+					<ul class="film-detail">
+					<li>
+							<span>Length:</span>
+					</li>
+					<li>
+						<span>Proposals due in:</span><%= project_detail.second%>
+					</li>
+					<li>
+						<span>Total Budget:</span> <%= number_to_currency(project.price.to_i, precision: 0) %>
+					</li>
+					<li>
+						<span>Visibility:</span><%= project_detail.second%>
+					</li>
+					<% unless project.skills.blank? %>
+					  <li>
+					    <span>Skills:</span> <%= project.skills.join(", ") %>
+					  </li>
+					</ul>
+					<% end %>
+					<% end %>
+
+
+				<% unless project.project_attachments.empty? %>
+				 	<ul class="attach-box">
+					 	<% project.project_attachments.each do |attach| %>
+							<% if attach.attachment? %>
+								<li style="font-weight: 400;">
+									<% attachname = (file_name(attach).partition('?').first)%>
+									<a href="<%= attach.attachment.url %>"><%= image_tag("blank-img.png", :class => "attch-icon" )%><%= attachname %></a>
+								</li>
+							<% end %>
+						<% end %>
+					</ul>
+				<% end %>
+
+			</div>
+
+		</div>
+	</div>
+	<div class="fr ind-rpart">
+		<div class="bud-text">
+			<span><%= number_to_currency(project.price.to_i, precision: 0) %></span> Budget
+		</div>
+		<div class="gray-time">
+		  <% days_left = project.proposal_due_days
+		  if (days_left < 0) %>
+		    <span>Closed</span>
+			<% else %>
+			<% days_left = project.proposal_due_days
+		    if (days_left > 1) %>
+			    <span><%=  days_left %>d</span> Left
+			  <% else %>
+					<% if project.proposal_due_hours > 0 %>
+			    <span><%=  project.proposal_due_hours %>h</span> Left
+					<% else %>
+					Closing
+					<% end %>
+			  <% end %>
+			<% end %>
+		</div>
+		<div class="btn-box">
+			<%= link_to 'View Project', view_project_url(:project_id => url_encode(project.id)), :class =>"blue-btn"%>
+		</div>
+	</div>
+</li>

@@ -1,0 +1,135 @@
+<section id="mpart">
+	<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true) do |f| %>
+    <div class="error">
+			<%= render 'filmmakers/shared/error_messages', resource: resource %>
+    </div>
+		<div class="full-inner-title-box">
+			<div class="container clearfix">
+      	<div class="row">
+      		<h2>Connect with clients on paid video and film projects</h2>
+      		<p>Filmzu puts paying clients at your fingertips, plus it’s FREE and always will be. Have an account? <a href="/filmmakers/sign_in">Sign In Here</a>. Hiring? <a href="/#/clients/create-project">Register as a Client</a>.</p>
+    		</div>
+      </div>
+    </div>
+
+		<div class="stripbox-1 pr">
+      <div class="light-gray-box"></div>
+      <div class="white-box"></div>
+    </div>
+
+    <div class="reg-box">
+			<div class="container">
+      	<div class="row clearfix">
+        	<div class="reg-white-box fr">
+            <p>Have trouble remembering password?</p>
+            <a href="/users/auth/facebook" class="big-blue-btn ajax cboxElement"><%= image_tag("blank-img.png", :class => "fb-icon") %><span>Log In With Facebook</span></a>
+            <a href="/users/auth/linkedin" class="big-blue-btn"><%= image_tag('blank-img.png', :class =>'link-icon')%><span>Log In With Linkedin</span></a>
+						<!--a href="https://www.linkedin.com/" class="big-blue-btn ajax cboxElement"><%#= image_tag("blank-img.png", :class => "link-icon")%><span>Log In With Linkedin</span></a-->
+						<%= render "filmmakers/shared/links" %>
+					</div>
+					<div class="reg-gray-box fl">
+            <ul class="reg-form">
+    					<li>
+    						<label>Full Name</label>
+              	<%= f.text_field :name,:class => 'wh-txt-box' ,:validate => { :presence => true }, :placeholder => 'Full Name' %>
+              </li>
+    					<li>
+    						<label>Email Address</label>
+    						<%= f.email_field :email,:class => 'wh-txt-box' , :validate => { :presence => true }, :placeholder => 'Email address ' %>
+    						<p class="right-text">We NEVER NEVER Spam our users emails.</p>
+    					</li>
+    					<li>
+    						<label>Password</label>
+    						<%= f.password_field :password,:class => 'wh-txt-box' , :validate => { :presence => true }, :placeholder => 'Password' %>
+        			</li>
+        			<li>
+        				<label> Confirm Password</label>
+  							<%= f.password_field :password_confirmation,:class => 'wh-txt-box' , :validate => { :presence => true }, :placeholder => 'Confirm Password' %>
+            		<p class="right-text">Minimum 6 characters.</p>
+    					</li>
+    					<li>
+    						<label>How do you want to represent yourself?</label>
+    						<div class="ch-box clearfix">
+    							<div class="fl">
+										<% if @filmmaker.is_company %>
+											<input type="checkbox" id="individual"/> Individual
+										<% else %>
+											<input type="checkbox" id="individual" checked='checked'/> Individual
+										<% end %>
+									</div>
+    							<div class="fl"><%= f.check_box :is_company, :id => "company" %> Company</div>
+    						</div>
+    					</li>
+							<% display_value = (@filmmaker.is_company == true) ? 'block' : 'none' %>
+    					<li class="company" style="display: <%= display_value %>">
+    						<label>Company Name</label>
+    						<%= f.text_field :company,:class => 'wh-txt-box' ,:validate => { :presence => false }, :placeholder => 'Company' %><input type="radio" name="radio">
+    					</li>
+					    <!-- <li class="wh-select">
+					    	<label>Role that Describe you</label>
+					    	<select><option>Select</option></select>
+					    </li>-->
+    					<li>
+    						<div class="fl"><input type="checkbox" class='terms-and-conditions' /></div>
+    						<div class="agree-txt"><span>I agree to Filmzu's <a href="/terms">Terms and Conditions</a>.</span></div>
+    					</li>
+    					<li>
+    						<%= f.button :submit, "I'm ready, let me in!", :class=>"big-blue-btn filmmaker-signup-btn", style: "display: none;" %>
+        				<a href = "/#/clients/create-project" class="text-link">Hiring? Sign Up as a Client</a>
+    					</li>
+        		</ul>
+          </div>
+        </div>
+    	</div>
+    </div>
+	<% end %>
+</section>
+<script>
+	$(function() {
+    $("select, :radio, :checkbox, :file").uniform();
+    $(".ajax").colorbox();
+
+    var maxHeight = 0;
+    $("div.reg-box").each(function() {
+      if ($(this).height() > maxHeight){ maxHeight = $(this).height(); }
+    });
+
+    $("div.white-box, div.light-gray-box").height(maxHeight);
+		//$('.company').hide();
+		$('#individual').change(function() {
+			if ($(this).is(":checked")) {
+				$('.company').hide();
+				$('#company').prop("checked", false);
+				$('#uniform-company span').removeClass('checked');
+			}else{
+				$('#individual').prop("checked", false);
+				$('#uniform-individual span').removeClass('checked');
+
+				$('.company').show();
+				$('#company').prop('checked',true);
+				$.uniform.update('#uniform-company span');
+				$.uniform.update('#company');
+			}
+		});
+		$('#company').change(function() {
+			if ($(this).is(":checked")) {
+				$('.company').show();
+				$('#individual').prop("checked", false);
+				$('#uniform-individual span').removeClass('checked');
+			}else{
+				$('.company').hide();
+				$('#company').prop("checked", false);
+				$('#uniform-company span').removeClass('checked');
+
+				$('#individual').prop('checked',true);
+				$.uniform.update('#uniform-individual span');
+				$.uniform.update('#individual');
+			}
+		});
+		$('.terms-and-conditions').change(function() {
+			if ($(this).is(":checked")){ $('.filmmaker-signup-btn').show(); }
+			else{ $('.filmmaker-signup-btn').hide(); }
+		});
+	});
+</script>
+<div class='clearfix'></div>

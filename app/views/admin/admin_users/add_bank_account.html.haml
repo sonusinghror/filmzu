@@ -1,0 +1,30 @@
+#active_admin_content.without_sidebar
+  #main_content_wrapper
+    #main_content
+      = form_tag save_bank_account_admin_admin_user_path(@admin_user), :id => 'bank_ac_form' do
+        %fieldset.inputs
+          %legend
+            %span Add Bank Account
+          %ol
+            %li
+              %label.lb-name Account holder's name
+              %input#ac_holder_name.int-box{:type => "text", :name => 'bank_account[name]', style: "width: 250px;"}
+            %li
+              %label.lb-name Routing Number
+              %input#ac_routing_num.int-box{:name => "bank_account[routing_number]", :type => "text", style: "width: 250px;"}
+            %li
+              %label.lb-name Account Number
+              %input#ac_number.int-box{:name => "bank_account[account_number]", :type => "text", style: "width: 250px;"}
+            %li
+              %label.lb-name Account Type
+              .radio-box.clearfix
+                %input{:checked => "checked", :name => "bank_account[account_type]", :type => "radio", :value => "checking"}
+                Checking
+                %input{:name => "bank_account[account_type]", :type => "radio", :value => "saving"}
+                Savings
+        %fieldset.actions
+          %ol
+            %li
+              = submit_tag 'Add', class: 'add-bank-account-btn'
+            %li.cancel
+              = link_to I18n.t('active_admin.cancel'), {:action => "index"}

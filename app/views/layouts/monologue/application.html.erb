@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <%= render "layouts/monologue/application/head" %>
+</head>
+<body class="blog-body">
+  <div class="container">
+    <%= yield %>
+  </div> 
+  <footer>
+    <%= yield :footer %>
+    <div class="blog-footer">
+      <div class="container">
+        <div class="marketplace-vid">
+          <div class="col-xs-12">
+            <img src="/assets/footer-logo.png">
+          </div>
+          <div class="clearfix"></div>
+          <div class="col-xs-12 blog-copy-right">&copy; 2013&ndash;2016 Filmzu Blog | 
+            <a target="_blank" href="http://www.filmzu.com/">Your vision, your video marketplace.</a>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="text/javascript">
+      /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+      var disqus_shortname = '<%= Monologue.disqus_shortname%>'; // required: replace example with your forum shortname
+
+      <% if Rails.env.development?  %>
+        var disqus_developer = 1; // developer mode is on
+      <% end %>
+
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+      }());
+  </script>
+</body>
+</html>

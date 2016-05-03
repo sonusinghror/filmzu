@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Register</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
+<%= stylesheet_link_tag("style") %>
+<%= stylesheet_link_tag("bootstrap.min") %>
+<%= stylesheet_link_tag("colorbox") %>
+<%= stylesheet_link_tag("uniform.default.css") %>
+
+<!--[if lte IE 8]><script type="text/javascript" src="js/html5shiv.js"></script><![endif]-->
+<!--[if lte IE 8]><script type="text/javascript" src="js/respond.min.js"></script><![endif]-->
+<%= javascript_include_tag 'jquery-1.9.0' %>
+<%= javascript_include_tag 'jquery-migrate-1.2.1.js' %>
+
+
+</head>
+
+<body>
+
+
+
+<section id="mpart">	
+    
+	<div class="stripbox-2 pr">    	
+        <div class="light-gray-box"></div>
+        <div class="white-box"></div>
+    </div>
+    
+    <div class="reg-box">    
+		<div class="container">
+        	<div class="row clearfix">
+            	<ul class="reg-lpart fl">
+                    <li class="active"><a href="#"><span class="icon-box"><%= image_tag("blank-img.png", :class => "plus-icon")%></span>Basics</a></li>
+                    <li><a href="#"><span class="icon-box"><%= image_tag("blank-img.png", :class =>"plus-icon")%> </span>Account</a></li>
+                    <li><a href="#"><span class="icon-box"><%= image_tag("blank-img.png", :class => "plus-icon")%></span>Portfolio</a></li>
+                </ul>
+                <div class="reg-rpart fl">
+                
+                	<div class="reg-hpart clearfix">
+                        <div class="fl">
+                            <h2>Complete Registration</h2>
+                            <p>Step 1: The Basics</p>
+                        </div>
+                        <div class="fr">                        	
+                            <a href="#" class="blue-btn ml6">Next step</a><a href="#" class="gray-btn ml6">Cancel</a>
+                        </div>
+                	</div>
+                    
+                    <div class="photo-box clearfix">
+                    	<div class="chimg-box fl"><%= image_tag("ch-img.jpg")%> </div>
+                        <div class="photo-text">
+                        	<h3>Choose an Image</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                        </div>
+                    </div>
+                    
+                    <ul class="gray-form reg-form1">
+                    	<li>
+                        	<label class="lb-text">Location</label>
+                            <input type="text" value="Enter" />
+                            <p class="left-text"><%= image_tag("blank-img.png", :class => "loc-icon" )%>Click icon to use current location</p>
+                        </li>
+                        <li>
+                        	<label class="lb-text">Your Positions*</label>
+                            <select><option>1 Selected</option></select>
+                            <a href="#" class="white-btn">Camera</a>
+                        </li>
+                        <li>
+                        	<p class="left-text">*1 role max. Focus on what you are best at. Want to add more?
+<a href="#">Upgrade to PRO now!</a></p>
+                        </li>
+                        <li>
+                        	<a href="#" class="big-blue-btn">Next Step</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+       	</div>          	
+    </div> 
+       
+</section>
+
+
+
+<%= javascript_include_tag 'bootstrap.min' %>
+<%= javascript_include_tag 'jquery.colorbox' %>
+<%= javascript_include_tag 'jquery.uniform' %>
+
+<script type="text/javascript">
+$(function(){
+
+	$(".ajax").colorbox()
+	$("select, :radio, :checkbox, :file").uniform();
+	var maxHeight = 0;
+
+	$("div.reg-box").each(function(){
+	   if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+	});
+
+	$("div.white-box, div.light-gray-box").height(maxHeight);
+
+})
+</script>
+</body>
+</html>

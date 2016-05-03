@@ -1,0 +1,164 @@
+<section id="mpart">
+	<div class="stripbox-3 pr">
+		<div class="white-box"></div>
+		<div class="light-gray-box"></div>
+	</div>
+	<div class="container clearfix">
+		<div class="dashbord-cpart row">
+			<%= render 'clients/shared/left_sidebar' %>
+			<div class="content-rpart">
+				<div class="profile-title-box clearfix">
+					<div class="profile-lpart fl">
+						<div class="profile-img fl">
+							<%= image_tag current_client.profile_photo, :width => 95, :height => 95 %>
+						</div>
+						<div class="profile-cpart">
+							<h2><%= current_client.name %></h2>
+							<ul class="profile-status">
+								<li>
+									<span class="red-box">Client</span>
+								</li>
+								<% unless current_client.location.blank? %>
+								  <li>
+								    <%= image_tag("blank-img.png", :class => "red-loc-icon")%><%= current_client.location %>
+								  </li>
+								<% end %>
+								<% unless current_client.role.blank? %>
+								  <li>
+								    <%= image_tag("blank-img.png", :class => "red-profile-icon")%><%= current_client.role %>
+								  </li>
+								<% end %>
+							</ul>
+						</div>
+					</div>
+					<div class="profile-rpart fr">
+						<div class="pro-row1 clearfix">
+							<div class="review-box fl">
+								<%= image_tag(star_rating(@client_feedbacks))%>
+								<p>
+                                  <a href="#"><%= pluralize(@client_feedbacks.count, 'review') %></a>
+                                </p>
+							</div>
+							<% if false %>
+							  <a href="#" class="fr"><%= image_tag("blank-img.png", :class => "flag-icon")%></a>
+							<% end %>
+						</div>
+						<div class="pro-row2">
+							<strong><%= current_client.projects.count %></strong><span>Jobs Posted</span>
+						</div>
+						<div class="pro-row2">
+							<strong><%= current_client.created_at.year %></strong><span>Member Since</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="pro-mpart clearfix">
+					<div class="review-box fl">
+					  <div class="end-box clearfix">
+              <div class="rev-text fl">
+                <span class="feedbacks-display deco">Reviews</span> <%= @feedback_projects.count %>
+              </div>
+              <div class="end-text fl">
+                <span class="projects-display">Projects Posted</span>
+                <%= @projects.count %>
+              </div>
+            </div>
+            <div class="projects-listing" style="display:none;">
+						  <% unless @projects.blank? %>
+						    <hr>
+						    <ul class="pro-listing">
+							    <% @projects.each do |project| %>
+							       <%= render 'clients/dashboard/project', :project => project %>
+						      <% end %>
+						    </ul>
+						  <% end %>
+						</div>
+						<div class="feedbacks-listing">  
+						  <% unless @feedback_projects.blank? %>
+						    <hr>
+						    <ul class="pro-listing">
+							    <% @feedback_projects.each do |feedback| %>
+							       <%= render 'project_details', :feedback => feedback %>
+						      <% end %>
+						    </ul>
+						  <% end %>
+						</div>  
+					</div>
+					<div class="about-details fr">
+						<% if false %>
+						<!-- Removing this section until there is something to display in, or will permnently delete -->
+						<h3 class="heading3">About <%= @client.name.split[0..0].join(" ") %></h3>
+						<a href="#" class="ab-gray-btn">Button One</a>
+						<a href="#" class="ab-gray-btn mt6">Button Two</a>
+						<ul class="pro-link mt30">
+							<li>
+								<a href="#">Skills List</a>
+							</li>
+							<li>
+								<a href="#">Awesome Camera Skills</a>
+							</li>
+							<li>
+								<a href="#">Fun Cool Person</a>
+							</li>
+							<li>
+								<a href="#">Lorem Ipsum</a>
+							</li>
+							<li>
+								<a href="#">Dolor Sit Amet</a>
+							</li>
+						</ul>
+						<div class="pro-title">
+							Project Stats
+						</div>
+						<ul class="pro-link">
+							<li>
+								<a href="#">$2,500 Paid</a>
+							</li>
+							<li>
+								<a href="#">Top 10%</a>
+							</li>
+							<li>
+								<a href="#">95% Response Rate</a>
+							</li>
+						</ul>
+						<% end %>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<%= javascript_include_tag 'bootstrap.min' %>
+<script type="text/javascript">
+	$(function() {
+
+		var maxHeight = 0;
+
+		$("div.profile-title-box").each(function() {
+			if ($(this).height() > maxHeight) {
+				maxHeight = $(this).height();
+			}
+		});
+
+		$("div.white-box, div.light-gray-box").height(maxHeight);
+/*
+		$("div.pro-mpart").each(function() {
+			if ($(this).height() > maxHeight) {
+				maxHeight = $(this).height();
+			}
+		});
+
+		$(".pro-mpart div.review-box, div.about-details").height(maxHeight);
+
+		$("div.dashbord-cpart").each(function() {
+			if ($(this).height() > maxHeight) {
+				maxHeight = $(this).height();
+			}
+		});
+
+		$(".nav-lpart, .content-rpart").height(maxHeight);
+*/
+	})
+</script>

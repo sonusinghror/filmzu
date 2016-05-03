@@ -1,0 +1,85 @@
+<%= render "layouts/monologue/application/title" %>
+<meta charset="utf-8" />
+<%= render "layouts/monologue/application/meta_description" %>
+<%= render "layouts/monologue/application/fb_open_graph" %>
+<meta name="keyword" content="<%#=Monologue.meta_keyword%>">
+  
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<%= stylesheet_link_tag    "monologue/blog_style" %>
+<%= stylesheet_link_tag    "bootstrap.min" %>
+<%= stylesheet_link_tag    "font-awesome.min" %>
+<%= stylesheet_link_tag    "monologue/blog/application" %>
+<%= javascript_include_tag "monologue/blog/application" %>
+<%= javascript_include_tag "jquery.min" %>
+<%= javascript_include_tag "social-share-button" %>
+<%= stylesheet_link_tag    "social-share-button" %>
+<%= stylesheet_link_tag    "style" %>
+
+<!-- Mobile Specific Metas
+================================================== -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link href="/feed" rel="alternate" title="RSS" type="application/rss+xml" >
+<%= render "layouts/monologue/application/google_analytics" %>
+<header id="hpart">
+ <div class="container clearfix blog-head">
+   <div class="row">
+      <div class="navbar-header">
+        <a href="<%= Monologue.site_url %>" class="logo fl"><img alt="Logo" src="/assets/logo.png"></a>
+        <div class="space-box fl"></div>
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse in" style="height: auto;">
+        <ul class="navnbar fl header-links">
+          <li>
+            <a href="../../#/clients/create-project"><img alt="Blank-img" class="header-plus-icon" src="/assets/blank-img.png">Create</a>
+          </li>
+          <li>
+            <a href="/projects"><img alt="Blank-img" class="project-icon" src="/assets/blank-img.png">Projects</a>
+          </li>
+          <li>
+            <a href="/filmmakers"><img alt="Blank-img" class="people-icon" src="/assets/blank-img.png">Filmmakers</a>
+          </li>
+        </ul>
+        <div class="action-div fr">
+          <a href="/clients/sign_up" class="btn orange-btn h-orange-btn">Sign Up</a>
+        </div>
+        <div class="action-div fr blog-margin-right">
+          <a href="../../#/clients/sign_in" class="btn orange-btn h-orange-btn">Sign In</a>
+        </div>
+      </div>
+   </div>
+  </div>
+</header>
+<div class="container-fluid">
+  <div class="row">
+    <div class="twPc-div">
+       <a class="twPc-bg twPc-block"></a>
+       <div class="blog-logo">
+          <div class="twPc-button">
+            <div class="po-job">
+              <%= link_to "Post your job now, its FREE!", Monologue.site_url, :class=> "btn btn-danger"%>
+            </div>
+          </div>
+          <a class="twPc-avatarLink" href="<%= root_path %>" title="Filmzu">
+            <img class="twPc-avatarImg" src="/assets/blog/logo-filmzu.png">
+          </a>
+          <div class="twPc-divUser">
+             <div class="twPc-divName">
+                <div class="filmzu-market-title">Filmzu is the marketplace for video creation.</div>
+             </div>
+             <span>
+             We pair the top 10% of video producers with the top businesses and brands.
+             Now, anyone can easily shop for talented people to create a video for them.
+             </span>
+          </div>
+       </div>
+    </div>
+  </div>
+</div>

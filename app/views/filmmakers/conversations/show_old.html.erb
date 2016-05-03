@@ -1,0 +1,45 @@
+<div class="row-fluid">
+	<div class="span9 offset1">
+		<div class="well">
+			<%= link_to("Go back", { :controller => "filmmakers/conversations", :action => "index" }) %>
+			<h1><%= conversation.subject %></h1>
+			
+			<p><%= conversation.receipts_for(current_filmmaker).count %> Total Messages</p>
+			<%= content_tag_for(:p, conversation.receipts_for(current_filmmaker).limit(1)) do |receipt| %>
+				<% message = receipt.message %>
+				About <%= link_to Client.find(message.sender_id).name, user_path(Client.find(message.sender_id)) %>
+				<% if Client.find(message.sender_id).photos.first.present? %>
+				<%= image_tag(Client.find(message.sender_id).photos.first.image.url(:medium), {:class => "img-circle"}) %>
+				<% end %>
+				<!-- Version 2.0 Favourite Messages -->
+				<!-- <a class="btn btn-large" href="#"><i class="icon-star"></i> Star</a> -->
+				<!-- Version 2.0 Favourite Messages End -->
+				<% end %>
+			<!-- Message Chain is below this line -->
+			<div class="well">
+				<ul class="unstyled">
+			<%= content_tag_for(:li, conversation.receipts_for(current_filmmaker)) do |receipt| %>
+			
+				<% message = receipt.message %>
+				
+				<% if message.sender_id == current_filmmaker.id %>
+				<div class="well">
+						<p class="lead text-info"><%= message.subject %></p>
+						<%= message.body %>
+					</div>
+				<% else %>
+				
+					<div class="well">
+						<p class="lead"><%= message.subject %></p>
+						<p><%= message.body %></p>
+						<i>From: <%= link_to Client.find(message.sender_id).name, user_path(Client.find(message.sender_id)) %></i>
+					</div>
+				
+				<% end %>				
+				<% end %>
+				</ul>
+			</div>
+			<%= render 'messages/form', conversation: conversation %>
+		</div>
+	</div>
+</div>

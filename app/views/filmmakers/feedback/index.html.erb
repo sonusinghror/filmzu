@@ -1,0 +1,18 @@
+<%if current_client%>
+
+<% if !@feedbacks.empty? %>
+<%= render :partial => 'edit', :locals =>{:feedbacks => @feedbacks, :project => @project, :questions => @project_questions, :video_type => @video_type, :feedback_attributes => @feedback_attributes }  %>
+<% else %>
+<%= render :partial => 'form', :locals => {:project => @project, :questions => @project_questions, :video_type => @video_type, :feedback_attributes => @feedback_attributes } %>
+<% end %>
+
+<%else%>
+
+<% if !@feedbacks.nil? %>
+<%= render :partial => 'edit', :locals =>{:feedbacks => @feedbacks, :project => @project, :questions => @project_questions, :video_type => @video_type, :feedback_attributes => @feedback_attributes }  %>
+<% else %>
+<%= render :partial => 'form', :locals => {:project => @project, :questions => @project_questions, :video_type => @video_type, :feedback_attributes => @feedback_attributes } %>
+<% end %>
+
+<%end%>
+

@@ -1,0 +1,70 @@
+<%= simple_form_for(current_filmmaker, :as => :filmmaker, :url => registration_path(:filmmaker), :html => { :method => :put }) do |f| %>
+  <%= render 'filmmakers/shared/error_messages', resource: resource %>
+  <section id="mpart">
+     <div class="stripbox-3 pr">
+      <div class="white-box"></div>
+        <div class="light-gray-box"></div>
+    </div>
+    <div class="container clearfix">
+      <div class="dashbord-cpart row">
+        <%= render 'filmmakers/shared/filmmaker_left_sidebar' %>
+        <div class="content-rpart">
+          <div class="inner-title-box clearfix">
+            <h2 class="fl">Settings</h2>
+          </div>
+          <div class="profile-title-box clearfix">
+            <div class="profile-lpart fl">
+              <div class="profile-cpart">
+                <div class="pro-about-cpart">
+                  <!-- Change Password Section -->
+                    <div class="form-inputs filmmaker">
+                      <%= f.input :email, :required => true, :autofocus => true %>
+                      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+                      <% end %>
+                      <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
+                      <%= f.input :password_confirmation, :required => false %>
+                      <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
+                    </div>
+                    <div class="form-actions">
+                      <%= f.button :submit, "Update" %>
+                    </div>
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<%= javascript_include_tag 'bootstrap.min' %>
+<%= javascript_include_tag 'jquery.colorbox' %>
+<script type="text/javascript">
+$(function(){
+  $(".ajax").colorbox();
+  $("select, :radio, :checkbox, :file").uniform();
+  var maxHeight = 0;
+
+  $("div.profile-title-box").each(function(){
+     if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+  });
+
+  $("div.white-box, div.light-gray-box").height(maxHeight);
+
+  $("div.pro-mpart").each(function(){
+     if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+  });
+
+  $(".pro-mpart div.review-box, div.about-details").height(maxHeight);
+
+  $("div.dashbord-cpart").each(function(){
+     if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+  });
+
+  $(".nav-lpart, .content-rpart").height(maxHeight);
+})
+</script>

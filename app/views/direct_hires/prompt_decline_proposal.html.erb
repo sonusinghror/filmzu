@@ -1,0 +1,28 @@
+<div class="dialog-box">
+	<div class="conf-hpart">
+    	<h2>Decline Applicant</h2> 
+    </div> 
+    <div class="filmaker-box clearfix">
+    	<div class="film-img-box fl"><img title="" alt="" src="../assets/profile-img1.jpg"></div>
+        <div class="film-cpart">
+        	<h3><%=@client_details[:name]%></h3>
+            <!--p>Desired Rate: <span>$250/day</span></p-->
+            <ul class="status-box clearfix">
+            	<li><img src="../assets/blank-img.png" class="red-loc-icon" alt="" title=""><%=@client_details[:location]%></li>
+                <li><img src="../assets/blank-img.png" class="red-profile-icon" alt="" title=""><%=@client_details[:post]%></li>
+                <li><img src="../assets/blank-img.png" class="red-star-icon" alt="" title=""><%=@client_details[:rating]%></li>	
+            </ul>
+        </div>
+    </div>
+    <div class="funding-form decline-form clearfix">
+    	<label>What is your reason for declining?</label>
+        <div class="wh-select"><select><option>Out of Budget</option></select></div>
+        <%= link_to "Decline #{@client_details[:name]}'s Proposal", "/direct_hires/decline_proposal/#{@proposal.id}", :class => 'orange-btn', :remote => true %>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	$("select, :radio, :checkbox, :file").uniform();
+})
+</script>

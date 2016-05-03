@@ -1,0 +1,6 @@
+<% if @msg_content_type.eql?("proposal") %>
+  $('.email-detail-box').html("<%= escape_javascript(render :partial => 'conversation_content', :locals => {:messsage => @message, :data => @response_data, :proposal => @proposal})%>");
+<% else %>
+  // WRITE CODE HERE FOR LOADING THE PARTIAL OF THE MESSAE
+  $('.email-detail-box').html("<%= escape_javascript(render :partial => 'conversation_text', :locals => {:data => @response_data, :conversation => @conversation_obj })%>");
+<% end %>

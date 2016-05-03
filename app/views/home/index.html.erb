@@ -1,0 +1,272 @@
+<section id="intro">
+<div id="banner-part" >
+	<div class="container">
+    	<div class="banner-text fadeInDown delay animated">
+        <button class="btn btn-client signup" onclick="" id="" name="client" type="button">{{# link-to 'clients.sign_up' }}Sign-Up as a client{{/link-to}}</button>
+        <button class="btn btn-filmmaker signup" onclick=""  name="filmmaker" type="button">{{# link-to 'filmmakers.sign_up' }}Sign-Up as a filmmaker{{/link-to}}</button>
+            <h1>Video is the best way to reach your audience</h1>
+            <p>Filmzu is the world's marketplace for premium web video</p>
+
+<% if false %>
+
+						<div class="row" style="padding-top:10px">
+							<form action="http://filmzu.us6.list-manage2.com/subscribe/post?u=f7f6702bd4e503b98fda073a0&amp;id=122bcc356e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+						  <div class="col-sm-6 col-sm-offset-3">
+						    <div class="input-group">
+						      <input type="email" placeholder="Email Address"  class="form-control">
+						      <span class="input-group-btn">
+						        <button class="btn btn-default access" onclick="this.form.submit()" id="mc-embedded-subscribe" name="subscribe" type="button">Early Access</button>
+						      </span>
+						    </div><!-- /input-group -->
+						  </div><!-- /.col-lg-6 -->
+						</form>
+						</div><!-- /.row -->
+
+						<% end %>
+
+						<div class="arrow-box"><a href="#steps-box"><%= image_tag("bot-arrow-icon.png") %></a></div>
+            
+            <div class="reg-box">
+              {{# link-to 'clients.create-project' classNames="post-btn"}}Post your job now, it's risk free.{{/ link-to }}<br />
+              <span>{{# link-to 'filmmakers.sign_up' }}Register as a filmmaker.{{/link-to}}</span>
+            </div>
+            <!--<a href="#" class="play-btn"><img src="images/play-icon.png" alt="" title="" /></a>-->
+        </div>
+    </div>
+</div>
+</section>
+
+<section id="two" class="main style2 left dark fullscreen">
+<div id="steps-box">
+	<div class="container">
+    	<h3 class="heading2">How it works:</h3>
+        <div class="row">
+            <div class="col-md-3 inn-step-box animated">
+                <div class="icon-box">
+                    <span class="step1"><%= image_tag("blank-img.png", :class =>"list-icon") %></span>
+                </div>
+                <h3>List Your Project</h3>
+                <p>It takes less than 3 minutes to post your project and details on Filmzu.</p>
+            </div>
+            <div class="col-md-3 inn-step-box delay animated">
+                <div class="icon-box">
+                    <span class="step2"><%= image_tag("blank-img.png", :class =>"proposal-icon") %></span>
+                </div>
+                <h3>Review Proposals</h3>
+                <p>Starting receiving proposals immediately from Filmzu's handpicked filmmakers.</p>
+            </div>
+            <div class="col-md-3 inn-step-box delay1 animated">
+                <div class="icon-box">
+                    <span class="step3"><%= image_tag("blank-img.png", :class =>"proposal-icon") %></span>
+                </div>
+                <h3>Pay Securely</h3>
+                <p>Safely deposit funds into a secure escrow account.</p>
+            </div>
+            <div class="col-md-3 inn-step-box delay2 animated">
+                <div class="icon-box">
+                    <span class="step4"><%= image_tag("blank-img.png", :class =>"video-icon") %></span>
+                </div>
+                <h3>Get Your Video</h3>
+                <p>Select the filmmaker you like best to make your vision, into your video.</p>
+            </div>
+            <span class="border-box"></span>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Macbook Air Images -->
+<section id="slide-show-box">
+    <div class="arrow-box"><a href="#video-box"><%= image_tag("bot-arrow-icon.png") %></a></div>
+        <div class="step1 delay animated">
+            <div class="container">
+                <div class="row text-center">
+                    <h2>1. Answer some simple questions.</h2>
+                    <p>You don't need to know anything about making a video to get started.</p>
+                </div>
+            </div>
+           <%= image_tag("slide-img1.jpg", :class => 'apple', :style => 'padding-bottom: 80px') %>
+        </div>
+        <div class="step2 delay animated">
+            <div class="container">
+                <div class="row text-center">
+                    <h2>2. Review the proposals.</h2>
+                    <p>Watch the filmmakers demo reels, sort by price, and find one you want to work with</p>
+                </div>
+            </div>
+           <%= image_tag("slide-img2.jpg", :class => 'apple', :style => 'padding-bottom: 80px') %>
+        </div>
+        <div class="step3 delay animated">
+            <div class="container">
+                <div class="row text-center">
+                    <h2>3. Securely pay for video.</h2>
+                    <p>Set milestones to hit and put the money in escrow until your video is complete.</p>
+                </div>
+            </div>
+           <%= image_tag("slide-img3.jpg", :class => 'apple') %>
+        </div>
+</section>
+
+<section id="port" class="main style3 primary">
+<div id="video-box">
+	<div class="container">
+    	<div class="row">
+        	<div class="arrow-box"><a href="#vid-cam-box"><%= image_tag("bot-arrow-icon.png") %></a></div>
+            <div class="title-box">
+                <h2>Not sure why video matters?</h2>
+                <p>Here's just a few reasons why it really does.</p>
+            </div>
+            <div class="video-box-cpart pr">
+            	<div class="vid-box1 animated"><%= image_tag("vid-img1.png") %></div>
+                <div class="vid-box2 delay animated"><%= image_tag("vid-img2.png") %></div>
+                <div class="vid-box3 delay1 animated"><%= image_tag("vid-img3.png") %></div>
+                <div class="vid-box4 delay2 animated"><%= image_tag("vid-img4.png") %></div>
+            </div>
+    	</div>
+    </div>
+</div>
+</section>
+
+<section id="work" class="main style3 primary hidden-xs">        
+<div id="vid-cam-box" >
+	<div class="container">
+    	<div class="row">
+            <div class="title-box">
+                <h2>Get the creative juices flowing</h2>
+                <p>Mouse over the areas to watch some examples of really successful video campaigns.</p>
+            </div>
+            <div class="arrow-box"><a href="#tweet-box"><%= image_tag("bot-arrow-icon.png") %></a></div>
+        </div>
+	</div>
+    <div class="vid-sam-img pr">
+    	<div class="sam-video-box">
+        	<div class="vid-sam-box1">
+            	<a href="https://www.youtube.com/watch?v=ASO_zypdnsQ?autoplay=1" class="fancybox"><%= image_tag("sam-video-img1.png") %></a>
+           	</div>
+           	<div class="vid-sam-box2">
+            	<a href="http://www.youtube.com/watch?v=IVYFF1mrvEg&feature=youtu.be?autoplay=1" class="fancybox"><%= image_tag("sam-video-img2.png") %></a>
+            </div>
+            <div class="vid-sam-box3">
+            	<a href="http://www.youtube.com/watch?v=e99SkdcB2UU&feature=youtu.be?autoplay=1" class="fancybox"><%= image_tag("sam-video-img3.png") %></a>
+            </div>
+            <div class="vid-sam-box4">
+            	<a href="http://www.youtube.com/watch?v=kWBhP0EQ1lA&feature=youtu.be?autoplay=1" class="fancybox"><%= image_tag("sam-video-img4.png") %></a>
+           	</div>
+            <div class="vid-sam-box5">
+            	<a href="http://www.youtube.com/watch?v=dy-Ac9X9oSo&feature=youtu.be?autoplay=1" class="fancybox"><%= image_tag("sam-video-img5.png") %></a>
+            </div>
+            <div class="vid-sam-box6">
+            	<a href="https://www.youtube.com/watch?v=ZUG9qYTJMsI?autoplay=1" class="fancybox"><%= image_tag("sam-video-img6.png") %></a>
+            </div>
+            <div class="vid-sam-box7">
+            	<a href="http://www.youtube.com/watch?v=km6q4WGNEQ0&feature=youtu.be?autoplay=1" class="fancybox"><%= image_tag("sam-video-img7.png") %></a>
+            </div>
+            <div class="vid-sam-box8">
+            	<a href="http://www.youtube.com/watch?v=OiTiKOy59o4&feature=youtu.be?autoplay=1" class="fancybox"><%= image_tag("sam-video-img8.png") %></a>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<section id="contact" class="main style3 secondary">
+<div id="tweet-box">
+	<div class="container">
+    	<div class="row">
+        	<div class="arrow-box"><a href="#fpart"><%= image_tag("bot-arrow-icon.png") %></a></div>
+            <div class="title-box">
+                <h2>Other People always say it best.</h2>
+	        </div>
+        </div>
+   	</div>
+    <div class="container">
+        <div class="row pr">
+        	<div class="quote-box"><%= image_tag("quotes-icon.jpg") %></div>
+            <div class="col-md-4 delay animated">
+                <div class="pl-box1">
+                	<p>Filmzu helped immensely when it came time to film our commercial. </p>
+                    <p>Through Filmzu we found cast, crew and everything was handled for us leaving us with a fantastic product.</p>
+                </div>
+                <div class="pl-descrip">
+                	<div class="pl-detail">
+                    	Mike Z.<br>
+                        CEO <span>@Sencit</span>
+                    </div>
+                    <div class="pl-img-box"><%= image_tag("user-img1.jpg") %></div>
+                </div>
+            </div>
+            <div class="col-md-4 delay1 animated">
+                <div class="pl-box1">
+                	<p>Filmzu is the platform for businesses to get online video content made exclusively for them.</p>
+                    <p>Since we had our explainer video created we've been featured in Forbes and could not be happier.</p>
+                </div>
+                <div class="pl-descrip">
+                	<div class="pl-detail">
+                    	Erin G.<br>
+                        CEO <span>@PMS.com</span>
+                    </div>
+                    <div class="pl-img-box"><%= image_tag("user-img2.jpg") %></div>
+                </div>
+            </div>
+            <div class="col-md-4 delay2 animated">
+                <div class="pl-box1">
+                	<p>The team behind Filmzu are the best in the business. </p>
+                    <p>I had my company testimonial videos handled by them, they setup and took care of everything, it was a really easy process.</p>
+                </div>
+                <div class="pl-descrip">
+                	<div class="pl-detail">
+                    	Labinot B.<br>
+                        CEO <span>@Solaborate</span>
+                    </div>
+                    <div class="pl-img-box"><%= image_tag("user-img3.jpg") %></div>
+                </div>
+            </div>
+            <div class="quote-box1"><%= image_tag("quotes-icon1.jpg") %></div>
+        </div>
+    </div>
+
+								<%= render "static_pages/cta" %>
+
+</div>
+</section>
+<script type="text/javascript">
+
+	$('.arrow-box a[href*=#]:not([href=#])').click(function() {
+		if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+		  var target = $(this.hash);
+		  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+		  if (target.length) {
+			$('html,body').animate({
+			  scrollTop: target.offset().top
+			}, 1000);
+			return false;
+		  }
+		}
+	});
+
+	$(".fancybox").click(function() {
+		$.fancybox({
+			'width'			: 640,
+			'height'		: 385,
+			'href'			: this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
+			'type'			: 'swf',
+		});
+		return false;
+	});
+
+	$('#banner-part').waypoint(function() {
+		$('#steps-box .row .inn-step-box').addClass('fadeInDown');
+		$('.screen-tracker').css('display', 'none')
+	});
+
+	$('#video-box').waypoint(function() {
+		$('#video-box .row .video-box-cpart > div').addClass('fadeInDown');
+		$('.screen-tracker').css('display', 'none')
+	});
+
+	$('#vid-cam-box').waypoint(function() {
+		$('#tweet-box .row .animated').addClass('fadeInDown');
+		$('.screen-tracker').css('display', 'none')
+	});
+
+</script>

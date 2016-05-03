@@ -1,0 +1,53 @@
+.stripbox.pr
+  .white-box
+  .light-gray-box
+.container.clearfix
+  .dashbord-cpart.row
+    = render 'clients/shared/left_sidebar'
+    .row-fluid.content-rpart
+      .inner-title-box.clearfix
+        %h2.fl Search Results
+        .fr
+          .fl.wh-search-box
+            = form_tag "/clients/search_messages", method: :post do
+              %input{name: "search", value: "#{params[:search]}", placeholder: "Search Messages", type: "text"}/
+              = submit_tag "", :class => "search-btn"
+              
+          /
+            .fl.add-pro-box
+              %a{:href => "/clients/messages/new"}
+                %span.plus-box>
+                  %img.plus-icon{:alt => "", :src => "/assets/blank-img.png", :title => ""}/
+                New Message
+      
+      .inbox-cpart.clearfix
+        #message-tabs
+          #message.email-box.fl
+            %ul.unstyled.email-listing.clearfix
+              - if @messages.empty?
+                %li No Results Found.
+              - else
+                %p.searchbox
+                  %b  
+                    = pluralize(@messages.total_count, "message") 
+                    found with your search
+                - @messages.each do |message|
+                  = render 'clients/conversations/conversation', :conversation => message
+                = render 'clients/conversations/pagination', :messages => @messages  
+        .email-detail-box.fl
+          = render 'clients/conversations/detail_box', :conversation => @conversation if @conversation.present?
+            
+= javascript_include_tag 'jquery.uniform'
+= javascript_include_tag 'bootstrap.min'
+= javascript_include_tag 'jquery.colorbox'
+:javascript
+  $(function(){
+    $("select, :radio, :checkbox, :file").uniform();
+    $(".ajax").colorbox();
+    //$(".email-box").tabs();
+    var maxHeight = 0;
+    $("div.inner-title-box").each(function(){
+       if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+    });
+    $("div.white-box, div.light-gray-box").height(maxHeight); 
+  })
